@@ -9,7 +9,7 @@ The code is `local/local_cert.py`, which uses python-flint arb/acb balls at 128 
 
 Let $`d = 6`$, $`n = 5`$, $`c = 5/6`$. Chart: $`b_1 = 1`$ and $`b_j = \omega^{j-1} e^{\varepsilon_j}`$ ($`j = 2, \dots, 5`$,
 $`\omega = e^{2\pi i/5}`$), with $`\varepsilon \in \mathbb{C}^4`$,
-$`x = (\operatorname{Re}\varepsilon_2, \operatorname{Im}\varepsilon_2, \dots) \in \mathbb{R}^8`$ and $`t = \lVert x\rVert_2`$.
+$`x = (\mathrm{Re}\varepsilon_2, \mathrm{Im}\varepsilon_2, \dots) \in \mathbb{R}^8`$ and $`t = \lVert x\rVert_2`$.
 Put $`\ell_i = \log\lvert S_i\rvert`$, $`L = \frac1n \sum_i \ell_i`$, and
 $`E = \{\lvert S_1\rvert = \dots = \lvert S_5\rvert\}`$.
 
@@ -51,9 +51,9 @@ the IEEE value of $`r`$.
    $`y \le q t^2 + 2 b_2 \lVert\Pi\rVert\, t(\beta y + \gamma t) + b_2 (\beta y + \gamma t)^2 + g_3(t)`$,
    started from $`y \le \lVert J\rVert t`$, gives $`\lVert Jx\rVert \le \kappa t^2`$ with $`\kappa = 0.4787`$ for all $`x \in E`$
    with $`\lVert x\rVert \le T`$.
-4. **Quadratic part.** For $`\sigma = 5`$, $`H_\sigma := \operatorname{Hess} L(0) - \sigma J^{\mathsf T} J \preceq -\mu I`$ with
+4. **Quadratic part.** For $`\sigma = 5`$, $`H_\sigma := \mathrm{Hess} L(0) - \sigma J^{\mathsf T} J \preceq -\mu I`$ with
    $`\mu = 0.03192459`$ (arb $`LDL^{\mathsf T}`$ of $`-H_\sigma - \mu I`$). Hence
-   $`\tfrac12 x^{\mathsf T} \operatorname{Hess} L(0)\, x \le -\tfrac{\mu}{2} t^2 + \tfrac{\sigma}{2}\kappa^2 t^4`$.
+   $`\tfrac12 x^{\mathsf T} \mathrm{Hess} L(0)\, x \le -\tfrac{\mu}{2} t^2 + \tfrac{\sigma}{2}\kappa^2 t^4`$.
 5. **Cubic part.**
    - $`\sup_{\lVert z\rVert = 1} \lvert L^3(Vz)\rvert \le 0.0325473`$, by a rigorous sphere branch-and-bound with exact
      rational sphere-intersection tests.

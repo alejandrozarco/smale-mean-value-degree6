@@ -29,7 +29,7 @@ F(B) = \min_i \lvert S_i\rvert, \qquad S_i = \frac{P(b_i)}{b_i} = \int_0^1 \prod
 ```
 
 The chart: $`b_1 = 1`$ is a critical point of minimal modulus, $`u_j = 1/b_j`$ and $`\lvert u_j\rvert \le 1`$, reduced by
-symmetry to $`\lvert u_2\rvert \ge \dots \ge \lvert u_n\rvert`$ and $`\operatorname{Im} u_2 \ge 0`$. The chart has real
+symmetry to $`\lvert u_2\rvert \ge \dots \ge \lvert u_n\rvert`$ and $`\mathrm{Im} u_2 \ge 0`$. The chart has real
 dimension $`2(d-2) = 8`$. For $`i \ge 2`$,
 
 ```math

@@ -35,13 +35,13 @@ Euclidean topology (Mumford, *The Red Book*, I.10, Thm 1). Hence $`Z_f`$ is the 
 $`\min_i \lvert z_i\rvert`$ is continuous, and $`S(\Omega) \cap (\mathbb{C}^*)^n`$ is dense in $`Z^*`$. So $`C = M_d`$, and $`C`$ is
 finite by Smale's bound.
 
-**Step 3: the amoeba argument.** Let $`A = \operatorname{Log}(Z^*) \subset \mathbb{R}^n`$, where
-$`\operatorname{Log}(z) = (\log\lvert z_1\rvert, \dots, \log\lvert z_n\rvert)`$. $`A`$ is closed. Every connected component
+**Step 3: the amoeba argument.** Let $`A = \mathrm{Log}(Z^*) \subset \mathbb{R}^n`$, where
+$`\mathrm{Log}(z) = (\log\lvert z_1\rvert, \dots, \log\lvert z_n\rvert)`$. $`A`$ is closed. Every connected component
 of $`\mathbb{R}^n \setminus A`$ is convex (Gelfand–Kapranov–Zelevinsky 1994, Ch. 6 Cor. 1.6; Forsberg–Passare–Tsikh 2000).
 
 Let $`\gamma = \log C`$ and $`p = (\gamma, \dots, \gamma)`$. The open orthant $`Q = \{x : x_i \gt  \gamma \text{ for all } i\}`$
 misses $`A`$. Suppose $`p \notin A`$. Then some ball $`B(p, r)`$ misses $`A`$. The set $`Q \cup B(p, r)`$ is connected, so it lies
-in one component $`U`$ of $`\mathbb{R}^n \setminus A`$, and by convexity $`\operatorname{conv}(Q \cup B(p, r)) \subset U`$.
+in one component $`U`$ of $`\mathbb{R}^n \setminus A`$, and by convexity $`\mathrm{conv}(Q \cup B(p, r)) \subset U`$.
 
 Take $`0 \lt  \delta \lt  r/\sqrt{n}`$. For any $`x`$ with $`\min_i x_i \gt  \gamma - \delta/2`$, write
 $`x = \tfrac12(p - \delta\mathbf{1}) + \tfrac12 q`$ with $`q = 2x - p + \delta\mathbf{1}`$. Then $`q \in Q`$, so $`x \in U`$.
@@ -53,7 +53,7 @@ Therefore $`p \in A`$, and $`z^*`$ can be taken in $`Z^*`$ with $`\lvert z^*_i\r
 
 **Chart.** Let $`D`$ be the closed chart: $`b_1 = 1`$ is a critical point of minimal modulus, $`u_j = 1/b_j`$ and
 $`\lvert u_j\rvert \le 1`$ ($`j = 2, \dots, n`$), cut down by the symmetries $`\lvert u_2\rvert \ge \dots \ge \lvert u_n\rvert`$
-and $`\operatorname{Im} u_2 \ge 0`$. $`D`$ includes the degenerate boundary $`u_j = 0`$. A point is *nondegenerate* if all
+and $`\mathrm{Im} u_2 \ge 0`$. $`D`$ includes the degenerate boundary $`u_j = 0`$. A point is *nondegenerate* if all
 $`u_j \ne 0`$.
 
 **Hypothesis.** Suppose $`D`$ is covered by finitely many closed boxes $`\beta`$, and each $`\beta`$ satisfies at least one
