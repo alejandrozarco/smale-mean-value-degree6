@@ -1,0 +1,1 @@
+checked {'mul': 200000, 'add': 200000, 'sub': 200000, 'mod': 200000, 'pow': 200000, 'log': 200000} violations 0 max ball err/rad 1

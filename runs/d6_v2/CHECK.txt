@@ -1,0 +1,5 @@
+config: d=6 r_excl=0.05 (r/(1-r) = 0.052631579) excl_mode=2 s=4 seed=1 cfg=68799ac19f5007c9
+source sha256 8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f
+grid: 4^8 = 65536 boxes tile [-1,1]^8; 49152 tasks; exactly discardable: {'Im u2 < 0': 16384}
+records: 49152/49152 tasks, boxes {'processed': 1874817938, 'F': 561202241, 'E': 145383090, 'L': 37946415, 'outside': 18661249, 'sym': 173649477, 'excl': 591073, 'unres': 0}, maxdepth 71, task-cpu 23735 s
+RESULT: CERTIFICATE COMPLETE (all tasks exactly once, 0 unresolved, config/source bound, grid exact)
