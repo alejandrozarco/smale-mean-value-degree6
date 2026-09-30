@@ -26,7 +26,7 @@ the box lies in a closed Euclidean $`u`$-ball $`\sum_j \lvert u_j - p_j\rvert^2 
 equality points $`p`$. Relabelling maps each such ball to the ball around
 $`p = (\bar\omega, \bar\omega^2, \bar\omega^3, \bar\omega^4)`$, where $`u_j = \omega^{-(j-1)} e^{-\varepsilon_j}`$. With
 $`w_j = u_j/p_j - 1`$ we have $`\lvert\varepsilon_j\rvert = \lvert\log(1 + w_j)\rvert \le \lvert w_j\rvert/(1 - \lvert w_j\rvert)`$,
-so $`\lVert\varepsilon\rVert_2 \le r/(1 - r) = 1/19 \approx 0.0526316 \lt  T`$. `c/check_done.py` checks $`r/(1-r) \le 0.0527`$ exactly for
+so $`\lVert\varepsilon\rVert_2 \le r/(1 - r) = 1/19 \lt  T`$. `c/check_done.py` checks $`r/(1-r) \le 0.0527`$ exactly for
 the IEEE value of $`r`$.
 
 ## Proof structure (all constants computed in arb)

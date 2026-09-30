@@ -2,6 +2,10 @@
 
 Status: **computational results, not peer reviewed.** First published 2026-09-30.
 
+Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.2 is
+[doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository; the
+$`d = 6`$ subdivision tree (`d6.canonical.tree.zst`, 381 MB) is attached to the GitHub releases v1.1 and v1.2.
+
 For a complex polynomial $`P`$ of degree $`d`$ and a point $`z`$ with $`P'(z) \neq 0`$, Smale's mean value conjecture
 concerns the smallest constant $`K`$ such that some critical point $`c`$ of $`P`$ satisfies
 
@@ -63,7 +67,7 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
   equality point in the chart $`b_j = \omega^{j-1} e^{\varepsilon_j}`$, it shows
   $`\log F \le \log\frac56 - 0.00757\,\lVert\varepsilon\rVert_2^2`$. It uses Taylor models of degree 6 in arb ball
   arithmetic, and exact arithmetic in $`\mathbb{Q}(\omega)`$ for the zeroth- and first-order terms. The $`u`$-balls of
-  radius $`0.05`$ map into $`\lVert\varepsilon\rVert_2 \le 0.05/0.95 = 1/19 \approx 0.0526316 \lt  0.0527`$.
+  radius $`0.05`$ map into $`\lVert\varepsilon\rVert_2 \le 0.05/0.95 = 1/19 \lt  0.0527`$.
 - **Second local certificate** (`local2/`). A separate implementation, written from the specification
   `local2/SPEC.md` only, proves $`L \le \log\frac56 - 0.0151\,\lVert x\rVert_2^2`$ on $`E`$ for $`\lVert x\rVert_2 \le 1/19`$.
   It uses no logarithms: it bounds $`\Phi = \lvert S_1/c\rvert^2 - 1`$ through $`F = \Phi + \sum_a \mu_a D_a`$, where
