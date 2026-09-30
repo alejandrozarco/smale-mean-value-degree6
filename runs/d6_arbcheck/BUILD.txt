@@ -1,0 +1,11 @@
+# Independent arb check of the d=6 subdivision tree
+tasks file: runs/d6_v2/d6.tasks  sha256 30bf8c670fa63a2bbfedfc80f81b93728e8b91626c281c22aa308510a7126e17  (the file c/check_done.py validates; CERTIFICATE COMPLETE re-run 2026-09-30)
+tree export: c/export_tree.c  sha256 58e81d9d756b07a3ea01ec319b2d0cf0e3a7f69dbde718a3087526d2b7139133  (includes c/smale_bb_v2.c verbatim)
+  command: export_tree 6 0.05 runs/d6_v2/d6.tasks OUT/d6 3
+  per-task counts identical to runs/d6_v2/d6.done on all 49152 tasks (export_vs_done.txt)
+tree canonical digest (c/tree_digest.py): db22fef3393a3d208b0f20dc94e3ddedd92d9d4d724af602081a0e55bccfc823  (49152 records, 1875506066 bytes)
+checker: c/arbcheck/arbcheck.c  sha256 68b18fda4ba16962e71fc811a387f25ddb31d072ceb9332b81e533baaf15052e
+  build: make (cc -O2 -Wall -ffp-contract=off -fcx-limited-range, flint 3.6.0, GMP, MPFR; macOS arm64)
+  command: arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks d6.tree   (default --maxref 12, --prec 64)
+result: status=PASS, 937433545 leaves, 0 fail, 0 missing; 118 leaves proved after one extra bisection (240 sub-boxes); 12151 CPU s (arbcheck.log)
+release asset: d6.canonical.tree.zst  381024434 bytes  sha256 b53da6959b7ce068722db2159e966b21792abdf81e30c1a957b188d82f494690  (zstd -19; decompresses to the canonical file, sha256 = digest above)

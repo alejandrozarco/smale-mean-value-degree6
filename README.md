@@ -84,6 +84,34 @@ sha256 `e99fdb885004db53961c411065372595540137ca3f78b654b0da96019aa08723` (Apple
 `runs/d6_v2/BUILD.txt`). `runs/d6_v2/d6.done` sha256
 `0f8199fb3b360623e1ee7e493bfb530da7868483340f85222caaa96a2db0506b`.
 
+## Independent check in arb
+
+A second program, `c/arbcheck/arbcheck.c`, checks the $`d = 6`$ result in FLINT/arb ball arithmetic. It was written
+from the specification `c/arbcheck/SPEC.md` and the mathematics only, independently of `c/smale_bb_v2.c` and of its
+error analysis.
+
+1. `c/export_tree.c` reruns the subdivision of every task with `c/smale_bb_v2.c` and writes the tree, one byte per
+   node. Its per-task counts are identical to `runs/d6_v2/d6.done` on all 49 152 tasks
+   (`runs/d6_arbcheck/export_vs_done.txt`).
+2. `arbcheck` reads the same tasks file and the tree. For every leaf it proves the leaf's claim in arb, by its own
+   bounds: F, E, L, outside the chart, symmetry, or inside a closed Euclidean ball of radius $`1/20`$ around an
+   equality point. It checks that each record is exactly one complete tree and that every task id occurs exactly
+   once. A leaf that is not proved directly may be bisected further, and then every piece must be proved.
+
+| | $`d = 5`$ | $`d = 6`$ |
+|---|---|---|
+| leaves | 1 246 566 | 937 433 545 |
+| proved directly | 1 246 566 | 937 433 427 |
+| proved after one further bisection | 0 | 118 (240 sub-boxes) |
+| failures / missing tasks | 0 / 0 | 0 / 0 |
+| CPU time | 10 s | 12 151 s |
+
+Logs: `runs/d5_arbcheck/arbcheck.log`, `runs/d6_arbcheck/arbcheck.log`; versions and hashes:
+`runs/d6_arbcheck/BUILD.txt`. The $`d = 6`$ tree is attached to release v1.1 as `d6.canonical.tree.zst`: the records are
+in increasing id order, and the file's sha256 equals the canonical digest printed by `c/tree_digest.py`,
+`db22fef3393a3d208b0f20dc94e3ddedd92d9d4d724af602081a0e55bccfc823`. The compressed file is 381 024 434 bytes, with sha256
+`b53da6959b7ce068722db2159e966b21792abdf81e30c1a957b188d82f494690`.
+
 ## Figures
 
 Regenerate with `python3 figures/make_figures.py` (matplotlib).
@@ -133,6 +161,9 @@ the radius that the excluded balls map into.
 | `c/regress/` | task replay, equality-point certification (arb), primitive checks, targeted regression |
 | `third_party/core-math-log/` | CORE-MATH correctly rounded log (MIT licence, upstream commit in `UPSTREAM_COMMIT`) |
 | `runs/d6_v2/`, `runs/d5_v2/` | build records, task lists, per-task records (`*.done`), unresolved lists (empty), checker output |
+| `c/arbcheck/` | independent FLINT/arb checker of the subdivision tree (`SPEC.md`, `arbcheck.c`, `Makefile`, `README.md`) |
+| `c/export_tree.c`, `c/tree_digest.py` | writes the subdivision tree of a run; canonical digest of a tree file |
+| `runs/d6_arbcheck/`, `runs/d5_arbcheck/` | arb check logs, versions and hashes; export versus run records |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
 | `runs/local_cert_v3_*.log` | local certificate outputs |
 | `runs/e_profile_d6.tsv` | numerical samples on $`E`$ (figure data) |
@@ -168,6 +199,14 @@ python3 c/regress/eqpoints_v2.py OUT/smale_bb_v2.bin
 cc -O2 -ffp-contract=off -DSRC_SHA256_RAW=0 -Ithird_party/core-math-log -o OUT/prim_test c/regress/prim_test_v2.c third_party/core-math-log/log.c -lpthread
 OUT/prim_test | python3 c/regress/prim_check_v2.py
 python3 c/regress/regress_v2.py OUT/smale_bb_v2.bin runs/d5_v2/d5 OUT/regress
+
+# independent arb check (needs FLINT >= 3): export the tree (about 7 CPU-hours for d = 6), check it (about 3.4 CPU-hours)
+(cd c/arbcheck && make)
+cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=$(shasum -a 256 c/smale_bb_v2.c | cut -d' ' -f1) -Ic -Ithird_party/core-math-log -o OUT/export_tree c/export_tree.c third_party/core-math-log/log.c -lpthread
+OUT/export_tree 6 0.05 runs/d6_v2/d6.tasks OUT/d6 3
+python3 c/tree_digest.py OUT/d6.tree                     # compare with runs/d6_arbcheck/BUILD.txt
+c/arbcheck/arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks OUT/d6.tree
+# or check the released tree directly: zstd -d d6.canonical.tree.zst, then run arbcheck on d6.canonical.tree
 
 # local certificate (about 1 minute each), exact facts, Jacobian rank
 python3 local/local_cert.py 6 0.0527

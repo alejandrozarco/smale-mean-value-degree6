@@ -1,0 +1,4 @@
+arbcheck d=5 prec=64 maxref=12 threads=2: 3072 tasks, 3072 complete records, checking 3072 records (2490060 nodes)
+SUMMARY d=5 records=3072 nodes=2490060 leaves=1246566 F=757590 E=143562 L=100008 O=37156 S=205334 X=2916 U=0 direct=1246566 refined=0 subboxes=0 fail=0 failed_records=0 missing=0 dup=0 unknown=0 badheader=0 tail_incomplete=0 maxdepth=47 wall=5.2s cpu=10.3s status=PASS
+exit 0
+d5.tree canonical digest (c/tree_digest.py): 3f4aca2f8ee36f7b745fe7db0bba62b526b6382e5a6bdad9992bde3e04e31975, 3072 records (regenerate: export_tree 5 0.05 runs/d5_v2/d5.tasks OUT/d5 3)
