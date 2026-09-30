@@ -28,7 +28,7 @@ arbcheck [options] d tasks_file tree_file
   --sample K    only a pseudo-random 1/K of the records (hash of id; --seed X changes it)
   --limit N     only the first N selected records in file order
   --largest N   also check the N largest available records
-  --prec P      arb precision in bits (default 64; 53 and 128 give the same results)
+  --prec P      arb precision in bits (default 64)
   --maxref R    extra refinement depth per leaf (default 12; 0 = strict, no refinement)
   --timing      time every leaf and report ns/leaf and leaves/s/thread by leaf type
   --quiet       print only failing task lines and the summary
@@ -38,9 +38,9 @@ arbcheck [options] d tasks_file tree_file
 Examples:
 
 ```
-./arbcheck -t 8 5 runs/d5_v2/d5.tasks runs/d5_tree/d5.tree
-./arbcheck -t 8 --shard 0/4 6 runs/d6_v2/d6.tasks runs/d6_tree/d6.tree   # 1 of 4 machines
-./arbcheck -t 2 --timing --sample 74 --largest 5 6 runs/d6_v2/d6.tasks runs/d6_tree/d6.tree
+./arbcheck -t 8 5 runs/d5_v2/d5.tasks OUT/d5.tree
+./arbcheck -t 8 --shard 0/4 6 runs/d6_v2/d6.tasks OUT/d6.tree   # 1 of 4 machines
+./arbcheck -t 2 --timing --sample 74 --largest 5 6 runs/d6_v2/d6.tasks OUT/d6.tree
 ```
 
 The tree file is streamed. A first pass reads only the 14-byte record headers and seeks over the
@@ -169,63 +169,19 @@ of the table (outside, symmetry, excluded, F, E, L). Bisection is exact, which i
 - Checks $`S_{\mathrm{lo}} \le \lvert S_f\rvert \le S_{\mathrm{hi}}`$ and the affine enclosure at random points of random boxes.
 - Checks that all $`(n-1)!`$ equality points satisfy $`\lvert S_f(p)\rvert = c`$ for every $`f`$ and are distinct.
 
-## Validation (September 2026, Apple M-series, 2 threads at nice 15, prec 64)
+## Results
 
-**(a) The full $`d=5`$ tree** (`runs/d5_tree/d5.tree`):
-- Status PASS, exit 0.
-- All 3072 ids present, no duplicate or unknown ids.
-- 2,490,060 nodes and 1,246,566 leaves: F 757,590, E 143,562, L 100,008, outside 37,156,
-  symmetry 205,334, excluded 2,916, unresolved 0.
-- All leaves verified directly: 0 refinements, 0 sub-boxes, 0 failures.
-- Per-task counts (nodes, leaves by type, depth) are identical to `runs/d5_tree/d5.counts`.
-- Wall time 4.5 s, CPU time 8.8 s.
+The recorded runs are `runs/d5_arbcheck/arbcheck.log` and `runs/d6_arbcheck/arbcheck.log`, with versions and hashes in
+`runs/d6_arbcheck/BUILD.txt`.
 
-**(b) $`d=6`$ sample**: 212 records (a random 1/74 of the complete records, plus the 5 largest). See the
-numbers reported with the run. In an earlier run of the same sample, 29.7 M leaves passed, 8 leaves
-(4 E, 3 F, 1 L) needed one bisection each, and there were 0 failures. Time per leaf, one thread:
+- $`d=5`$: status PASS; 1,246,566 leaves, all proved directly.
+- $`d=6`$: status PASS; 937,433,545 leaves; 118 proved after further bisection (240 sub-boxes in total); 0 failures and
+  0 missing ids.
 
-| type | µs/leaf | leaves/s/thread |
-|---|---|---|
-| F | 13.9 | 72,000 |
-| E | 24.5 | 41,000 |
-| L | 54 | 18,400 |
-| outside | 0.33 | 3.0 M |
-| symmetry | 0.60 | 1.7 M |
-| excluded | 1.6 | 0.6 M |
-
-Projected cost of the full d=6 tree:
-
-| type | leaves | CPU time |
-|---|---|---|
-| F | 5.61e8 | 7,800 s |
-| E | 1.45e8 | 3,550 s |
-| L | 3.79e7 | 2,060 s |
-| outside, symmetry, excluded | | 110 s |
-| **total** | | **$`\approx`$ 13,500 CPU s $`\approx`$ 3.8 CPU-hours** |
-
-The timings are wall-clock per leaf on a loaded machine; measured CPU time is about 7 % lower.
-
-**(c) Negative tests**, on a corrupted copy of d5.tree with one corruption per record:
-- an F leaf relabelled L;
-- an F leaf relabelled excluded, more than 0.3 from every equality point;
-- an excluded leaf that contains an equality point, relabelled F;
-- an E leaf relabelled outside;
-- a symmetry leaf relabelled unresolved;
-- a record truncated by one byte;
-- a record with one extra byte;
-- a record removed.
-
-Results:
-- `--maxref 0` (strict): all 8 are reported. There are 7 failed records (L, excluded, F, outside,
-  unresolved, missing_bytes, leftover_bytes) and 1 missing id, and the exit status is 1.
-- Default `--maxref 12`: the unresolved leaf, the truncated record, the extra byte and the missing id
-  are reported. The 4 relabelled leaves are re-proved after one bisection by other claims of the
-  table, which §2 allows and which is sound; for example, the half that contains the equality point
-  is proved "excluded". They show up as `refined=1` in their task lines. The clean tree has
-  `refined=0`.
-
-A file cut in the middle of a record gives `tail_incomplete=1, missing=442, status=FAIL`. A
-duplicated record gives `dup=1, status=FAIL`.
+During development the checker was also run on corrupted copies of the $`d=5`$ tree. The corruptions were relabelled
+leaves, truncated records, extra bytes, a duplicated record and a missing record, and every one was reported with
+`--maxref 0`. With the default `--maxref 12`, relabelled leaves can be re-proved by other claims of the table, which
+§2 of the specification allows. These tests are not recorded in this repository.
 
 **Reading the refinement counts.** A clean tree verifies almost entirely directly, so a nonzero
 `refined` count deserves a look, and `--maxref 0` checks each leaf's own claim strictly.

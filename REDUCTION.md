@@ -6,7 +6,7 @@
 - $`\Omega = (\mathbb{C}^*)^n`$ is the set of critical-point tuples $`B = (b_1, \dots, b_n)`$. All $`b_i \ne 0`$, which is
   equivalent to $`P'(0) \ne 0`$, and repetitions are allowed.
 - $`S = (S_1, \dots, S_n) \colon \Omega \to \mathbb{C}^n`$, with
-  $`S_i(B) = \frac{P(b_i)}{b_i\,P'(0)} = \int_0^1 \prod_j \bigl(1 - t\,b_i/b_j\bigr)\,dt`$.
+  $`S_i(B) = \frac{P(b_i) - P(0)}{b_i\,P'(0)} = \int_0^1 \prod_j \bigl(1 - t\,b_i/b_j\bigr)\,dt`$.
   Each $`S_i`$ is a Laurent polynomial in $`B`$ and is invariant under $`B \mapsto \lambda B`$.
 - $`M_d := \sup_\Omega \min_i \lvert S_i\rvert`$. Smale's theorem gives $`M_d \le 4`$, and $`z - z^d/d`$ gives
   $`M_d \ge (d-1)/d`$.
@@ -36,7 +36,8 @@ $`\min_i \lvert z_i\rvert`$ is continuous, and $`S(\Omega) \cap (\mathbb{C}^*)^n
 finite by Smale's bound.
 
 **Step 3: the amoeba argument.** Let $`A = \mathrm{Log}(Z^*) \subset \mathbb{R}^n`$, where
-$`\mathrm{Log}(z) = (\log\lvert z_1\rvert, \dots, \log\lvert z_n\rvert)`$. $`A`$ is closed. Every connected component
+$`\mathrm{Log}(z) = (\log\lvert z_1\rvert, \dots, \log\lvert z_n\rvert)`$. $`A`$ is closed, since $`\mathrm{Log}`$ is proper
+on $`(\mathbb{C}^*)^n`$ and $`Z^*`$ is closed there. Every connected component
 of $`\mathbb{R}^n \setminus A`$ is convex (Gelfand–Kapranov–Zelevinsky 1994, Ch. 6 Cor. 1.6; Forsberg–Passare–Tsikh 2000).
 
 Let $`\gamma = \log C`$ and $`p = (\gamma, \dots, \gamma)`$. The open orthant $`Q = \{x : x_i \gt  \gamma \text{ for all } i\}`$
@@ -60,8 +61,8 @@ $`u_j \ne 0`$.
 of the following. Here $`c = (d-1)/d`$, each $`U \lt  c`$ or $`U \lt  \log c`$, each $`g \gt  0`$, and every inequality holds at all
 nondegenerate points with all $`S_i \ne 0`$ of $`\beta`$.
 
-- $`\beta`$ is contained in a closed Euclidean $`u`$-ball of radius $`\rho`$ around an equality point, or a symmetric image
-  of one. On that ball every nondegenerate point with $`\lvert S_1\rvert = \dots = \lvert S_n\rvert`$ has
+- $`\beta`$ is contained in a closed Euclidean $`u`$-ball of radius $`\rho \lt  1`$ around an equality point, or a symmetric
+  image of one. (Equality points have all $`\lvert u_j\rvert = 1`$, so such a ball stays away from $`\{u_j = 0\}`$.) On that ball every nondegenerate point with $`\lvert S_1\rvert = \dots = \lvert S_n\rvert`$ has
   $`\min_i \lvert S_i\rvert \le c`$.
 - (F) $`\sup \lvert S_i\rvert \le U \lt  c`$ for some $`i`$.
 - (E) $`\bigl\lvert \log\lvert S_i\rvert - \log\lvert S_j\rvert \bigr\rvert \ge g \gt  0`$ for some $`i \ne j`$.

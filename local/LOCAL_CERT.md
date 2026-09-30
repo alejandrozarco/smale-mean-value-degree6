@@ -37,11 +37,11 @@ the IEEE value of $`r`$.
    ($`r_i \le 2.9\cdot10^{-6}`$). The code uses $`\lvert R_i\rvert \le r_i (t/T)^2`$ for $`t \le T`$.
 2. **Exact low-order facts** (`local/exact_facts.py`, asserted by `local_cert.py`). In $`\mathbb{Q}(\omega)`$:
    $`S_i(0) = (d-1)/d`$ for all $`i`$, and $`\sum_i \partial S_i/\partial\varepsilon_j(0) = 0`$ for $`j = 2, \dots, n`$. Hence
-   $`h_i(0) = 0`$, $`L(0) = \log c`$ and $`\nabla L(0) = 0`$ exactly (checked for $`d = 4, \dots, 7`$). With $`J = D\ell(0)`$
+   $`h_i(0) = 0`$, $`L(0) = \log c`$ and $`\nabla L(0) = 0`$ exactly (checked for $`d = 4, \dots, 7`$: `python3 local/exact_facts.py 4 5 6 7`). With $`J = D\ell(0)`$
    (a $`5\times 8`$ matrix whose rows sum to $`0`$), $`G_i := \ell_i - L = (Jx)_i + G_i^{\ge 2}(x)`$.
 3. **Tube around $`K = \ker J`$.** On $`E`$ all $`G_i = 0`$, so $`y := \lVert Jx\rVert = \lVert G^{\ge 2}(x)\rVert`$. Write
    $`x = \Pi x + w`$ with $`\Pi = VV^{\mathsf T}`$ (formed in arb) and $`\lVert w\rVert \le \beta y + \gamma t`$, where
-   $`\beta = \lVert J^+\rVert \le 1.7929`$ and $`\gamma \le 2.04\cdot10^{-15}`$. With:
+   $`\beta = \lVert J^+\rVert \le 1.7929`$ ($`J^+`$ a floating-point pseudo-inverse; its defect is accounted for by $`\gamma`$) and $`\gamma \le 2.04\cdot10^{-15}`$. With:
    - $`q = \sup_{\lVert v\rVert \le 1} \lVert G^2(\Pi v)\rVert \le 0.23673`$ (a rigorous branch-and-bound over the unit
      sphere in $`K`$);
    - $`b_2 = \bigl(\sum_i \lVert A_i\rVert^2\bigr)^{1/2} \le 1.2650`$;
@@ -72,7 +72,7 @@ the IEEE value of $`r`$.
 
    So $`g(T) \le -0.0075740986`$ (an arb upper bound; the displayed terms are rounded).
 
-For $`d = 5`$ the same code gives $`g(T) \le -0.02284`$ ($`\mu = 0.050387`$). At $`T = 0.08`$ the $`d = 6`$ bound is not negative.
+For $`d = 5`$ the same code gives $`g(T) \le -0.02284`$ ($`\mu = 0.050387`$).
 
 ## Numerical comparison (not rigorous)
 

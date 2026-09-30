@@ -7,5 +7,5 @@ tree canonical digest (c/tree_digest.py): db22fef3393a3d208b0f20dc94e3ddedd92d9d
 checker: c/arbcheck/arbcheck.c  sha256 68b18fda4ba16962e71fc811a387f25ddb31d072ceb9332b81e533baaf15052e
   build: make (cc -O2 -Wall -ffp-contract=off -fcx-limited-range, flint 3.6.0, GMP, MPFR; macOS arm64)
   command: arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks d6.tree   (default --maxref 12, --prec 64)
-result: status=PASS, 937433545 leaves, 0 fail, 0 missing; 118 leaves proved after one extra bisection (240 sub-boxes); 12151 CPU s (arbcheck.log)
+result: status=PASS, 937433545 leaves, 0 fail, 0 missing; 118 leaves proved after further bisection by the checker (240 sub-boxes in total); 12151 CPU s (arbcheck.log)
 release asset: d6.canonical.tree.zst  381024434 bytes  sha256 b53da6959b7ce068722db2159e966b21792abdf81e30c1a957b188d82f494690  (zstd -19; decompresses to the canonical file, sha256 = digest above)

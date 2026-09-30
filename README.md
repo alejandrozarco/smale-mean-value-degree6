@@ -96,13 +96,13 @@ error analysis.
 2. `arbcheck` reads the same tasks file and the tree. For every leaf it proves the leaf's claim in arb, by its own
    bounds: F, E, L, outside the chart, symmetry, or inside a closed Euclidean ball of radius $`1/20`$ around an
    equality point. It checks that each record is exactly one complete tree and that every task id occurs exactly
-   once. A leaf that is not proved directly may be bisected further, and then every piece must be proved.
+   once. A leaf that is not proved directly may be bisected further by the checker, and then every piece must be proved.
 
 | | $`d = 5`$ | $`d = 6`$ |
 |---|---|---|
 | leaves | 1 246 566 | 937 433 545 |
 | proved directly | 1 246 566 | 937 433 427 |
-| proved after one further bisection | 0 | 118 (240 sub-boxes) |
+| proved after further bisection by the checker | 0 | 118 (240 sub-boxes in total) |
 | failures / missing tasks | 0 / 0 | 0 / 0 |
 | CPU time | 10 s | 12 151 s |
 
@@ -204,6 +204,7 @@ python3 c/regress/regress_v2.py OUT/smale_bb_v2.bin runs/d5_v2/d5 OUT/regress
 (cd c/arbcheck && make)
 cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=$(shasum -a 256 c/smale_bb_v2.c | cut -d' ' -f1) -Ic -Ithird_party/core-math-log -o OUT/export_tree c/export_tree.c third_party/core-math-log/log.c -lpthread
 OUT/export_tree 6 0.05 runs/d6_v2/d6.tasks OUT/d6 3
+python3 c/regress/cmp_export_counts.py OUT/d6.counts runs/d6_v2/d6.done   # runs/d6_arbcheck/export_vs_done.txt
 python3 c/tree_digest.py OUT/d6.tree                     # compare with runs/d6_arbcheck/BUILD.txt
 c/arbcheck/arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks OUT/d6.tree
 # or check the released tree directly: zstd -d d6.canonical.tree.zst, then run arbcheck on d6.canonical.tree
@@ -211,7 +212,7 @@ c/arbcheck/arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks OUT/d6.tree
 # local certificate (about 1 minute each), exact facts, Jacobian rank
 python3 local/local_cert.py 6 0.0527
 python3 local/local_cert.py 5 0.0527
-python3 local/exact_facts.py
+python3 local/exact_facts.py 4 5 6 7
 python3 local/rank_check.py 6
 
 # figures
