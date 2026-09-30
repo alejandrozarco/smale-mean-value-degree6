@@ -91,7 +91,7 @@ Every comparison is a certain arb comparison.
 
 | quantity | value |
 |---|---|
-| $`\lambda`$ ($`G_2 \le -\lambda\lVert x\rVert^2`$, Cholesky-certified) | $`42023795/2^{30} = 0.03913771`$ |
+| $`\lambda`$ ($`G_2 \le -\lambda\lVert x\rVert^2`$, Cholesky-certified) | $`42023795/2^{30} \approx 0.0391377`$ (exact value $`0.039137708954\ldots`$) |
 | $`\lVert G_3\rVert_F \cdot T`$ | 0.00534424 |
 | $`\lVert G_4\rVert_F \cdot T^2`$ | 0.00329886 |
 | $`\lVert G_5\rVert_F \cdot T^3`$ | 0.000233792 |
