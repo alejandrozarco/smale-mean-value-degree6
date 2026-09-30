@@ -23,7 +23,7 @@ the tangent space of $`E`$. The certified $`\kappa = 0.0151`$ at $`T = 1/19`$ is
 
 **Hand-over (SPEC §3).** Every set-aside box lies in one of the 24 balls $`\sum_j \lvert u_j - p_j\rvert^2 \le (1/20)^2`$. A relabelling
 of $`b_2..b_5`$ maps that ball onto the ball around $`p_0 = (\bar\omega, \bar\omega^2, \bar\omega^3, \bar\omega^4)`$. In the $`\varepsilon`$-chart, that ball lies in
-$`\lVert x\rVert_2 \le \log(20/19) = 0.051293\ldots \lt  1/19`$. The certificate therefore covers every point of every set-aside box, after
+$`\lVert x\rVert_2 \le \log(20/19) \lt  1/19`$. The certificate therefore covers every point of every set-aside box, after
 relabelling (details below).
 
 ## Method
@@ -91,7 +91,7 @@ Every comparison is a certain arb comparison.
 
 | quantity | value |
 |---|---|
-| $`\lambda`$ ($`G_2 \le -\lambda\lVert x\rVert^2`$, Cholesky-certified) | $`42023795/2^{30} \approx 0.0391377`$ (exact value $`0.039137708954\ldots`$) |
+| $`\lambda`$ ($`G_2 \le -\lambda\lVert x\rVert^2`$, Cholesky-certified) | $`42023795/2^{30}`$ |
 | $`\lVert G_3\rVert_F \cdot T`$ | 0.00534424 |
 | $`\lVert G_4\rVert_F \cdot T^2`$ | 0.00329886 |
 | $`\lVert G_5\rVert_F \cdot T^3`$ | 0.000233792 |
@@ -113,8 +113,8 @@ At $`T = 1/8`$: $`2\kappa = [0.0026125367 \pm 3.3\text{e-}11]`$ and $`\kappa \gt
    are permuted, and $`E`$ and $`\min_i\lvert S_i\rvert`$ are invariant. The index identities are checked for all 24 permutations,
    and a float spot check of the $`S`$-identity is in `crosscheck.py`.
 2. **Chart.** Put $`w_j = u_j/p0_j - 1`$, so $`\lvert w_j\rvert = \lvert u_j - p0_j\rvert \le 1/20`$. The choice $`\varepsilon_j = -\mathrm{Log}(1 + w_j)`$ gives
-   $`b_j = 1/u_j = \omega^{j-1}e^{\varepsilon_j}`$. Also $`\lvert \varepsilon_j\rvert \le -\log(1 - \lvert w_j\rvert) \le C\lvert w_j\rvert`$, with $`C = -20 \log(19/20) = 1.02587`$, because
-   $`-\log(1-q)/q`$ is increasing. Hence $`\lVert x\rVert_2^2 = \sum \lvert \varepsilon_j\rvert^2 \le C^2/400`$, and $`\lVert x\rVert_2 \le \log(20/19) = 0.0512933 \lt  1/19`$ (arb-certified).
+   $`b_j = 1/u_j = \omega^{j-1}e^{\varepsilon_j}`$. Also $`\lvert \varepsilon_j\rvert \le -\log(1 - \lvert w_j\rvert) \le C\lvert w_j\rvert`$, with $`C = -20 \log(19/20)`$, because
+   $`-\log(1-q)/q`$ is increasing. Hence $`\lVert x\rVert_2^2 = \sum \lvert \varepsilon_j\rvert^2 \le C^2/400`$, and $`\lVert x\rVert_2 \le \log(20/19) \lt  1/19`$ (the last inequality arb-certified).
 3. **Covered set.** The certificate covers $`X = \{b = (1, \omega e^{\varepsilon_2}, \omega^2 e^{\varepsilon_3}, \omega^3 e^{\varepsilon_4}, \omega^4 e^{\varepsilon_5}) : \lVert x\rVert_2 \le 1/19\}`$.
    On $`X \cap E`$, $`\min_i\lvert S_i\rvert \le (5/6)e^{-0.0151\lVert x\rVert^2}`$. Take a set-aside box inside the ball around some $`p`$. Its relabelled
    image lies in the ball around $`p_0`$, which lies in $`X`$ by step 2. $`E`$ and $`\min\lvert S_i\rvert`$ are invariant under relabelling, so

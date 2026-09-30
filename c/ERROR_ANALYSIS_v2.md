@@ -441,7 +441,7 @@ $`\mathrm{fl}(\sqrt{\mathrm{far2}_c}) \ge \Phi(1 - 8.5U) - 2^{-535}`$. The test 
 sum taken exactly. If $`Y \gt  r_{\mathrm{excl}} + \tfrac12\mathrm{ulp}(r_{\mathrm{excl}})`$, then $`\mathrm{fl}(Y) \gt  r_{\mathrm{excl}}`$. So the test implies $`Y \le r_{\mathrm{excl}}(1 + U)`$, i.e.
 $`\Phi(1 - 8.5U)(1 + 10^{-12})(1 - U) - 2^{-534} + 10^{-13} \le r_{\mathrm{excl}}(1 + U)`$. Since $`(1 - 8.5U)(1 + 10^{-12})(1 - U) \gt  1`$, we get
 $`\Phi \le r_{\mathrm{excl}}(1 + U) - 10^{-13} + 2^{-534}`$. Therefore $`\sup_B \lvert u - p\rvert \le \Phi + 1.6\cdot 10^{-16} \lt  r_{\mathrm{excl}} - 9\cdot 10^{-14} \lt  r_{\mathrm{excl}}`$, and $`B`$ lies
-in the closed ball. Here $`r_{\mathrm{excl}}`$ is the double parsed from "0.05", which is $`0.05 + 2.8\cdot 10^{-18}`$. Since
+in the closed ball. Here $`r_{\mathrm{excl}}`$ is the double parsed from "0.05", which is $`1/20 + 1/360287970189639680`$. Since
 $`\sup_B \lvert u - p\rvert \lt  r_{\mathrm{excl}} - 9\cdot 10^{-14} \lt  0.05`$, $`B`$ also lies in the closed ball of exact radius 0.05 used by
 local/LOCAL_CERT.md and the Prop R corollary.
 
