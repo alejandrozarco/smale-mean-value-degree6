@@ -64,6 +64,10 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
   $`\log F \le \log\frac56 - 0.00757\,\lVert\varepsilon\rVert_2^2`$. It uses Taylor models of degree 6 in arb ball
   arithmetic, and exact arithmetic in $`\mathbb{Q}(\omega)`$ for the zeroth- and first-order terms. The $`u`$-balls of
   radius $`0.05`$ map into $`\lVert\varepsilon\rVert_2 \le 0.05/0.95 = 1/19 \approx 0.0526316 \lt  0.0527`$.
+- **Second local certificate** (`local2/`). A separate implementation, written from the specification
+  `local2/SPEC.md` only, proves $`L \le \log\frac56 - 0.0151\,\lVert x\rVert_2^2`$ on $`E`$ for $`\lVert x\rVert_2 \le 1/19`$.
+  It uses no logarithms: it bounds $`\Phi = \lvert S_1/c\rvert^2 - 1`$ through $`F = \Phi + \sum_a \mu_a D_a`$, where
+  $`D_a = \lvert S_{a+1}/c\rvert^2 - \lvert S_1/c\rvert^2`$ vanishes on $`E`$. Its hand-over radius is $`\log(20/19) \lt  1/19`$.
 
 ## Results
 
@@ -78,6 +82,7 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
 | task CPU time | 7 s | 23 735 s |
 | `c/check_done.py` | CERTIFICATE COMPLETE (`runs/d5_v2/CHECK.txt`) | CERTIFICATE COMPLETE (`runs/d6_v2/CHECK.txt`) |
 | local certificate bound $`g(T)`$, $`T = 0.0527`$ | $`\le -0.02284`$ | $`\le -0.0075740986`$ |
+| independent local certificate (`local2/`): $`\kappa`$ at radius $`T`$ | | $`\kappa \gt  0.0151`$ at $`T = 1/19`$; $`\kappa \gt  0.0013`$ at $`T = 1/8`$ |
 
 Source sha256 `8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f` (`c/smale_bb_v2.c`). Binary
 sha256 `e99fdb885004db53961c411065372595540137ca3f78b654b0da96019aa08723` (Apple clang 21.0.0, arm64; see
@@ -164,6 +169,7 @@ the radius that the excluded balls map into.
 | `c/arbcheck/` | independent FLINT/arb checker of the subdivision tree (`SPEC.md`, `arbcheck.c`, `Makefile`, `README.md`) |
 | `c/export_tree.c`, `c/tree_digest.py` | writes the subdivision tree of a run; canonical digest of a tree file |
 | `runs/d6_arbcheck/`, `runs/d5_arbcheck/` | arb check logs, versions and hashes; export versus run records |
+| `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run log |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
 | `runs/local_cert_v3_*.log` | local certificate outputs |
 | `runs/e_profile_d6.tsv` | numerical samples on $`E`$ (figure data) |
@@ -212,6 +218,7 @@ c/arbcheck/arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks OUT/d6.tree
 # local certificate (about 1 minute each), exact facts, Jacobian rank
 python3 local/local_cert.py 6 0.0527
 python3 local/local_cert.py 5 0.0527
+bash local2/run_all.sh                                  # second local certificate, about 15 s; writes local2/run_T1_19.log
 python3 local/exact_facts.py 4 5 6 7
 python3 local/rank_check.py 6
 
@@ -232,19 +239,24 @@ The local certificate assumes the correctness of arb (python-flint).
 
 - S. Smale, The fundamental theorem of algebra and complexity theory, Bull. Amer. Math. Soc. 4 (1981) 1–36.
 - D. Tischler, Critical points and values of complex polynomials, J. Complexity 5 (1989) 438–456.
-- E. Crane, Topics in conformal geometry and dynamics, PhD thesis, Cambridge, 2003.
+- E. Crane, Topics in conformal geometry and dynamics, PhD thesis, Cambridge, 2003 (degree 2004).
 - E. Crane, Extremal polynomials in Smale's mean value conjecture, Comput. Methods Funct. Theory 6 (2006) 145–163.
 - E. Crane, A bound for Smale's mean value conjecture for complex polynomials, Bull. London Math. Soc. 39 (2007)
   781–791.
 - A. Conte, E. Fujikawa, N. Lakic, Smale's mean value conjecture and the coefficients of univalent functions,
-  Proc. Amer. Math. Soc. 135 (2007) 3295–3301.
-- T. W. Ng, Smale's mean value conjecture and related problems, survey talk, 2018.
+  Proc. Amer. Math. Soc. 135 (2007) 3295–3300.
+- T. W. Ng, Smale's mean value conjecture and related problems, slides, workshop "Hausdorff Geometry of Polynomials and
+  Polynomial Sequences", Institut Mittag-Leffler, 2018, https://staff.math.su.se/shapiro/IMLConference/Ng.pdf.
+- B. Sendov, P. Marinov, On the mean value conjectures of Smale and Tischler, East J. Approx. 12 (2006) 353–366.
+- B. Sendov, P. Marinov, Verification of Smale's mean value conjecture for $`n \le 10`$, C. R. Acad. Bulgare Sci. 60
+  (2007) 1151–1156 (numerical).
 - Z. Liu, Smale's mean value conjecture in degree six: certified enclosures and a cancellation obstruction,
-  preprint, Zenodo, doi:10.5281/zenodo.22390113 (record created 2026-09-05; publication date given as 2023-02-05).
+  preprint, Zenodo, 2026, doi:10.5281/zenodo.22390113 (record created 2026-09-05; the record's publication-date field
+  reads 2023-02-05).
 - A. Jatar, T. W. Ng, Smale's mean value conjecture and its dual conjecture for complex polynomials,
-  arXiv:2608.27047.
-- https://github.com/tadamcz/mean-value-problem (Lean formalisation concerning the conjecture with $`K = 1`$ in
-  large degree; not examined here).
+  arXiv:2608.27047 (2026).
+- T. Adamczewski, https://github.com/tadamcz/mean-value-problem (2026): Lean formalisation of a claimed disproof of the
+  conjecture with $`K = 1`$ in very large degree; machine-checked, not human-reviewed; not examined here.
 - I. M. Gelfand, M. M. Kapranov, A. V. Zelevinsky, Discriminants, resultants, and multidimensional determinants,
   Birkhäuser, 1994.
 - M. Forsberg, M. Passare, A. Tsikh, Laurent determinants and arrangements of hyperplane amoebas, Adv. Math. 151
