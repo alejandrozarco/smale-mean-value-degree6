@@ -63,7 +63,7 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
   equality point in the chart $`b_j = \omega^{j-1} e^{\varepsilon_j}`$, it shows
   $`\log F \le \log\frac56 - 0.00757\,\lVert\varepsilon\rVert_2^2`$. It uses Taylor models of degree 6 in arb ball
   arithmetic, and exact arithmetic in $`\mathbb{Q}(\omega)`$ for the zeroth- and first-order terms. The $`u`$-balls of
-  radius $`0.05`$ map into $`\lVert\varepsilon\rVert_2 \le 0.05/0.95 = 0.05263`$.
+  radius $`0.05`$ map into $`\lVert\varepsilon\rVert_2 \le 0.05/0.95 = 1/19 \approx 0.0526316 \lt  0.0527`$.
 
 ## Results
 
@@ -77,7 +77,7 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
 | maximum subdivision depth | 47 | 71 |
 | task CPU time | 7 s | 23 735 s |
 | `c/check_done.py` | CERTIFICATE COMPLETE (`runs/d5_v2/CHECK.txt`) | CERTIFICATE COMPLETE (`runs/d6_v2/CHECK.txt`) |
-| local certificate bound $`g(T)`$, $`T = 0.0527`$ | $`\le -0.02284`$ | $`\le -0.0075741`$ |
+| local certificate bound $`g(T)`$, $`T = 0.0527`$ | $`\le -0.02284`$ | $`\le -0.0075740986`$ |
 
 Source sha256 `8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f` (`c/smale_bb_v2.c`). Binary
 sha256 `e99fdb885004db53961c411065372595540137ca3f78b654b0da96019aa08723` (Apple clang 21.0.0, arm64; see

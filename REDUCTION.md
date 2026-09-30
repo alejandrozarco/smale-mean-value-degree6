@@ -74,9 +74,10 @@ nondegenerate points with all $`S_i \ne 0`$ of $`\beta`$.
 1. Normalise each $`B_k`$ into $`D`$. Normalisation permutes the $`S_i`$ and possibly conjugates them, so the moduli are only
    permuted. Pass to a subsequence with a fixed relabelling and a fixed conjugation choice. Then $`u_k \to u^* \in D`$.
 2. Every coordinate of the limit has modulus $`M_d \gt  0`$, so the logarithms converge. Infinitely many $`u_k`$ lie in one
-   box $`\beta`$.
-3. That $`\beta`$ cannot satisfy (F), (E) or (L), because each would give a contradiction in the limit. So $`\beta`$ lies in
-   one of the balls.
+   box $`\beta`$ of the cover. (In the computation, leaves discarded as outside the chart or by symmetry contain no point
+   of $`D`$, so the remaining leaves — F, E, L and excluded — cover $`D`$ and form the cover in the hypothesis.)
+3. That $`\beta`$ cannot satisfy (F), (E) or (L), because each would give a contradiction in the limit. So $`\beta`$ is
+   contained in one of the closed balls, and since the ball is closed, $`u^*`$ lies in it too.
 4. The balls lie at positive distance from $`\{u_j = 0\}`$, and $`S`$ is continuous there. So $`z^*`$ is an equal-modulus
    value $`S(B^*)`$, and $`M_d \le c`$. $`\square`$
 
