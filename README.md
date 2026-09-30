@@ -36,8 +36,8 @@ dimension $`2(d-2) = 8`$. For $`i \ge 2`$,
 S_i = \frac{T_i}{u_i^{\,n-1}}, \qquad T_i = \int_0^1 (1-t)(u_i - t) \prod_{j \ne 1, i} (u_i - t\,u_j)\,dt ,
 ```
 
-where $`T_i`$ is a polynomial. The extremal configurations are $`u = (\bar\omega^{a_2}, \dots, \bar\omega^{a_n})`$ with
-$`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; there are 24 for $`d = 6`$.
+where $`T_i`$ is a polynomial. The configurations at which the bound is attained, and around which the local certificate is placed, are $`u = (\bar\omega^{a_2}, \dots, \bar\omega^{a_n})`$ with
+$`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; there are 24 for $`d = 6`$. (The proof does not characterise maximisers whose moduli are not all equal.)
 
 ## Method (outline)
 

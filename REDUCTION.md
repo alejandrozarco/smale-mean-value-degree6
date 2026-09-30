@@ -58,13 +58,13 @@ $`u_j \ne 0`$.
 
 **Hypothesis.** Suppose $`D`$ is covered by finitely many closed boxes $`\beta`$, and each $`\beta`$ satisfies at least one
 of the following. Here $`c = (d-1)/d`$, each $`U \lt  c`$ or $`U \lt  \log c`$, each $`g \gt  0`$, and every inequality holds at all
-nondegenerate points of $`\beta`$.
+nondegenerate points with all $`S_i \ne 0`$ of $`\beta`$.
 
 - $`\beta`$ is contained in a closed Euclidean $`u`$-ball of radius $`\rho`$ around an equality point, or a symmetric image
   of one. On that ball every nondegenerate point with $`\lvert S_1\rvert = \dots = \lvert S_n\rvert`$ has
   $`\min_i \lvert S_i\rvert \le c`$.
 - (F) $`\sup \lvert S_i\rvert \le U \lt  c`$ for some $`i`$.
-- (E) $`\bigl\lvert \log\lvert S_i\rvert - \log\lvert S_j\rvert \bigr\rvert \ge g \gt  0`$ for some $`i, j`$.
+- (E) $`\bigl\lvert \log\lvert S_i\rvert - \log\lvert S_j\rvert \bigr\rvert \ge g \gt  0`$ for some $`i \ne j`$.
 - (L) $`\sum_i w_i \log\lvert S_i\rvert \le U \lt  \log c`$ for some real weights $`w`$ with $`\sum_i w_i = 1`$.
 
 **Conclusion.** Then $`M_d = c`$.
