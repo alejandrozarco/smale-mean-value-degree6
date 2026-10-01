@@ -1,5 +1,7 @@
 # arbcheck: an independent FLINT/arb check of the subdivision tree
 
+Status: computational certificates, not peer reviewed; produced by AI models (see [`AI_DISCLOSURE.md`](../../AI_DISCLOSURE.md)).
+
 `arbcheck` checks a subdivision tree (`*.tree`) against its tasks file (`*.tasks`) for Smale's mean
 value conjecture in degree $`d`$ ($`4 \le d \le 7`$). It was written from `SPEC.md` and from the mathematics
 only. Every claim is decided in FLINT/arb ball arithmetic.
@@ -63,10 +65,10 @@ task <id> nodes=<n> maxdepth=<d> F=.. E=.. L=.. O=.. S=.. X=.. U=.. direct=.. re
 ```
 
 - F, E, L, O, S, X, U: leaves by code (0 F, 1 E, 2 L, 3 outside, 4 symmetry, 5 excluded, 6 unresolved).
-- `direct`: leaves whose own claim was proved on the leaf box.
-- `refined`: leaves proved only after the checker bisected them itself.
+- `direct`: leaves whose own claim was verified on the leaf box.
+- `refined`: leaves verified only after the checker bisected them itself.
 - `subboxes`: sub-boxes created by refinement.
-- `fail`: leaves not proved, plus 1 if the record does not parse.
+- `fail`: leaves not verified, plus 1 if the record does not parse.
 - `parse`: `ok`, `missing_bytes` (the tree is incomplete), `leftover_bytes` (bytes remain after one
   complete tree), `invalid_code` (a code from 7 to 15, or 16+k with $`k \ge D`$), `inexact_split` or
   `too_deep`.
@@ -154,7 +156,7 @@ Every acceptance is decided in arb, and the others are tried if a candidate fail
 rejection (followed by refinement), never an acceptance. On the $`d=6`$
 sample, F needs exactly 1 arb model per leaf and E exactly 2.
 
-**Refinement (§2).** If a leaf's claim is not proved directly, the leaf is bisected along its widest
+**Refinement (§2).** If a leaf's claim is not verified directly, the leaf is bisected along its widest
 coordinate, up to `--maxref` levels. Each sub-box must satisfy the leaf's own claim or any other claim
 of the table (outside, symmetry, excluded, F, E, L). Bisection is exact, which is checked with TwoSum.
 
@@ -174,13 +176,13 @@ of the table (outside, symmetry, excluded, F, E, L). Bisection is exact, which i
 The recorded runs are `runs/d5_arbcheck/arbcheck.log` and `runs/d6_arbcheck/arbcheck.log`, with versions and hashes in
 `runs/d6_arbcheck/BUILD.txt`.
 
-- $`d=5`$: status PASS; 1,246,566 leaves, all proved directly.
-- $`d=6`$: status PASS; 937,433,545 leaves; 118 proved after further bisection (240 sub-boxes in total); 0 failures and
+- $`d=5`$: status PASS; 1,246,566 leaves, all verified directly.
+- $`d=6`$: status PASS; 937,433,545 leaves; 118 verified after further bisection (240 sub-boxes in total); 0 failures and
   0 missing ids.
 
 During development the checker was also run on corrupted copies of the $`d=5`$ tree. The corruptions were relabelled
 leaves, truncated records, extra bytes, a duplicated record and a missing record, and every one was reported with
-`--maxref 0`. With the default `--maxref 12`, relabelled leaves can be re-proved by other claims of the table, which
+`--maxref 0`. With the default `--maxref 12`, relabelled leaves can be re-verified by other claims of the table, which
 §2 of the specification allows. These tests are not recorded in this repository.
 
 **Reading the refinement counts.** A clean tree verifies almost entirely directly, so a nonzero

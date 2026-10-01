@@ -1,6 +1,14 @@
 # Smale's mean value conjecture, degree 6: computation and certificates
 
-Status: **computational results, not peer reviewed.** First published 2026-09-30.
+Status: **computational certificates, not peer reviewed.** First published 2026-09-30. **Produced by AI models** under
+the direction of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
+
+> [!IMPORTANT]
+> This repository contains an AI-produced **warrant**: computer-checked certificates together with a written reduction,
+> which no human has digested. It is a warrant for Smale's mean value conjecture in degree 6, that is, for the sharp
+> constant $`5/6`$. We do not regard the question as settled by it. We welcome a human-readable treatment, and credit
+> for a proof belongs to whoever writes one. Questions, checks and corrections:
+> [GitHub issues](https://github.com/alejandrozarco/smale-mean-value-degree6/issues).
 
 Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.2 is
 [doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository; the
@@ -41,12 +49,12 @@ S_i = \frac{T_i}{u_i^{\,n-1}}, \qquad T_i = \int_0^1 (1-t)(u_i - t) \prod_{j \ne
 ```
 
 where $`T_i`$ is a polynomial. The configurations at which the bound is attained, and around which the local certificate is placed, are $`u = (\bar\omega^{a_2}, \dots, \bar\omega^{a_n})`$ with
-$`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; there are 24 for $`d = 6`$. (The proof does not characterise maximisers whose moduli are not all equal.)
+$`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; there are 24 for $`d = 6`$. (The argument does not characterise maximisers whose moduli are not all equal.)
 
 ## Method (outline)
 
 - **Reduction** (`REDUCTION.md`). Some point of the closure of the image of $`(S_1, \dots, S_n)`$ attains $`\sup F`$ with
-  all $`\lvert S_i\rvert`$ equal. The proof follows Crane and Ng and uses convexity of amoeba complements; it does not
+  all $`\lvert S_i\rvert`$ equal. The argument follows Crane and Ng and uses convexity of amoeba complements; it does not
   assume that a maximiser exists. A finite cover of the closed chart by closed boxes then suffices, provided every
   box either lies in a small ball around an equality point, where the local certificate applies, or passes one of the
   following tests uniformly on the box. Here $`c = (d-1)/d`$.
@@ -69,7 +77,7 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
   arithmetic, and exact arithmetic in $`\mathbb{Q}(\omega)`$ for the zeroth- and first-order terms. The $`u`$-balls of
   radius $`0.05`$ map into $`\lVert\varepsilon\rVert_2 \le 0.05/0.95 = 1/19 \lt  0.0527`$.
 - **Second local certificate** (`local2/`). A separate implementation, written from the specification
-  `local2/SPEC.md` only, proves $`L \le \log\frac56 - 0.0151\,\lVert x\rVert_2^2`$ on $`E`$ for $`\lVert x\rVert_2 \le 1/19`$.
+  `local2/SPEC.md` only, certifies $`L \le \log\frac56 - 0.0151\,\lVert x\rVert_2^2`$ on $`E`$ for $`\lVert x\rVert_2 \le 1/19`$.
   It uses no logarithms: it bounds $`\Phi = \lvert S_1/c\rvert^2 - 1`$ through $`F = \Phi + \sum_a \mu_a D_a`$, where
   $`D_a = \lvert S_{a+1}/c\rvert^2 - \lvert S_1/c\rvert^2`$ vanishes on $`E`$. Its hand-over radius is $`\log(20/19) \lt  1/19`$.
 
@@ -102,16 +110,16 @@ error analysis.
 1. `c/export_tree.c` reruns the subdivision of every task with `c/smale_bb_v2.c` and writes the tree, one byte per
    node. Its per-task counts are identical to `runs/d6_v2/d6.done` on all 49 152 tasks
    (`runs/d6_arbcheck/export_vs_done.txt`).
-2. `arbcheck` reads the same tasks file and the tree. For every leaf it proves the leaf's claim in arb, by its own
+2. `arbcheck` reads the same tasks file and the tree. For every leaf it verifies the leaf's claim in arb, by its own
    bounds: F, E, L, outside the chart, symmetry, or inside a closed Euclidean ball of radius $`1/20`$ around an
    equality point. It checks that each record is exactly one complete tree and that every task id occurs exactly
-   once. A leaf that is not proved directly may be bisected further by the checker, and then every piece must be proved.
+   once. A leaf that is not verified directly may be bisected further by the checker, and then every piece must be verified.
 
 | | $`d = 5`$ | $`d = 6`$ |
 |---|---|---|
 | leaves | 1 246 566 | 937 433 545 |
-| proved directly | 1 246 566 | 937 433 427 |
-| proved after further bisection by the checker | 0 | 118 (240 sub-boxes in total) |
+| verified directly | 1 246 566 | 937 433 427 |
+| verified after further bisection by the checker | 0 | 118 (240 sub-boxes in total) |
 | failures / missing tasks | 0 / 0 | 0 / 0 |
 | CPU time | 10 s | 12 151 s |
 

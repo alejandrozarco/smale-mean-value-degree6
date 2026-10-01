@@ -1,22 +1,24 @@
 # Independent local certificate near the regular configuration ($`d = 6`$)
 
+Status: computational certificates, not peer reviewed; produced by AI models (see [`AI_DISCLOSURE.md`](../AI_DISCLOSURE.md)).
+
 Written from `SPEC.md` and the mathematics only. It uses a different method from a box subdivision: a
 multiplier identity turns the constrained problem on $`E`$ into an unconstrained one, and an explicit Taylor model
 with a rigorous majorant remainder handles that problem.
 
-## Statement proved
+## Statement certified
 
 Notation as in SPEC §1: $`d = 6`$, $`c = 5/6`$, $`\omega = e^{2\pi i/5}`$, $`b_1 = 1`$, $`b_j = \omega^{j-1} e^{\varepsilon_j}`$,
 $`x = (\mathrm{Re}\,\varepsilon_2, \mathrm{Im}\,\varepsilon_2, \ldots, \mathrm{Re}\,\varepsilon_5, \mathrm{Im}\,\varepsilon_5) \in \mathbb{R}^8`$, $`L(x) = (1/5) \sum_i \log\lvert S_i(x)\rvert`$, and $`E`$ is the equal-modulus set.
 
-**Theorem (certified).** For every $`x \in E`$ with $`\lVert x\rVert_2 \le T`$:
+**Claim (certified).** For every $`x \in E`$ with $`\lVert x\rVert_2 \le T`$:
 
 | $`T`$ | $`\kappa`$ | statement |
 |---|---|---|
 | **$`1/19`$** | **$`151/10000 = 0.0151`$** | $`L(x) \le \log(5/6) - 0.0151\lVert x\rVert_2^2`$, so $`\min_i \lvert S_i\rvert \le (5/6) e^{-0.0151\lVert x\rVert^2} \le 5/6`$ |
 | $`1/8`$ | $`13/10000 = 0.0013`$ | $`L(x) \le \log(5/6) - 0.0013\lVert x\rVert_2^2`$ (extra run, not needed for the hand-over) |
 
-In fact the certificate proves the stronger form $`\Phi(x) \le -2\kappa\lVert x\rVert^2`$, where $`\Phi = (1/5)\sum_i \lvert S_i/c\rvert^2 - 1 = \lvert S_1/c\rvert^2 - 1`$
+In fact the certificate certifies the stronger form $`\Phi(x) \le -2\kappa\lVert x\rVert^2`$, where $`\Phi = (1/5)\sum_i \lvert S_i/c\rvert^2 - 1 = \lvert S_1/c\rvert^2 - 1`$
 on $`E`$. (If some $`\lvert S_i\rvert = 0`$ at a point of $`E`$ then all vanish there: $`\Phi = -1`$, $`L = -\infty`$, and the claim holds trivially. In
 general $`\Phi \ge -1`$, and $`\log(1 + \Phi) \le \Phi`$ gives $`L - \log c \le \Phi/2`$ on $`E`$.) The best possible constant as $`x \to 0`$ is 0.01959, which is half the smallest curvature $`-0.039177`$ of $`\Phi`$ on
 the tangent space of $`E`$. The certified $`\kappa = 0.0151`$ at $`T = 1/19`$ is 77 % of that value.
@@ -148,6 +150,6 @@ Files:
 - Certified: facts F1 and F2 (exact rational arithmetic in $`\mathbb{Q}(\omega)`$), every Taylor coefficient (exact, then
   enclosed in arb), every remainder bound, the Cholesky step, the final inequalities, and the hand-over constant.
 - Floating point only chooses $`\gamma`$, $`\Gamma`$, $`\Psi`$ and $`\lambda`$. Every one of these is used as an exact number afterwards.
-- `crosscheck.py` is a sanity check only and is not part of the proof.
+- `crosscheck.py` is a sanity check only and is not part of the certificate.
 - Trusted: python-flint 0.6 / FLINT arb ball arithmetic being correct, and the short analytic arguments written
   above: the exponential-sum form, Cauchy–Schwarz, the majorant monotonicity, and the relabelling identity.

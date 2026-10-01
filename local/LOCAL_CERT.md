@@ -1,5 +1,7 @@
 # Local certificate at the equality configuration ($`d = 6`$; also $`d = 5`$)
 
+Status: computational certificates, not peer reviewed; produced by AI models (see [`AI_DISCLOSURE.md`](../AI_DISCLOSURE.md)).
+
 The code is `local/local_cert.py`, which uses python-flint arb/acb balls at 128 bits, together with
 `local/exact_facts.py`, which does exact arithmetic in $`\mathbb{Q}(\omega)`$. The run logs are
 `runs/local_cert_v3_d6_T0.0527.log` and `runs/local_cert_v3_d5_T0.0527.log`; each takes about 1 minute. The logs
@@ -29,7 +31,7 @@ $`w_j = u_j/p_j - 1`$ we have $`\lvert\varepsilon_j\rvert = \lvert\log(1 + w_j)\
 so $`\lVert\varepsilon\rVert_2 \le r/(1 - r) = 1/19 \lt  T`$. `c/check_done.py` checks $`r/(1-r) \le 0.0527`$ exactly for
 the IEEE value of $`r`$.
 
-## Proof structure (all constants computed in arb)
+## Structure of the certificate (all constants computed in arb)
 
 1. **Taylor models.** $`h_i = \log S_i - \log c`$ is holomorphic on the polydisk $`\lVert\varepsilon\rVert_\infty \le T`$.
    Taylor-model arithmetic (degree $`N = 6`$ in 4 complex variables) gives $`h_i = P_i + R_i`$. Here $`P_i`$ is the
