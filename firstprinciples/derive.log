@@ -1,0 +1,59 @@
+PASS  d=4 (2) S_1 == V_1 exactly (P built from critical points)
+PASS  d=4 (2) S_2 == V_2 exactly
+PASS  d=4 (2) S_3 == V_3 exactly
+PASS  d=4 (2) quadrature of S_i vs 30-digit critical values, max diff 2.3e-31
+PASS  d=4 (2) numpy.poly/polyint evaluator agrees with the mp evaluator, max rel diff 5.2e-16
+PASS  d=5 (2) S_1 == V_1 exactly (P built from critical points)
+PASS  d=5 (2) S_2 == V_2 exactly
+PASS  d=5 (2) S_3 == V_3 exactly
+PASS  d=5 (2) S_4 == V_4 exactly
+PASS  d=5 (2) quadrature of S_i vs 30-digit critical values, max diff 1.6e-30
+PASS  d=5 (2) numpy.poly/polyint evaluator agrees with the mp evaluator, max rel diff 7.7e-16
+PASS  d=6 (2) S_1 == V_1 exactly (P built from critical points)
+PASS  d=6 (2) S_2 == V_2 exactly
+PASS  d=6 (2) S_3 == V_3 exactly
+PASS  d=6 (2) S_4 == V_4 exactly
+PASS  d=6 (2) S_5 == V_5 exactly
+PASS  d=6 (2) quadrature of S_i vs 30-digit critical values, max diff 5.6e-31
+PASS  d=6 (2) numpy.poly/polyint evaluator agrees with the mp evaluator, max rel diff 1.0e-15
+PASS  d=7 (2) S_1 == V_1 exactly (P built from critical points)
+PASS  d=7 (2) S_2 == V_2 exactly
+PASS  d=7 (2) S_3 == V_3 exactly
+PASS  d=7 (2) S_4 == V_4 exactly
+PASS  d=7 (2) S_5 == V_5 exactly
+PASS  d=7 (2) S_6 == V_6 exactly
+PASS  d=7 (2) quadrature of S_i vs 30-digit critical values, max diff 2.9e-29
+PASS  d=7 (2) numpy.poly/polyint evaluator agrees with the mp evaluator, max rel diff 1.7e-15
+PASS  d=4 (3) P(lam z)/lam is normalised with critical points b_j/lam
+PASS  d=4 (3) V_i(b/lam) == V_i(b) for every i (complex lam != 0)
+PASS  d=4 (3) V_i(b o sigma) == V_sigma(i)(b) for transposition(1 2) (so permutations of all n critical points permute the V_i)
+PASS  d=4 (3) V_i(b o sigma) == V_sigma(i)(b) for n-cycle (so permutations of all n critical points permute the V_i)
+PASS  d=4 (3) V_i in Q(b_1..b_n), hence V_i(conj b) == conj V_i(b)
+PASS  d=4 (3) reduction (min-modulus b_1, scale, sort, conjugate) lands in R and preserves sorted |V| (max rel diff 3.6e-14)
+PASS  d=5 (3) P(lam z)/lam is normalised with critical points b_j/lam
+PASS  d=5 (3) V_i(b/lam) == V_i(b) for every i (complex lam != 0)
+PASS  d=5 (3) V_i(b o sigma) == V_sigma(i)(b) for transposition(1 2) (so permutations of all n critical points permute the V_i)
+PASS  d=5 (3) V_i(b o sigma) == V_sigma(i)(b) for n-cycle (so permutations of all n critical points permute the V_i)
+PASS  d=5 (3) V_i in Q(b_1..b_n), hence V_i(conj b) == conj V_i(b)
+PASS  d=5 (3) reduction (min-modulus b_1, scale, sort, conjugate) lands in R and preserves sorted |V| (max rel diff 4.6e-14)
+PASS  d=6 (3) P(lam z)/lam is normalised with critical points b_j/lam
+PASS  d=6 (3) V_i(b/lam) == V_i(b) for every i (complex lam != 0)
+PASS  d=6 (3) V_i(b o sigma) == V_sigma(i)(b) for transposition(1 2) (so permutations of all n critical points permute the V_i)
+PASS  d=6 (3) V_i(b o sigma) == V_sigma(i)(b) for n-cycle (so permutations of all n critical points permute the V_i)
+PASS  d=6 (3) V_i in Q(b_1..b_n), hence V_i(conj b) == conj V_i(b)
+PASS  d=6 (3) reduction (min-modulus b_1, scale, sort, conjugate) lands in R and preserves sorted |V| (max rel diff 1.1e-13)
+PASS  d=7 (3) P(lam z)/lam is normalised with critical points b_j/lam
+PASS  d=7 (3) V_i(b/lam) == V_i(b) for every i (complex lam != 0)
+PASS  d=7 (3) V_i(b o sigma) == V_sigma(i)(b) for transposition(1 2) (so permutations of all n critical points permute the V_i)
+PASS  d=7 (3) V_i(b o sigma) == V_sigma(i)(b) for n-cycle (so permutations of all n critical points permute the V_i)
+PASS  d=7 (3) V_i in Q(b_1..b_n), hence V_i(conj b) == conj V_i(b)
+PASS  d=7 (3) reduction (min-modulus b_1, scale, sort, conjugate) lands in R and preserves sorted |V| (max rel diff 2.3e-13)
+PASS  d=4 (4) all 2 equality points: P' = 1 - z^3 and V_i = 3/4 exactly in Q(w)/Phi_3
+PASS  d=5 (4) all 6 equality points: P' = 1 - z^4 and V_i = 4/5 exactly in Q(w)/Phi_4
+PASS  d=6 (4) all 24 equality points: P' = 1 - z^5 and V_i = 5/6 exactly in Q(w)/Phi_5
+PASS  d=7 (4) all 120 equality points: P' = 1 - z^6 and V_i = 6/7 exactly in Q(w)/Phi_6
+PASS  (5) ||eps||_2 <= -log(1-r) whenever ||u - p||_2 <= r (sampled, max ratio 0.999918401993)
+PASS  (5) bound is attained at u_2 = (1-r) p_2: ||eps|| = 0.051293294387550 = -log(1-1/20)
+PASS  (5) relabelling b_2..b_n maps the ball around each equality point isometrically onto the ball around the identity point and permutes V_2..V_n (max diff 7.8e-16)
+INFO  task-header r_excl = 0x3fa999999999999a = 0.05000000000000000278; exceeds 1/20 by 2.776e-18 (exact)
+total failures: 0  (20s)

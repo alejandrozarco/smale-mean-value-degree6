@@ -362,6 +362,13 @@ def sphere_sup(polys, V, k, rel=1.05, h0=0.25, maxboxes=400000, seed=0):
     return float(target.upper()), est
 
 
+def exact_q(a):
+    """The exact rational value of an arb with radius 0 (e.g. arb.lower(), arb.upper())."""
+    assert a.rad() == 0
+    m, e = a.mid().man_exp()
+    return Fraction(int(m)) * Fraction(2) ** int(e)
+
+
 def certify(d=6, T="0.0527", N=6, sigma=5.0, verbose=True):
     """Certificate on E: for x in E with 0 < |x|_2 = t <= T:  L(x) < log c  (L = mean log|S_i| = log F on E).
     Steps (all constants rigorous, arb):
@@ -370,7 +377,9 @@ def certify(d=6, T="0.0527", N=6, sigma=5.0, verbose=True):
       L - log c <= that + sum_{k=3}^N B_k t^k + rem_L (t/T)^{N+1}."""
     n = d - 1; nv = n - 1; D = 2 * nv
     Ta = arb(str(T))                     # ball containing the exact decimal T (upper end >= T)
-    assert Ta.lower() <= arb(Fraction(str(T)).numerator) / Fraction(str(T)).denominator <= Ta.upper()
+    # exact check that the ball contains the decimal T (endpoints compared as exact rationals; a ball comparison
+    # with arb(p)/q is not used, because its outcome depends on the radii chosen by the python-flint version)
+    assert exact_q(Ta.lower()) <= Fraction(str(T)) <= exact_q(Ta.upper())
     ex = exact_facts.check(d)            # S_i(0) = c and grad L(0) = 0, exactly (Q(omega))
     assert ex["ok"], ex
     hs = build_h(d, N, Ta)

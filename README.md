@@ -4,11 +4,13 @@ Status: **computational certificates, not peer reviewed.** First published 2026-
 the direction of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 
 > [!IMPORTANT]
-> This repository contains an AI-produced **warrant**: computer-checked certificates together with a written reduction,
-> which no human has digested. It is a warrant for Smale's mean value conjecture in degree 6, that is, for the sharp
-> constant $`5/6`$. We do not regard the question as settled by it. We welcome a human-readable treatment, and credit
-> for a proof belongs to whoever writes one. Questions, checks and corrections:
-> [GitHub issues](https://github.com/alejandrozarco/smale-mean-value-degree6/issues).
+> This repository is a public, timestamped, AI-produced **warrant** for Smale's mean value conjecture in degree 6,
+> that is, for the sharp constant $`5/6`$ (S. Smale, Bull. Amer. Math. Soc. 4 (1981) 1–36): computer-checked
+> certificates together with a written reduction, which no human has yet digested. We do not regard the question as
+> settled by it. Independent verification and human-readable expositions are welcome, and credit for a
+> human-readable proof belongs to whoever writes one. To refer to the computational result, please cite the archived
+> repository ([doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019)). Questions, checks and
+> corrections: [GitHub issues](https://github.com/alejandrozarco/smale-mean-value-degree6/issues).
 
 Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.2 is
 [doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository; the
@@ -129,6 +131,28 @@ in increasing id order, and the file's sha256 equals the canonical digest printe
 `db22fef3393a3d208b0f20dc94e3ddedd92d9d4d724af602081a0e55bccfc823`. The compressed file is 381 024 434 bytes, with sha256
 `b53da6959b7ce068722db2159e966b21792abdf81e30c1a957b188d82f494690`.
 
+## Independent check of the formulas from first principles
+
+The evaluator and the arb checker both take their formulas for $`S_i`$ from the same specification. `firstprinciples/`
+checks those formulas, and the tree, against the original quantity. It computes $`V_i = P(b_i)/b_i`$ by building $`P`$
+from its critical points, multiplying out $`P'`$ and integrating its coefficients. It was written without reading the
+evaluator, the arb checker, its specification or `REDUCTION.md`. Details are in `firstprinciples/REPORT.md`.
+
+- **Exact checks** (`derive.py`, sympy, $`d = 4, \dots, 7`$):
+  - the formulas for $`S_i`$ equal $`V_i`$;
+  - the scaling, permutation and conjugation symmetries used for the chart;
+  - $`V_i = (d-1)/d`$ at every equality point;
+  - the hand-over bound $`\lVert\varepsilon\rVert_2 \le -\log(1-r)`$ for the local certificates.
+- **Trees:** every $`d = 5`$ and $`d = 6`$ record parses as exactly one complete tree. Every outside, symmetry and
+  excluded leaf satisfies its claim, checked exactly, with 0 violations. Excluded leaves were checked against the
+  exact ball of radius $`1/20`$.
+- **Sampling of F, E and L leaves:** the true $`V_i`$ were evaluated at corners, centres and random points.
+  - $`d = 5`$: all leaves.
+  - $`d = 6`$: 2.19 M leaves (423 M points), including every leaf at depth $`\ge 66`$.
+  - Result: 0 violations. The smallest margins (F/E/L) are $`1.3 \cdot 10^{-6}`$, $`1.1 \cdot 10^{-5}`$ and $`6.5 \cdot 10^{-5}`$.
+
+This is a falsification test, not a proof: the sampling uses floating point, with a 50-digit recheck near thresholds.
+
 ## Figures
 
 Regenerate with `python3 figures/make_figures.py` (matplotlib).
@@ -181,6 +205,7 @@ the radius that the excluded balls map into.
 | `c/arbcheck/` | independent FLINT/arb checker of the subdivision tree (`SPEC.md`, `arbcheck.c`, `Makefile`, `README.md`) |
 | `c/export_tree.c`, `c/tree_digest.py` | writes the subdivision tree of a run; canonical digest of a tree file |
 | `runs/d6_arbcheck/`, `runs/d5_arbcheck/` | arb check logs, versions and hashes; export versus run records |
+| `firstprinciples/` | independent first-principles check of the formulas, symmetries, equality points and hand-over (exact), and of the trees against $`V_i`$ computed from $`P`$ (sampling) |
 | `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run log |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
 | `runs/local_cert_v3_*.log` | local certificate outputs |
@@ -195,6 +220,12 @@ the radius that the excluded balls map into.
 Requirements: a C compiler; Python 3 with `mpmath`, `numpy`, `sympy`, `python-flint` (arb) and `matplotlib`.
 Versions used: Apple clang 21.0.0 on macOS arm64 (Apple M5), Python 3.9.6, python-flint 0.6.0, mpmath 1.3.0,
 numpy 1.26.4, sympy 1.14.0, matplotlib 3.9.4.
+Also run on Linux (Ubuntu 24.04, aarch64): GCC 13.3, FLINT 3.0.1 from the distribution, Python 3.12.3, python-flint
+0.9.0, mpmath 1.3.0, numpy 2.5.3, sympy 1.14.0. Every step below passed except the ones not run there (the full
+$`d = 6`$ rerun, and the $`d = 6`$ tree export and arb check); instead the $`d = 5`$ tree was exported, compared and checked in
+arb (PASS). With python-flint 0.9.0, `local/local_cert.py` certifies both radii; its printed bounds differ from the logs
+of 0.6.0 from the 9th significant digit on (different ball radii).
+On Linux build the arb checker with `make FLINT_PREFIX=/usr`.
 
 ```sh
 # build (writes OUT/smale_bb_v2.bin and OUT/BUILD.txt)
@@ -214,13 +245,13 @@ python3 c/check_done.py OUT/d6 --build OUT/BUILD.txt --bin OUT/smale_bb_v2.bin
 
 # equality points (certified in arb), primitives, targeted regression
 python3 c/regress/eqpoints_v2.py OUT/smale_bb_v2.bin
-cc -O2 -ffp-contract=off -DSRC_SHA256_RAW=0 -Ithird_party/core-math-log -o OUT/prim_test c/regress/prim_test_v2.c third_party/core-math-log/log.c -lpthread
+cc -O2 -ffp-contract=off -DSRC_SHA256_RAW=0 -Ithird_party/core-math-log -o OUT/prim_test c/regress/prim_test_v2.c third_party/core-math-log/log.c -lpthread -lm
 OUT/prim_test | python3 c/regress/prim_check_v2.py
 python3 c/regress/regress_v2.py OUT/smale_bb_v2.bin runs/d5_v2/d5 OUT/regress
 
-# independent arb check (needs FLINT >= 3): export the tree (about 7 CPU-hours for d = 6), check it (about 3.4 CPU-hours)
+# independent arb check (needs FLINT >= 3.0; on Linux: make FLINT_PREFIX=/usr): export the tree (about 7 CPU-hours for d = 6), check it (about 3.4 CPU-hours)
 (cd c/arbcheck && make)
-cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=$(shasum -a 256 c/smale_bb_v2.c | cut -d' ' -f1) -Ic -Ithird_party/core-math-log -o OUT/export_tree c/export_tree.c third_party/core-math-log/log.c -lpthread
+cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=$(shasum -a 256 c/smale_bb_v2.c | cut -d' ' -f1) -Ic -Ithird_party/core-math-log -o OUT/export_tree c/export_tree.c third_party/core-math-log/log.c -lpthread -lm
 OUT/export_tree 6 0.05 runs/d6_v2/d6.tasks OUT/d6 3
 python3 c/regress/cmp_export_counts.py OUT/d6.counts runs/d6_v2/d6.done   # runs/d6_arbcheck/export_vs_done.txt
 python3 c/tree_digest.py OUT/d6.tree                     # compare with runs/d6_arbcheck/BUILD.txt
@@ -274,3 +305,9 @@ The local certificate assumes the correctness of arb (python-flint).
 - M. Forsberg, M. Passare, A. Tsikh, Laurent determinants and arrangements of hyperplane amoebas, Adv. Math. 151
   (2000) 45–70.
 - A. Sibidanov, P. Zimmermann, S. Glondu, The CORE-MATH project, ARITH 2022.
+
+## Licence
+
+Apache License 2.0 (`LICENSE`) for the whole repository: code, certificates, data and text. Not covered:
+`third_party/core-math-log/`, which is the CORE-MATH correctly rounded logarithm under its own MIT licence
+(`third_party/core-math-log/LICENSE`).

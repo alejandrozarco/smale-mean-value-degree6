@@ -1,0 +1,6 @@
+11:27:40 === step intense d = 6
+11:27:41 intense search on 950 leaves
+11:28:02 intense F: smallest margin after adversarial search 1.287e-06 at (task, leaf, depth, why) (18097, 8418985, 70, 'closest')
+11:28:02 intense E: smallest margin after adversarial search 1.122e-05 at (task, leaf, depth, why) (18097, 14899012, 70, 'closest')
+11:28:02 intense L: smallest margin after adversarial search 6.493e-05 at (task, leaf, depth, why) (18097, 8421644, 70, 'closest')
+11:28:02 intense candidate violations (float): 0 (21s)

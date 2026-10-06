@@ -1,0 +1,27 @@
+11:18:48 === step prep d = 6
+11:18:49 tasks 49152 half_width 0.25 | header: # smale_bb_v2 tasks cfg=68799ac19f5007c9 smale_bb_v2;src=8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f;d=6;r_excl=3fa999999999999a;excl_mode=2;s=4;seed=1 ntask=49152 half_width=0x1p
+11:18:49 equality points 24
+11:18:49 top-box grid: 49152 cells present, 16384 missing; missing cells not certified disjoint from R: 0
+11:18:49 R is contained in [-1,1]^D since |u_j|<=1; grid covers [-1,1]^D: True
+11:18:49 === step stats d = 6
+11:19:31 walker stats exit code 0 time 41.9s
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 0
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 9.536743e-07
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 5.455652e-10
+
+11:19:31 records 49152 distinct ids 49152 all complete True extra bytes 0 bad codes 0 unresolved leaves 0
+11:19:31 file size 1875506066 = sum(14 + nbytes)? True
+11:19:31 every record: #internal = #leaves - 1 ? True
+11:19:32 === step geom d = 6
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 0
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 9.536743e-07
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 5.455652e-10
+
+11:19:32 geometric leaves flagged by the double check (borderline or failing): 0
+11:19:32 exact geometric violations: 0

@@ -1,0 +1,61 @@
+11:28:12 === step prep d = 6
+11:28:12 tasks 49152 half_width 0.25 | header: # smale_bb_v2 tasks cfg=68799ac19f5007c9 smale_bb_v2;src=8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f;d=6;r_excl=3fa999999999999a;excl_mode=2;s=4;seed=1 ntask=49152 half_width=0x1p
+11:28:12 equality points 24
+11:28:12 top-box grid: 49152 cells present, 16384 missing; missing cells not certified disjoint from R: 0
+11:28:12 R is contained in [-1,1]^D since |u_j|<=1; grid covers [-1,1]^D: True
+11:28:13 === step stats d = 6
+11:28:48 walker stats exit code 0 time 34.7s
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 0
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 9.536743e-07
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 5.455652e-10
+
+11:28:48 records 49152 distinct ids 49152 all complete True extra bytes 0 bad codes 0 unresolved leaves 0
+11:28:48 file size 1875506066 = sum(14 + nbytes)? True
+11:28:48 every record: #internal = #leaves - 1 ? True
+11:28:48 === step select d = 6
+11:28:48 F/E/L leaves total 744531746 base probability 0.000403 expected sample 444554 deep threshold 66 (410633 leaves at depth >= T) max depth 71
+11:29:26 walker sample exit 0 time 37.7s
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 854711
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+
+11:29:27 === step eval d = 6
+11:29:27 sampled leaves 854711 nrand 16 corners for every 1-th leaf and all deep leaves
+11:29:27   type F corners=False: 0 leaves done (0s)
+11:32:20   type F corners=True: 462161 leaves done (173s)
+11:32:20   type E corners=False: 0 leaves done (173s)
+11:33:41   type E corners=True: 184800 leaves done (255s)
+11:33:42   type L corners=False: 0 leaves done (255s)
+11:35:14   type L corners=True: 207750 leaves done (347s)
+11:35:14 evaluated per type: F 462161 E 184800 L 207750; mp rechecks 1; violations 0
+11:35:14 distinct task ids among sampled leaves: 48135
+11:35:15 F: 462161 leaves, 123415542 sampled points, 2754411 degenerate points skipped, failing 0, min margin 1.287e-06
+11:35:15    task 18097 leaf 8418985 depth 70 margin 1.287e-06 best i=0 (V_1), pointwise margin 1.820e-04
+11:35:15    task 18097 leaf 8174568 depth 70 margin 1.415e-06 best i=0 (V_1), pointwise margin 3.499e-04
+11:35:15    task 18097 leaf 8365753 depth 70 margin 1.448e-06 best i=0 (V_1), pointwise margin 1.815e-04
+11:35:15    task 18097 leaf 13204678 depth 70 margin 1.485e-06 best i=0 (V_1), pointwise margin 1.815e-04
+11:35:15    task 19414 leaf 8374951 depth 70 margin 1.485e-06 best i=0 (V_1), pointwise margin 1.815e-04
+11:35:15    F: leaves where no single i works at all samples: 0; pointwise min_i|V_i|<c fails: 0
+11:35:15 E: 184800 leaves, 50411552 sampled points, 38848 degenerate points skipped, failing 0, min margin 1.122e-05
+11:35:15    task 19414 leaf 9541243 depth 70 margin 1.122e-05 pair V_1,V_4
+11:35:15    task 18097 leaf 14899012 depth 70 margin 1.122e-05 pair V_1,V_3
+11:35:15    task 18097 leaf 8401562 depth 70 margin 1.135e-05 pair V_1,V_3
+11:35:15    task 18097 leaf 13213434 depth 70 margin 1.275e-05 pair V_1,V_3
+11:35:15    task 19414 leaf 8381818 depth 70 margin 1.275e-05 pair V_1,V_4
+11:35:15 L: 207750 leaves, 56715750 sampled points, 0 degenerate points skipped, failing 0, min margin 6.493e-05
+11:35:15    task 18097 leaf 8421644 depth 70 margin 6.493e-05 
+11:35:15    task 18097 leaf 8420778 depth 70 margin 6.494e-05 
+11:35:15    task 18097 leaf 8416320 depth 70 margin 6.519e-05 
+11:35:15    task 19414 leaf 6506346 depth 70 margin 6.519e-05 
+11:35:15    task 18097 leaf 8365191 depth 70 margin 6.523e-05 
+11:35:15 deep leaves (all leaves at depth >= threshold): 410633, depths 66..71, failing 0, min margin 1.287e-06
+11:35:15 largest min_i|V_i| at any sampled point: 0.833257499011631 (c = 0.833333333333333, c - value = 7.583e-05), task 18097 leaf 8532028 type L
+11:35:16 === step intense d = 6
+11:35:16 intense search on 1550 leaves
+11:35:55 intense F: smallest margin after adversarial search 1.287e-06 at (task, leaf, depth, why) (18097, 8418985, 70, 'closest')
+11:35:55 intense E: smallest margin after adversarial search 1.122e-05 at (task, leaf, depth, why) (19414, 9541243, 70, 'closest')
+11:35:55 intense L: smallest margin after adversarial search 6.493e-05 at (task, leaf, depth, why) (18097, 8421644, 70, 'closest')
+11:35:55 intense candidate violations (float): 0 (39s)

@@ -1,0 +1,31 @@
+11:19:14 === step eval d = 5
+11:19:14 sampled leaves 1001160 nrand 12 corners for every 1-th leaf and all deep leaves
+11:19:14   type F corners=False: 0 leaves done (0s)
+11:20:09   type F corners=True: 757590 leaves done (55s)
+11:20:09   type E corners=False: 0 leaves done (55s)
+11:20:18   type E corners=True: 143562 leaves done (64s)
+11:20:18   type L corners=False: 0 leaves done (64s)
+11:20:24   type L corners=True: 100008 leaves done (70s)
+11:20:24 evaluated per type: F 757590 E 143562 L 100008; mp rechecks 0; violations 0
+11:20:24 distinct task ids among sampled leaves: 3040
+11:20:24 F: 757590 leaves, 58227410 sampled points, 107020 degenerate points skipped, failing 0, min margin 3.130e-06
+11:20:24    task 1164 leaf 83644 depth 46 margin 3.130e-06 best i=0 (V_1), pointwise margin 5.116e-04
+11:20:24    task 1164 leaf 85177 depth 46 margin 3.271e-06 best i=0 (V_1), pointwise margin 4.303e-04
+11:20:24    task 1164 leaf 85194 depth 44 margin 4.534e-06 best i=0 (V_1), pointwise margin 5.655e-04
+11:20:24    task 1164 leaf 92136 depth 43 margin 6.033e-06 best i=0 (V_1), pointwise margin 6.850e-04
+11:20:24    task 1164 leaf 99587 depth 42 margin 6.170e-06 best i=0 (V_1), pointwise margin 7.404e-04
+11:20:24    F: leaves where no single i works at all samples: 0; pointwise min_i|V_i|<c fails: 0
+11:20:24 E: 143562 leaves, 11028002 sampled points, 26272 degenerate points skipped, failing 0, min margin 2.501e-05
+11:20:24    task 1164 leaf 84058 depth 46 margin 2.501e-05 pair V_1,V_3
+11:20:24    task 2332 leaf 44270 depth 46 margin 2.501e-05 pair V_1,V_4
+11:20:24    task 1164 leaf 84269 depth 46 margin 2.560e-05 pair V_1,V_3
+11:20:24    task 2332 leaf 44464 depth 46 margin 2.560e-05 pair V_1,V_4
+11:20:24    task 1164 leaf 83730 depth 47 margin 2.578e-05 pair V_1,V_4
+11:20:24 L: 100008 leaves, 7700616 sampled points, 0 degenerate points skipped, failing 0, min margin 9.068e-05
+11:20:24    task 2203 leaf 36311 depth 47 margin 9.068e-05 
+11:20:24    task 2843 leaf 39331 depth 47 margin 9.068e-05 
+11:20:24    task 1164 leaf 83907 depth 47 margin 9.073e-05 
+11:20:24    task 2203 leaf 36307 depth 47 margin 9.438e-05 
+11:20:24    task 2843 leaf 39327 depth 47 margin 9.438e-05 
+11:20:24 deep leaves (all leaves at depth >= threshold): 12151, depths 42..47, failing 0, min margin 3.130e-06
+11:20:24 largest min_i|V_i| at any sampled point: 0.799872613607229 (c = 0.800000000000000, c - value = 1.274e-04), task 1164 leaf 83461 type L

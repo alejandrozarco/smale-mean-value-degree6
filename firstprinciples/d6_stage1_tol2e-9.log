@@ -1,0 +1,30 @@
+11:21:03 === step stats d = 6
+11:21:38 walker stats exit code 0 time 35.0s
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 0
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 9.536743e-07
+geom excluded: double-fail 0 borderline 8 smallest_positive_margin 5.455652e-10
+
+11:21:39 records 49152 distinct ids 49152 all complete True extra bytes 0 bad codes 0 unresolved leaves 0
+11:21:39 file size 1875506066 = sum(14 + nbytes)? True
+11:21:39 every record: #internal = #leaves - 1 ? True
+11:21:39 === step geom d = 6
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 0
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 9.536743e-07
+geom excluded: double-fail 0 borderline 8 smallest_positive_margin 5.455652e-10
+
+11:21:39 geometric leaves flagged by the double check (borderline or failing): 8
+11:21:39   exact recheck ok excluded task 18097 leaf 8222322 exact margin 5.456e-10
+11:21:39   exact recheck ok excluded task 18097 leaf 8246274 exact margin 5.456e-10
+11:21:39   exact recheck ok excluded task 18097 leaf 8487365 exact margin 5.456e-10
+11:21:39   exact recheck ok excluded task 18097 leaf 8510272 exact margin 5.456e-10
+11:21:39   exact recheck ok excluded task 18097 leaf 8526526 exact margin 5.456e-10
+11:21:39   exact recheck ok excluded task 18097 leaf 11769026 exact margin 1.922e-09
+11:21:39   exact recheck ok excluded task 18097 leaf 11770273 exact margin 1.922e-09
+11:21:39   exact recheck ok excluded task 33926 leaf 6702362 exact margin 5.456e-10
+11:21:39 exact geometric violations: 0

@@ -1,0 +1,34 @@
+11:36:48 === step prep d = 5
+11:36:48 tasks 3072 half_width 0.25 | header: # smale_bb_v2 tasks cfg=21658f8d6557ae26 smale_bb_v2;src=8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f;d=5;r_excl=3fa999999999999a;excl_mode=2;s=4;seed=1 ntask=3072 half_width=0x1p-
+11:36:48 equality points 6
+11:36:48 top-box grid: 3072 cells present, 1024 missing; missing cells not certified disjoint from R: 0
+11:36:48 R is contained in [-1,1]^D since |u_j|<=1; grid covers [-1,1]^D: True
+11:36:49 === step stats d = 5
+11:36:50 walker stats exit code 0 time 0.2s
+records 3072 bad 0 missing_ids 0 maxdepth 47 maxsplit_per_coord 8 selected 0
+leaves F 757590 E 143562 L 100008 outside 37156 symmetry 205334 excluded 2916 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 6190 E 1642 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 6.103516e-05
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 4.577637e-05
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 1.373291e-06
+
+11:36:50 records 3072 distinct ids 3072 all complete True extra bytes 0 bad codes 0 unresolved leaves 0
+11:36:50 file size 2533068 = sum(14 + nbytes)? True
+11:36:50 every record: #internal = #leaves - 1 ? True
+11:36:51 === step geom d = 5
+records 3072 bad 0 missing_ids 0 maxdepth 47 maxsplit_per_coord 8 selected 0
+leaves F 757590 E 143562 L 100008 outside 37156 symmetry 205334 excluded 2916 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 6190 E 1642 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 6.103516e-05
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 4.577637e-05
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 1.373291e-06
+
+11:36:51 geometric leaves flagged by the double check (borderline or failing): 0
+11:36:51 exact geometric violations: 0
+11:36:53 === step select d = 5
+11:36:53 F/E/L leaves total 1001160 base probability 1 expected sample 1001160 deep threshold 42 (12151 leaves at depth >= T) max depth 47
+11:36:55 walker sample exit 0 time 1.9s
+records 3072 bad 0 missing_ids 0 maxdepth 47 maxsplit_per_coord 8 selected 1001160
+leaves F 757590 E 143562 L 100008 outside 37156 symmetry 205334 excluded 2916 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 6190 E 1642 L 0 excl 0
+

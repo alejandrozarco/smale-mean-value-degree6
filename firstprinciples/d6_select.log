@@ -1,0 +1,7 @@
+11:21:49 === step select d = 6
+11:21:49 F/E/L leaves total 744531746 base probability 0.00161 expected sample 1327000 deep threshold 70 (6660 leaves at depth >= T) max depth 71
+11:22:25 walker sample exit 0 time 36.3s
+records 49152 bad 0 missing_ids 0 maxdepth 71 maxsplit_per_coord 9 selected 1333284
+leaves F 561202241 E 145383090 L 37946415 outside 18661249 symmetry 173649477 excluded 591073 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 1660583 E 1070847 L 0 excl 0
+
