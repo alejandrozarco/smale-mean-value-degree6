@@ -1,0 +1,2 @@
+smale_bb_v3 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860 d=6 r_excl=0.050000000000000003 excl_mode=2 s=4 seed=1 cfg=0ec36a6dfa8e9155: 49152 tasks (16384 trivial top boxes), 0 already done
+{"version": "smale_bb_v3", "cfg": "0ec36a6dfa8e9155", "d": 6, "r_excl": 0.05, "excl_mode": 2, "s": 4, "tasks": 49152, "processed": 126610620, "F": 25543603, "E": 14611796, "L": 10368301, "outside": 1816394, "symmetry": 10731913, "excluded": 257879, "unresolved": 0, "maxdepth": 70, "vol_frac": 0.999999999999999, "wall_this_session": 1560.5}

@@ -26,6 +26,8 @@ least one model instance that did not write it.
 | Coverage check (`c/check_done.py`) and changes to the local certificate | Claude Sonnet 5 |
 | Second local certificate (`local2/`), $`d = 6`$ | Claude Fable 5.1 |
 | `local2/` generalised to $`d = 5, 6, 7`$, with the joint final step | gpt-6-astra |
+| Version 3 of the evaluator, change A9 (`c/smale_bb_v3.c`, `c/ERROR_ANALYSIS_v3.md`) | Claude Fable 5.1, with exact checks of the Taylor coefficients and adversarial boxes; gpt-6-astra, with exact rational checks and tests of the run partition and merging |
+| arb checker with the w-form (`c/arbcheck/arbcheck2.c`) | Claude Opus 5.5 (separate instance), adversarial, with tampered trees |
 | Public repository as a whole | gpt-6-astra (stopped early by a usage limit); Claude Opus 5.5 |
 
 The AI reviews found real errors. All of them were fixed:
@@ -49,6 +51,12 @@ The AI reviews found real errors. All of them were fixed:
 - **Second local certificate, $`d = 7`$.** Five displayed decimal enclosures in `local2/README.md` had been rounded
   inward, and the run scripts returned exit status 0 after a failure (gpt-6-astra). The certified rational constants
   were unaffected.
+- **Version 3.** While writing the error analysis of the w-form, the authoring model found that an absolute error
+  term in the new gradient had not been multiplied by $`\lvert 1/m^2\rvert`$, which can be as large as $`2^{80}`$. It was fixed
+  before the recorded v3 runs. The reviews of v3 found no arithmetic defect. gpt-6-astra found tooling issues, both
+  fixed: `c/check_done.py` accepted `--bin` without `--build`, and `c/merge_done.py` removed duplicate records before
+  validating them fully. It also found that the run program accepts malformed partition strings; this is documented
+  in `c/ERROR_ANALYSIS_v3.md` (W.9), and the completion check catches the resulting gaps.
 - **arb checker.** Non-finite task coordinates were accepted, and a cache reset was in the wrong place, a latent
   hazard (Claude Fable 5.1).
 
@@ -57,10 +65,11 @@ independent of the authoring model: two of the three review families are Claude 
 Lean community this is a *warrant*, not a human-readable proof (see the note at the top of `README.md`).
 
 **What is checked by software**
-- **Branch-and-bound run.** `c/smale_bb_v2.c` covers the compact chart in binary64 ball arithmetic. `c/check_done.py`
-  checks in exact rational arithmetic that the finished tasks cover the grid.
-- **Subdivision tree.** `c/arbcheck/` re-verifies the claim of every leaf of the exported tree in FLINT/arb ball
-  arithmetic. It is independent of the evaluator's floating-point error analysis.
+- **Branch-and-bound run.** `c/smale_bb_v2.c` (and, as a second cover, `c/smale_bb_v3.c`) covers the compact chart
+  in binary64 ball arithmetic. `c/check_done.py` checks in exact rational arithmetic that the finished tasks cover the
+  grid.
+- **Subdivision tree.** `c/arbcheck/` (for v3: `arbcheck2`) re-verifies the claim of every leaf of the exported tree
+  in FLINT/arb ball arithmetic. It is independent of the evaluator's floating-point error analysis.
 - **Local certificates.** `local/` and `local2/` certify the inequality near the extremal configuration in arb ball
   arithmetic. `local2/` also uses exact arithmetic in $`\mathbb{Q}(\omega)`$.
 

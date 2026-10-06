@@ -1,0 +1,113 @@
+15:20:43 === step prep d = 6
+15:20:43 tasks 49152 half_width 0.25 | header: # smale_bb_v3 tasks cfg=0ec36a6dfa8e9155 smale_bb_v3;src=1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860;d=6;r_excl=3fa999999999999a;excl_mode=2;s=4;seed=1 ntask=49152 half_width=0x1p
+15:20:43 equality points 24
+15:20:43 top-box grid: 49152 cells present, 16384 missing; missing cells not certified disjoint from R: 0
+15:20:43 R is contained in [-1,1]^D since |u_j|<=1; grid covers [-1,1]^D: True
+15:20:43 === step stats d = 6
+15:20:44 walker stats exit code 0 time 1.4s
+records 49152 bad 0 missing_ids 0 maxdepth 70 maxsplit_per_coord 9 selected 0
+leaves F 25543603 E 14611796 L 10368301 outside 1816394 symmetry 10731913 excluded 257879 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 299838 E 29356 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 6.103516e-05
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 5.455652e-10
+
+15:20:44 records 49152 distinct ids 49152 all complete True extra bytes 0 bad codes 0 unresolved leaves 0
+15:20:44 file size 127298748 = sum(14 + nbytes)? True
+15:20:44 every record: #internal = #leaves - 1 ? True
+15:20:44 === step geom d = 6
+records 49152 bad 0 missing_ids 0 maxdepth 70 maxsplit_per_coord 9 selected 0
+leaves F 25543603 E 14611796 L 10368301 outside 1816394 symmetry 10731913 excluded 257879 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 299838 E 29356 L 0 excl 0
+geom outside: double-fail 0 borderline 0 smallest_positive_margin 6.103516e-05
+geom symmetry: double-fail 0 borderline 0 smallest_positive_margin 3.814697e-06
+geom excluded: double-fail 0 borderline 0 smallest_positive_margin 5.455652e-10
+
+15:20:44 geometric leaves flagged by the double check (borderline or failing): 0
+15:20:44 exact geometric violations: 0
+15:20:44 === step select d = 6
+15:20:44 F/E/L leaves total 50523700 base probability 0.0238 expected sample 1324208 deep threshold 67 (15534 leaves at depth >= T) max depth 70
+15:20:46 walker sample exit 0 time 1.7s
+records 49152 bad 0 missing_ids 0 maxdepth 70 maxsplit_per_coord 9 selected 1337738
+leaves F 25543603 E 14611796 L 10368301 outside 1816394 symmetry 10731913 excluded 257879 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 299838 E 29356 L 0 excl 0
+
+15:20:46 === step eval d = 6
+15:20:46 sampled leaves 1337738 nrand 12 corners for every 1-th leaf and all deep leaves
+15:20:46   type F corners=False: 0 leaves done (0s)
+15:22:29   type F corners=True: 735664 leaves done (103s)
+15:22:29   type E corners=False: 0 leaves done (103s)
+15:23:20   type E corners=True: 350359 leaves done (154s)
+15:23:20   type L corners=False: 0 leaves done (154s)
+15:23:57   type L corners=True: 251715 leaves done (191s)
+15:23:57 evaluated per type: F 735664 E 350359 L 251715; mp rechecks 1; violations 0
+15:23:57 distinct task ids among sampled leaves: 48380
+15:23:57 F: 735664 leaves, 194004405 sampled points, 3889211 degenerate points skipped, failing 0, min margin 2.115e-06
+15:23:57    task 18097 leaf 3763544 depth 68 margin 2.115e-06 best i=0 (V_1), pointwise margin 1.823e-04
+15:23:57    task 18097 leaf 2091760 depth 67 margin 2.258e-06 best i=0 (V_1), pointwise margin 3.554e-04
+15:23:57    task 33926 leaf 1697618 depth 66 margin 2.378e-06 best i=0 (V_1), pointwise margin 2.489e-04
+15:23:57    task 18097 leaf 2175004 depth 67 margin 2.467e-06 best i=0 (V_1), pointwise margin 3.795e-04
+15:23:57    task 18097 leaf 2327855 depth 67 margin 2.543e-06 best i=0 (V_1), pointwise margin 4.357e-04
+15:23:57    F: leaves where no single i works at all samples: 0; pointwise min_i|V_i|<c fails: 0
+15:23:57 E: 350359 leaves, 94198315 sampled points, 48256 degenerate points skipped, failing 0, min margin 7.256e-06
+15:23:57    task 18097 leaf 2114270 depth 67 margin 7.256e-06 pair V_1,V_2
+15:23:57    task 19414 leaf 2585387 depth 68 margin 7.465e-06 pair V_1,V_4
+15:23:57    task 18097 leaf 2066539 depth 67 margin 7.530e-06 pair V_1,V_3
+15:23:57    task 19414 leaf 1584465 depth 67 margin 7.695e-06 pair V_1,V_4
+15:23:57    task 18097 leaf 2050635 depth 67 margin 8.050e-06 pair V_1,V_2
+15:23:57 L: 251715 leaves, 67711335 sampled points, 0 degenerate points skipped, failing 0, min margin 2.679e-05
+15:23:57    task 18097 leaf 2222037 depth 69 margin 2.679e-05 
+15:23:57    task 18097 leaf 4280484 depth 69 margin 2.789e-05 
+15:23:57    task 19414 leaf 2613723 depth 69 margin 2.789e-05 
+15:23:57    task 18097 leaf 2157005 depth 69 margin 2.902e-05 
+15:23:57    task 19414 leaf 1535501 depth 69 margin 2.902e-05 
+15:23:57 deep leaves (all leaves at depth >= threshold): 15534, depths 67..70, failing 0, min margin 2.115e-06
+15:23:57 largest min_i|V_i| at any sampled point: 0.833222194500798 (c = 0.833333333333333, c - value = 1.111e-04), task 18097 leaf 2221856 type L
+15:23:57 === step intense d = 6
+15:23:57 intense search on 650 leaves
+15:24:02 intense F: smallest margin after adversarial search 2.115e-06 at (task, leaf, depth, why) (18097, 3763544, 68, 'closest')
+15:24:02 intense E: smallest margin after adversarial search 7.256e-06 at (task, leaf, depth, why) (18097, 2114270, 67, 'closest')
+15:24:02 intense L: smallest margin after adversarial search 2.679e-05 at (task, leaf, depth, why) (18097, 2222037, 69, 'closest')
+15:24:02 intense candidate violations (float): 0 (6s)
+15:24:02 === step maxmin d = 6
+15:24:03   start task 18097 leaf 2222158: local max of min_i|V_i| = 0.833275910789926 (c - value 5.74e-05), dist to nearest equality point 4.69e-02, max|u_j| 0.9995
+15:24:03   start task 18097 leaf 2221862: local max of min_i|V_i| = 0.833282999509490 (c - value 5.03e-05), dist to nearest equality point 4.50e-02, max|u_j| 0.9992
+15:24:03   start task 18097 leaf 2221860: local max of min_i|V_i| = 0.833279083876330 (c - value 5.42e-05), dist to nearest equality point 4.56e-02, max|u_j| 0.9997
+15:24:03   start task 18097 leaf 2221859: local max of min_i|V_i| = 0.833275013055588 (c - value 5.83e-05), dist to nearest equality point 4.73e-02, max|u_j| 0.9997
+15:24:03   start task 18097 leaf 2222153: local max of min_i|V_i| = 0.833279907577598 (c - value 5.34e-05), dist to nearest equality point 4.88e-02, max|u_j| 0.9987
+15:24:03   start task 18097 leaf 2222154: local max of min_i|V_i| = 0.833279985243069 (c - value 5.33e-05), dist to nearest equality point 4.70e-02, max|u_j| 1.0003
+15:24:03   start task 18097 leaf 2222157: local max of min_i|V_i| = 0.833300551909034 (c - value 3.28e-05), dist to nearest equality point 3.44e-02, max|u_j| 0.9995
+15:24:03   start task 18097 leaf 2221856: local max of min_i|V_i| = 0.833283240047455 (c - value 5.01e-05), dist to nearest equality point 4.13e-02, max|u_j| 0.9979
+15:24:03   start task 18097 leaf 2222159: local max of min_i|V_i| = 0.833272280077879 (c - value 6.11e-05), dist to nearest equality point 4.91e-02, max|u_j| 0.9993
+15:24:03   start task 18097 leaf 2221861: local max of min_i|V_i| = 0.833290056335090 (c - value 4.33e-05), dist to nearest equality point 3.88e-02, max|u_j| 1.0029
+15:24:03   start task 18097 leaf 2222155: local max of min_i|V_i| = 0.833278932622060 (c - value 5.44e-05), dist to nearest equality point 4.80e-02, max|u_j| 0.9992
+15:24:04   start task 18097 leaf 2221857: local max of min_i|V_i| = 0.833279277599376 (c - value 5.41e-05), dist to nearest equality point 4.65e-02, max|u_j| 1.0004
+15:24:04   start task 18097 leaf 2222160: local max of min_i|V_i| = 0.833269766025574 (c - value 6.36e-05), dist to nearest equality point 4.85e-02, max|u_j| 0.9998
+15:24:04   start task 18097 leaf 2222162: local max of min_i|V_i| = 0.833295660315813 (c - value 3.77e-05), dist to nearest equality point 2.48e-02, max|u_j| 1.0021
+15:24:04   start task 18097 leaf 2983661: local max of min_i|V_i| = 0.833268410552795 (c - value 6.49e-05), dist to nearest equality point 4.90e-02, max|u_j| 0.9925
+15:24:04   start task 33926 leaf 1718415: local max of min_i|V_i| = 0.833277571101660 (c - value 5.58e-05), dist to nearest equality point 4.79e-02, max|u_j| 0.9928
+15:24:04   start task 18097 leaf 2983688: local max of min_i|V_i| = 0.833280362337349 (c - value 5.30e-05), dist to nearest equality point 4.72e-02, max|u_j| 0.9914
+15:24:04   start task 33926 leaf 2338180: local max of min_i|V_i| = 0.833280688832896 (c - value 5.26e-05), dist to nearest equality point 4.72e-02, max|u_j| 0.9910
+15:24:04   start task 33926 leaf 2338149: local max of min_i|V_i| = 0.833280638114890 (c - value 5.27e-05), dist to nearest equality point 4.41e-02, max|u_j| 0.9933
+15:24:04   start task 33926 leaf 2338183: local max of min_i|V_i| = 0.833285483106737 (c - value 4.79e-05), dist to nearest equality point 4.27e-02, max|u_j| 0.9970
+15:24:04   start task 33926 leaf 2338210: local max of min_i|V_i| = 0.833275226053368 (c - value 5.81e-05), dist to nearest equality point 4.74e-02, max|u_j| 0.9920
+15:24:04   start task 18097 leaf 2549661: local max of min_i|V_i| = 0.833283883277635 (c - value 4.95e-05), dist to nearest equality point 4.61e-02, max|u_j| 0.9908
+15:24:04   start task 18097 leaf 2983604: local max of min_i|V_i| = 0.833291571705110 (c - value 4.18e-05), dist to nearest equality point 4.00e-02, max|u_j| 0.9912
+15:24:05   start task 33926 leaf 2338126: local max of min_i|V_i| = 0.833267978148930 (c - value 6.54e-05), dist to nearest equality point 5.28e-02, max|u_j| 0.9909
+15:24:05   start task 18097 leaf 2214935: local max of min_i|V_i| = 0.833279690101209 (c - value 5.36e-05), dist to nearest equality point 5.00e-02, max|u_j| 0.9979
+15:24:05   start task 18097 leaf 2213260: local max of min_i|V_i| = 0.833262208182370 (c - value 7.11e-05), dist to nearest equality point 5.42e-02, max|u_j| 0.9982
+15:24:05   start task 18097 leaf 2214955: local max of min_i|V_i| = 0.833290081589521 (c - value 4.33e-05), dist to nearest equality point 4.29e-02, max|u_j| 0.9995
+15:24:05   start task 18097 leaf 2214990: local max of min_i|V_i| = 0.833259431287808 (c - value 7.39e-05), dist to nearest equality point 5.33e-02, max|u_j| 0.9989
+15:24:05   start task 18097 leaf 2364978: local max of min_i|V_i| = 0.833263284547551 (c - value 7.00e-05), dist to nearest equality point 5.28e-02, max|u_j| 1.0007
+15:24:05   start task 18097 leaf 2366023: local max of min_i|V_i| = 0.833256342650880 (c - value 7.70e-05), dist to nearest equality point 5.47e-02, max|u_j| 0.9998
+15:24:05   start task 18097 leaf 2365822: local max of min_i|V_i| = 0.833270296720729 (c - value 6.30e-05), dist to nearest equality point 5.22e-02, max|u_j| 1.0002
+15:24:05   start task 18097 leaf 2364981: local max of min_i|V_i| = 0.833276175538009 (c - value 5.72e-05), dist to nearest equality point 3.11e-02, max|u_j| 1.0011
+15:24:05   start task 19414 leaf 1524514: local max of min_i|V_i| = 0.833278538951968 (c - value 5.48e-05), dist to nearest equality point 4.48e-02, max|u_j| 0.9943
+15:24:05   start task 18097 leaf 2049982: local max of min_i|V_i| = 0.833293055256753 (c - value 4.03e-05), dist to nearest equality point 4.11e-02, max|u_j| 0.9957
+15:24:06   start task 19414 leaf 2062492: local max of min_i|V_i| = 0.833285315500346 (c - value 4.80e-05), dist to nearest equality point 4.53e-02, max|u_j| 1.0014
+15:24:06   start task 18097 leaf 4278168: local max of min_i|V_i| = 0.833290185495214 (c - value 4.31e-05), dist to nearest equality point 4.65e-02, max|u_j| 0.9995
+15:24:06   start task 18097 leaf 4278172: local max of min_i|V_i| = 0.833294313763277 (c - value 3.90e-05), dist to nearest equality point 4.07e-02, max|u_j| 1.0010
+15:24:06   start task 18097 leaf 4278124: local max of min_i|V_i| = 0.833286789421294 (c - value 4.65e-05), dist to nearest equality point 4.84e-02, max|u_j| 1.0000
+15:24:06   start task 18097 leaf 4278305: local max of min_i|V_i| = 0.833300333323616 (c - value 3.30e-05), dist to nearest equality point 3.54e-02, max|u_j| 1.0022
+15:24:06   start task 19414 leaf 2608882: local max of min_i|V_i| = 0.833288417346059 (c - value 4.49e-05), dist to nearest equality point 4.71e-02, max|u_j| 0.9996
+15:24:06 largest local max of min_i|V_i| found: 0.833300551909034, c = 0.833333333333333

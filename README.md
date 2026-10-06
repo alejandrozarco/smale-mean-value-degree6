@@ -153,6 +153,40 @@ evaluator, the arb checker, its specification or `REDUCTION.md`. Details are in 
 
 This is a falsification test, not a proof: the sampling uses floating point, with a 50-digit recheck near thresholds.
 
+## Version 3 of the evaluator
+
+`c/smale_bb_v3.c` is `c/smale_bb_v2.c` with one change to the mathematics, A9. For $`i \ge 2`$ it adds a second
+enclosure and affine model of $`S_i`$, written in $`w = 1/u_i`$:
+
+```math
+S_i = \int_0^1 (1-t)\,(1 - t w) \prod_{j \ne 1,i} (1 - t\,u_j\,w)\,dt .
+```
+
+This avoids the factor $`u_i^{\,n-1}`$ of $`S_i = T_i/u_i^{\,n-1}`$, whose relative variation over a box made v2's models invalid on large
+parts of the domain. For each $`i`$ the evaluator takes whichever valid bound is better. It also adds A10, an option
+that splits one run over several machines; `c/merge_done.py` merges the parts.
+- **Error analysis:** `c/ERROR_ANALYSIS_v3.md`, an addendum to `c/ERROR_ANALYSIS_v2.md`.
+- **Independent arb check:** `c/arbcheck/arbcheck2.c` adds the same form, written from `c/arbcheck/SPEC.md` and
+  `c/arbcheck/SPEC_W.md` only.
+
+| | $`d = 5`$ | $`d = 6`$ |
+|---|---|---|
+| boxes, v2 | 2 490 060 | 1 874 817 938 |
+| boxes, v3 | 489 000 | 126 610 620 |
+| `c/check_done.py` (v3 run) | CERTIFICATE COMPLETE | CERTIFICATE COMPLETE |
+| `arbcheck2` on the v3 tree: leaves / refined / failures | 246 036 / 0 / 0 | 63 329 886 / 22 / 0 |
+
+Records: `runs/d5_v3/`, `runs/d6_v3/`, `runs/d5_v3_arbcheck2/`, `runs/d6_v3_arbcheck2/`.
+
+Further checks:
+- `c/regress/models_v3_check.py` compares every bound and model printed by v3's `models` mode with values computed
+  from first principles, at random points of random boxes for $`d = 5, 6, 7`$. There were 0 violations.
+- On the earlier tree, `arbcheck2` gives the same result as `arbcheck`.
+- `firstprinciples/sample_tree.py` on the v3 trees: every F/E/L leaf for $`d = 5`$, and 1 337 738 leaves (356 M points) for
+  $`d = 6`$, including every leaf at depth $`\ge 67`$. There were 0 violations (`firstprinciples/v3/`).
+- v3 is intended for $`d = 7`$ and is not needed for the $`d = 6`$ result above. The $`d = 6`$ and $`d = 5`$ runs with v3 are
+  a second, independent cover.
+
 ## Figures
 
 Regenerate with `python3 figures/make_figures.py` (matplotlib).
@@ -205,6 +239,9 @@ the radius that the excluded balls map into.
 | `c/arbcheck/` | independent FLINT/arb checker of the subdivision tree (`SPEC.md`, `arbcheck.c`, `Makefile`, `README.md`) |
 | `c/export_tree.c`, `c/tree_digest.py` | writes the subdivision tree of a run; canonical digest of a tree file |
 | `runs/d6_arbcheck/`, `runs/d5_arbcheck/` | arb check logs, versions and hashes; export versus run records |
+| `c/smale_bb_v3.c`, `c/build_v3.sh`, `c/export_tree_v3.c`, `c/ERROR_ANALYSIS_v3.md`, `c/merge_done.py` | version 3 of the evaluator (w-form models), build, tree export, error-analysis addendum, merging of partial runs |
+| `c/arbcheck/arbcheck2.c`, `SPEC_W.md`, `README2.md` | the arb checker with the w-form |
+| `runs/d5_v3/`, `runs/d6_v3/`, `runs/d*_v3_arbcheck2/` | v3 run records and their arb checks |
 | `firstprinciples/` | independent first-principles check of the formulas, symmetries, equality points and hand-over (exact), and of the trees against $`V_i`$ computed from $`P`$ (sampling) |
 | `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run logs. The code also runs for $`d = 5`$ and $`d = 7`$ (`run_d5_T1_19.log`, `run_d7.sh`); for $`d = 7`$ it is a component of a possible later computation, not a result for $`d = 7`$ |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
@@ -257,6 +294,15 @@ python3 c/regress/cmp_export_counts.py OUT/d6.counts runs/d6_v2/d6.done   # runs
 python3 c/tree_digest.py OUT/d6.tree                     # compare with runs/d6_arbcheck/BUILD.txt
 c/arbcheck/arbcheck -t 3 --quiet 6 runs/d6_v2/d6.tasks OUT/d6.tree
 # or check the released tree directly: zstd -d d6.canonical.tree.zst, then run arbcheck on d6.canonical.tree
+
+# version 3: build, run d = 6 (about 4300 CPU-seconds), check; export the tree and check it with arbcheck2
+c/build_v3.sh OUT3
+OUT3/smale_bb_v3.bin run 6 0.05 4 3 OUT3/d6 2 1
+python3 c/check_done.py OUT3/d6 --build OUT3/BUILD.txt --bin OUT3/smale_bb_v3.bin
+python3 c/regress/models_v3_check.py OUT3/smale_bb_v3.bin 7 4000
+cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=$(shasum -a 256 c/smale_bb_v3.c | cut -d' ' -f1) -Ic -Ithird_party/core-math-log -o OUT3/export_tree_v3 c/export_tree_v3.c third_party/core-math-log/log.c -lpthread -lm
+OUT3/export_tree_v3 6 0.05 runs/d6_v3/d6.tasks OUT3/d6tree 3
+(cd c/arbcheck && make arbcheck2) && c/arbcheck/arbcheck2 -t 3 --quiet 6 runs/d6_v3/d6.tasks OUT3/d6tree.tree
 
 # local certificate (about 1 minute each), exact facts, Jacobian rank
 python3 local/local_cert.py 6 0.0527

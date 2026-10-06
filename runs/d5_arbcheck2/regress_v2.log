@@ -1,0 +1,2 @@
+VERSION arbcheck2 2.0 (SPEC.md T-form + SPEC_W.md w-form), built with FLINT 3.6.0, w-form on
+SUMMARY d=5 records=3072 nodes=2490060 leaves=1246566 F=757590 E=143562 L=100008 O=37156 S=205334 X=2916 U=0 direct=1246566 refined=0 subboxes=0 fail=0 failed_records=0 missing=0 dup=0 unknown=0 badheader=0 tail_incomplete=0 wform_direct=0 (F=0 E=0 L=0) wform_subboxes=0 maxdepth=47 wall=18.1s cpu=10.6s status=PASS

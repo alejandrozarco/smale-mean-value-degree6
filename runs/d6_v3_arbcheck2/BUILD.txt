@@ -1,0 +1,8 @@
+# d = 6 v3 tree, independent arb check (arbcheck2)
+tasks file: runs/d6_v3/d6.tasks  sha256 4c9b1c031774349cfc7729e68872fd521043d8a1f58b63d1b3bce89da97320e4
+tree export: c/export_tree_v3.c  sha256 dc434199bb944b331e380024dd1449b48aa0de4231fec9e21ec6c738b531c8e4  (includes c/smale_bb_v3.c, sha256 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860)
+tree: a0fb4862ed33948f1cd7a509a6b25a2368c13a71d5e75c55374867c287a9a9c6  49152 records  d6.tree  (127298748 bytes)
+checker: c/arbcheck/arbcheck2.c  sha256 01afc9afcbac359db9b57bf69bf33c209cc2a54f2c2714ffe4940f7fc487b3ad
+  built with: make arbcheck2 (FLINT 3.6.0, Apple clang 21.0.0)
+  command: arbcheck2 -t 2 --quiet 6 runs/d6_v3/d6.tasks d6.tree   (default --maxref 12, --prec 64)
+result: status=PASS (fail=0, refined=22)

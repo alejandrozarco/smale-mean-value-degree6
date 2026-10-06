@@ -17,7 +17,7 @@ from fpcore import crit_values, crit_values_mp, x_to_u, EPS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-TASKS = {5: os.path.join(REPO, 'runs/d5_v2/d5.tasks'), 6: os.path.join(REPO, 'runs/d6_v2/d6.tasks')}
+TASKS = {5: os.environ.get('FP_TASKS_D5', os.path.join(REPO, 'runs/d5_v2/d5.tasks')), 6: os.environ.get('FP_TASKS_D6', os.path.join(REPO, 'runs/d6_v2/d6.tasks'))}
 # tree files: the d = 6 tree is the release asset d6.canonical.tree.zst (decompressed); the d = 5 tree is written by
 # c/export_tree.c (README, Reproduce). Override with FP_TREE_D5 / FP_TREE_D6.
 TREES = {5: os.environ.get('FP_TREE_D5', os.path.join(REPO, 'd5.tree')),

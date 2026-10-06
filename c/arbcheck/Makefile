@@ -12,10 +12,17 @@ CFLAGS ?= -O2 -Wall -ffp-contract=off -fcx-limited-range
 arbcheck: arbcheck.c flint_compat.h
 	$(CC) $(CFLAGS) -include flint_compat.h -I$(FLINT_PREFIX)/include -L$(FLINT_PREFIX)/lib -o $@ $< -lflint -lgmp -lmpfr -lpthread -lm
 
+# arbcheck2: arbcheck + the w-form of SPEC_W.md (README2.md). Same flags and force-included flint_compat.h.
+arbcheck2: arbcheck2.c flint_compat.h
+	$(CC) $(CFLAGS) -include flint_compat.h -I$(FLINT_PREFIX)/include -L$(FLINT_PREFIX)/lib -o $@ $< -lflint -lgmp -lmpfr -lpthread -lm
+
+selftest2: arbcheck2
+	./arbcheck2 --selftest 4 && ./arbcheck2 --selftest 5 && ./arbcheck2 --selftest 6 && ./arbcheck2 --selftest 7
+
 selftest: arbcheck
 	./arbcheck --selftest 4 && ./arbcheck --selftest 5 && ./arbcheck --selftest 6 && ./arbcheck --selftest 7
 
 clean:
-	rm -f arbcheck
+	rm -f arbcheck arbcheck2
 
-.PHONY: selftest clean
+.PHONY: selftest selftest2 clean

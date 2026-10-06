@@ -1,0 +1,18 @@
+# smale_bb_v3 build record
+date: 2026-10-06T12:15:16Z
+host: Darwin <host> 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:02:59 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8142 arm64
+compiler: Apple clang version 21.0.0 (clang-2100.3.34.2)
+  Apple clang version 21.0.0 (clang-2100.3.34.2)
+  Target: arm64-apple-darwin27.0.0
+  Thread model: posix
+  InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+build command (run from repo root):
+  cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -Wall -Wno-unused-function -DSRC_SHA256_RAW=1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860 -Ithird_party/core-math-log -o runs/d5_v3/smale_bb_v3.bin c/smale_bb_v3.c third_party/core-math-log/log.c -lpthread -lm
+source sha256: 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860  c/smale_bb_v3.c
+core-math sha256:
+  5f923601d1d0aab2e42136f5432794ecfcf4c23568f273ad8d32921bd1832bcf  third_party/core-math-log/log.c
+  0da80a15d311bb1e550035f98edc2266ef31828cd423aec3a2e4507d2dad5e0e  third_party/core-math-log/dint.h
+core-math upstream commit: 29f5112d58c4df404c4d63576be1eee46b422661 Tue Sep 29 16:53:33 2026 +0200
+binary sha256: 7f653972d72301639c2ef091aeb975d7e94527734e94fcaf30fd93d45bf0414b  runs/d5_v3/smale_bb_v3.bin
+fused multiply-add instructions by function:    7 <_cr_log>:  (expected: only cr_log, shown as <_cr_log> on macOS and <cr_log> on Linux; CORE-MATH explicit __builtin_fma; -ffp-contract=off)
+sha256 self-test: 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860 (must equal source sha256)

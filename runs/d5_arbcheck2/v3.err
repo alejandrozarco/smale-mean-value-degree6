@@ -1,0 +1,1 @@
+arbcheck2 d=5 prec=64 maxref=12 threads=2 wform=1: 3072 tasks, 3072 complete records, checking 3072 records (489000 nodes)

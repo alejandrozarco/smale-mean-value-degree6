@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""check_done.py — independent completion checker for a smale_bb_v2 certification run.
+"""check_done.py — independent completion checker for a smale_bb_v2 or smale_bb_v3 certification run.
 
-usage: python3 c/check_done.py PREFIX [--src c/smale_bb_v2.c] [--build DIR/BUILD.txt] [--bin DIR/smale_bb_v2.bin]
+usage: python3 c/check_done.py PREFIX [--src c/smale_bb_vN.c] [--build DIR/BUILD.txt] [--bin DIR/smale_bb_vN.bin]
                                      [--partial]
 PREFIX is the run prefix (e.g. runs/d6_v2/d6): reads PREFIX.done, PREFIX.tasks, PREFIX.unresolved.
 
 Independent of the C code (pure Python, exact rational arithmetic where it matters). Verifies:
   1. header line: checksum; config string parsed; config hash = sha256(config string)[:16];
-     src sha256 in the config = sha256 of --src (default c/smale_bb_v2.c) = the one recorded in BUILD.txt;
+     src sha256 in the config = sha256 of --src (default c/smale_bb_vN.c, N from the header) = BUILD.txt's;
      binary sha256 = BUILD.txt (if --bin/--build given); excl_mode = 2; 0 < r_excl <= 0.05 and the
      local-certificate hand-over r/(1-r) <= 0.0527 holds exactly for the IEEE value of r_excl.
   2. every record: checksum, exact field format, cfg hash = header's, id in range, each id exactly once,
@@ -36,7 +36,6 @@ while i < len(args):
         partial = True; i += 1
     else:
         opt[args[i]] = args[i + 1]; i += 2
-src = opt.get('--src', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'smale_bb_v2.c'))
 fails = []
 def fail(msg):
     fails.append(msg)
@@ -62,17 +61,21 @@ if not lines:
 hdr = check_line(lines[0])
 if hdr is None:
     fail('header checksum'); print('RESULT: FAIL'); sys.exit(1)
-m = re.fullmatch(r'H smale_bb_v2 cfg=([0-9a-f]{16}) (smale_bb_v2;src=([0-9a-f]{64});d=(\d+);r_excl=([0-9a-f]{16});'
+m = re.fullmatch(r'H (smale_bb_v[23]) cfg=([0-9a-f]{16}) ((smale_bb_v[23]);src=([0-9a-f]{64});d=(\d+);r_excl=([0-9a-f]{16});'
                  r'excl_mode=(\d+);s=(\d+);seed=(\d+))', hdr)
-if not m:
+if not m or m.group(1) != m.group(4):
     fail('header format'); print('RESULT: FAIL'); sys.exit(1)
-cfg16, cfgs, src_sha, d, rbits, em, s, seed = m.groups()
+version, cfg16, cfgs, _, src_sha, d, rbits, em, s, seed = m.groups()
+src = opt.get('--src', os.path.join(os.path.dirname(os.path.abspath(__file__)), version + '.c'))
+print('version:', version)
 d, em, s, seed = int(d), int(em), int(s), int(seed)
 r = struct.unpack('>d', bytes.fromhex(rbits))[0]
 if sha(cfgs.encode())[:16] != cfg16:
     fail('config hash does not match config string')
 if sha(open(src, 'rb').read()) != src_sha:
     fail(f'source sha256 of {src} differs from the config (records were produced by another source)')
+if '--bin' in opt and '--build' not in opt:
+    fail('--bin needs --build (the binary hash is taken from BUILD.txt)')
 if '--build' in opt:
     b = open(opt['--build']).read()
     mm = re.search(r'source sha256: ([0-9a-f]{64})', b)
@@ -80,7 +83,9 @@ if '--build' in opt:
         fail('BUILD.txt source sha256 differs from config')
     mb = re.search(r'binary sha256: ([0-9a-f]{64})', b)
     if '--bin' in opt:
-        if not mb or sha(open(opt['--bin'], 'rb').read()) != mb.group(1):
+        if not os.path.exists(opt['--bin']):
+            fail(f"--bin {opt['--bin']} does not exist")
+        elif not mb or sha(open(opt['--bin'], 'rb').read()) != mb.group(1):
             fail('binary sha256 differs from BUILD.txt')
 if em != 2:
     fail(f'excl_mode {em} != 2 (only the Euclidean u-ball matches local/LOCAL_CERT.md)')
@@ -117,7 +122,7 @@ def exact_discard(c):
     return None
 # tasks file
 tl = open(pre + '.tasks').read().split('\n')
-mt = re.fullmatch(r'# smale_bb_v2 tasks cfg=([0-9a-f]{16}) (\S+) ntask=(\d+) half_width=(\S+)', tl[0])
+mt = re.fullmatch(r'# ' + version + r' tasks cfg=([0-9a-f]{16}) (\S+) ntask=(\d+) half_width=(\S+)', tl[0])
 if not mt or mt.group(1) != cfg16 or mt.group(2) != cfgs:
     fail('tasks file header does not match the config')
 ntask = int(mt.group(3)) if mt else 0

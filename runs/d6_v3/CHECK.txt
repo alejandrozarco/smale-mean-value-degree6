@@ -1,0 +1,2 @@
+records: 49152/49152 tasks, boxes {'processed': 126610620, 'F': 25543603, 'E': 14611796, 'L': 10368301, 'outside': 1816394, 'sym': 10731913, 'excl': 257879, 'unres': 0}, maxdepth 70, task-cpu 4278 s
+RESULT: CERTIFICATE COMPLETE (all tasks exactly once, 0 unresolved, config/source bound, grid exact)
