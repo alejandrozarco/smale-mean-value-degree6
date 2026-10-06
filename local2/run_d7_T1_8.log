@@ -1,0 +1,124 @@
+# run started (date removed)
+
+########## certify.py --d=7 --joint 1/8 6
+=== Local certificate, d=7: T = 1/8 (= 0.125000), Taylor degree N = 6, prec = 200 bits
+[1] exact facts at x = 0 (exact arithmetic in Q(omega))
+  S_1(0) = 6/7 exactly: True
+  S_2(0) = 6/7 exactly: True
+  S_3(0) = 6/7 exactly: True
+  S_4(0) = 6/7 exactly: True
+  S_5(0) = 6/7 exactly: True
+  S_6(0) = 6/7 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_5(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_6(0) = 0 exactly in Q(omega): True
+[2] exact Taylor coefficients of S_i up to degree 6 -> arb; real polynomials U_i + i V_i = S_i/c
+    tail bounds tau_i(T): ['[6.8424e-8 +/- 1.29e-13]', '[1.4586e-5 +/- 3.97e-10]', '[1.4586e-5 +/- 3.97e-10]', '[1.4586e-5 +/- 3.97e-10]', '[1.4586e-5 +/- 3.97e-10]', '[1.4586e-5 +/- 3.97e-10]']
+[3] alpha_i = [U_i^2 + V_i^2]_{<=Nt} and error bounds E_i(T)
+    E_i(T): ['[2.3069e-7 +/- 1.15e-12]', '[4.3188e-5 +/- 1.80e-10]', '[4.5341e-5 +/- 2.74e-10]', '[4.5667e-5 +/- 1.25e-11]', '[4.5341e-5 +/- 2.74e-10]', '[4.3188e-5 +/- 1.80e-10]']
+[4] design of multipliers (floating point; choices only)
+    singular values of Lambda: [5.06818409 3.28841036 2.11384413 1.87410866 1.4866028 ]
+    Phi_2 on ker Lambda: max eigenvalue -0.027160
+    gamma = 0.02988;  |Gamma|_F = 1.1091;  |psi| = 1.5463
+    float |G3|_F before/after Psi: 2.41295 / 0.15404
+[5] rigorous assembly of the explicit part G of F = Phi + sum_a mu_a(x) D_a(x)
+    float eigenvalues of H2 (quadratic part of F): [-0.56527 -0.28267 -0.20173 -0.03375 -0.02988 -0.02988 -0.02988 -0.02988
+ -0.02988 -0.02716]
+    certified: G_2(x) <= -lambda |x|^2 with lambda = 14566689/536870912 = 0.02713257: True
+[6] bounds on higher-order terms at s = T
+    |G_3|_F = [0.154039 +/- 7.48e-8]   contribution |G_3| T^1 = [0.0192549 +/- 3.44e-8]
+    |G_4|_F = [1.92224 +/- 3.61e-6]   contribution |G_4| T^2 = [0.0300351 +/- 4.37e-8]
+    |G_5|_F = [3.35356 +/- 3.67e-6]   contribution |G_5| T^3 = [0.00654991 +/- 4.73e-9]
+    |G_6|_F = [5.12332 +/- 2.04e-6]   contribution |G_6| T^4 = [0.00125081 +/- 1.05e-9]
+    total error bound errF(T) = [0.000111644 +/- 3.85e-10];  errF(T)/T^2 = [0.00714519 +/- 1.38e-9]
+    lambda - sum_m |G_m| T^(m-2) - errF/T^2 = [-0.037103267 +/- 4.03e-10]
+[7] RESULT: F(x) <= -([-0.037103267 +/- 4.03e-10]) |x|^2 for all |x| <= T : False
+    => on E with |x| <= T:  Phi <= -[-0.037103267 +/- 4.03e-10] |x|^2,  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [-0.018551633 +/- 2.99e-10]
+[6b] joint bound on G_2 + s G_3 + s^2 G_4 over the sphere (K = 64 intervals in s), flattening norms for m >= 5
+    sup|G_5| <= [1.21389 +/- 4.14e-6]  (flattening (2,3); Frobenius [3.35356 +/- 3.67e-6])
+    sup|G_6| <= [1.90673 +/- 4.94e-8]  (flattening (2,4); Frobenius [5.12332 +/- 2.04e-6])
+    float: lambda_max(Hb) = -0.027160 (= max eigenvalue of H)
+    float self-test of |y| = 1, G_2 = y'Hb y, G_3 = u'A3 y, G_4 = y'B4 y: max error 2.2e-16
+    interval 0: s in [0.00000, 0.00195], t = -0.01358, 2 mu = [-0.0271583 +/- 2.92e-8], + width/higher terms -> [-0.0269968 +/- 3.41e-8]
+    interval 32: s in [0.06250, 0.06445], t = -0.01360, 2 mu = [-0.0270273 +/- 1.06e-8], + width/higher terms -> [-0.0260387 +/- 4.23e-8]
+    interval 63: s in [0.12305, 0.12500], t = -0.01361, 2 mu = [-0.0266898 +/- 2.54e-8], + width/higher terms -> [-0.0227681 +/- 2.97e-8]
+    worst interval 63: sup_(|u|=1) sum_m G_m(u) s^(m-2) <= [-0.022768070 +/- 3.72e-10]; + errF/T^2 = [0.00714519 +/- 1.38e-9]
+[7b] RESULT (joint): F(x) <= -([0.015622879 +/- 7.10e-12]) |x|^2 for all |x| <= T : True   (6.1 s)
+    => on E with |x| <= T:  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [0.0078114395 +/- 3.54e-12]
+    (the joint bound is used for the final statement)
+[8] FINAL: for all x in E with |x|_2 <= 1/8:  L(x) <= log(6/7) - 39/5000 |x|_2^2   (certified: True)
+    total time 9.8 s
+
+########## certify.py --d=7 --joint 1/8 8
+=== Local certificate, d=7: T = 1/8 (= 0.125000), Taylor degree N = 8, prec = 200 bits
+[1] exact facts at x = 0 (exact arithmetic in Q(omega))
+  S_1(0) = 6/7 exactly: True
+  S_2(0) = 6/7 exactly: True
+  S_3(0) = 6/7 exactly: True
+  S_4(0) = 6/7 exactly: True
+  S_5(0) = 6/7 exactly: True
+  S_6(0) = 6/7 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_5(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_6(0) = 0 exactly in Q(omega): True
+[2] exact Taylor coefficients of S_i up to degree 8 -> arb; real polynomials U_i + i V_i = S_i/c
+    tail bounds tau_i(T): ['[5.2498e-11 +/- 9.78e-18]', '[6.4912e-8 +/- 9.95e-14]', '[6.4912e-8 +/- 9.95e-14]', '[6.4912e-8 +/- 9.95e-14]', '[6.4912e-8 +/- 9.95e-14]', '[6.4912e-8 +/- 9.95e-14]']
+[3] alpha_i = [U_i^2 + V_i^2]_{<=Nt} and error bounds E_i(T)
+    E_i(T): ['[3.1804e-10 +/- 4.48e-16]', '[2.9555e-7 +/- 1.87e-12]', '[3.2774e-7 +/- 2.50e-12]', '[3.3331e-7 +/- 1.34e-12]', '[3.2774e-7 +/- 2.50e-12]', '[2.9555e-7 +/- 1.87e-12]']
+[4] design of multipliers (floating point; choices only)
+    singular values of Lambda: [5.06818409 3.28841036 2.11384413 1.87410866 1.4866028 ]
+    Phi_2 on ker Lambda: max eigenvalue -0.027160
+    gamma = 0.02988;  |Gamma|_F = 1.1091;  |psi| = 1.5463
+    float |G3|_F before/after Psi: 2.41295 / 0.15404
+[5] rigorous assembly of the explicit part G of F = Phi + sum_a mu_a(x) D_a(x)
+    float eigenvalues of H2 (quadratic part of F): [-0.56527 -0.28267 -0.20173 -0.03375 -0.02988 -0.02988 -0.02988 -0.02988
+ -0.02988 -0.02716]
+    certified: G_2(x) <= -lambda |x|^2 with lambda = 14566689/536870912 = 0.02713257: True
+[6] bounds on higher-order terms at s = T
+    |G_3|_F = [0.154039 +/- 7.48e-8]   contribution |G_3| T^1 = [0.0192549 +/- 3.44e-8]
+    |G_4|_F = [1.92224 +/- 3.61e-6]   contribution |G_4| T^2 = [0.0300351 +/- 4.37e-8]
+    |G_5|_F = [3.35356 +/- 3.67e-6]   contribution |G_5| T^3 = [0.00654991 +/- 4.73e-9]
+    |G_6|_F = [5.12332 +/- 2.04e-6]   contribution |G_6| T^4 = [0.00125081 +/- 1.05e-9]
+    |G_7|_F = [6.64382 +/- 3.00e-6]   contribution |G_7| T^5 = [0.000202753 +/- 2.05e-10]
+    |G_8|_F = [7.40630 +/- 2.47e-6]   contribution |G_8| T^6 = [2.82528e-5 +/- 1.71e-11]
+    total error bound errF(T) = [1.45007e-6 +/- 3.63e-12];  errF(T)/T^2 = [9.28047e-5 +/- 1.19e-11]
+    lambda - sum_m |G_m| T^(m-2) - errF/T^2 = [-0.030281886 +/- 8.15e-11]
+[7] RESULT: F(x) <= -([-0.030281886 +/- 8.15e-11]) |x|^2 for all |x| <= T : False
+    => on E with |x| <= T:  Phi <= -[-0.030281886 +/- 8.15e-11] |x|^2,  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [-0.015140943 +/- 4.08e-11]
+[6b] joint bound on G_2 + s G_3 + s^2 G_4 over the sphere (K = 64 intervals in s), flattening norms for m >= 5
+    sup|G_5| <= [1.21389 +/- 4.14e-6]  (flattening (2,3); Frobenius [3.35356 +/- 3.67e-6])
+    sup|G_6| <= [1.90673 +/- 4.94e-8]  (flattening (2,4); Frobenius [5.12332 +/- 2.04e-6])
+    sup|G_7| <= [2.49358 +/- 3.18e-6]  (flattening (2,5); Frobenius [6.64382 +/- 3.00e-6])
+    sup|G_8| <= [2.73224 +/- 1.31e-6]  (flattening (2,6); Frobenius [7.40630 +/- 2.47e-6])
+    float: lambda_max(Hb) = -0.027160 (= max eigenvalue of H)
+    float self-test of |y| = 1, G_2 = y'Hb y, G_3 = u'A3 y, G_4 = y'B4 y: max error 2.2e-16
+    interval 0: s in [0.00000, 0.00195], t = -0.01358, 2 mu = [-0.0271583 +/- 2.92e-8], + width/higher terms -> [-0.0269968 +/- 3.41e-8]
+    interval 32: s in [0.06250, 0.06445], t = -0.01360, 2 mu = [-0.0270273 +/- 1.06e-8], + width/higher terms -> [-0.0260357 +/- 1.18e-8]
+    interval 63: s in [0.12305, 0.12500], t = -0.01361, 2 mu = [-0.0266898 +/- 2.54e-8], + width/higher terms -> [-0.0226815 +/- 4.98e-8]
+    worst interval 63: sup_(|u|=1) sum_m G_m(u) s^(m-2) <= [-0.022681550 +/- 2.18e-10]; + errF/T^2 = [9.28047e-5 +/- 1.19e-11]
+[7b] RESULT (joint): F(x) <= -([0.022588745 +/- 7.04e-11]) |x|^2 for all |x| <= T : True   (14.2 s)
+    => on E with |x| <= T:  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [0.011294373 +/- 4.65e-10]
+    (the joint bound is used for the final statement)
+[8] FINAL: for all x in E with |x|_2 <= 1/8:  L(x) <= log(6/7) - 7/625 |x|_2^2   (certified: True)
+    total time 52.8 s
+
+########## handover.py --d=7 --rmax 1/8
+[H1] d = 7: relabelling checked for 120/120 permutations: True
+[H2] largest exclusion radius r with -log(1 - r) <= T  (r* = 1 - exp(-T))
+     T = 1/8:  r* = [0.1175030974 +/- 1.55e-11];  certified r = 47/400 = 0.1175:  -log(1-r) = [0.1249964902 +/- 2.54e-11] <= T : True
+HANDOVER-RMAX PASSED
+
+########## crosscheck.py --d=7 --joint 1/8 6
+crosscheck at T = 1/8, N = 6: certified F/|x|^2 <= -0.015623, errF(T) = 1.116e-04
+  s = 0.12500: max |F_direct - G| = 1.615e-07   (rigorous bound errF(s) <= 1.116e-04)
+  s = 0.06250: max |F_direct - G| = 1.265e-09   (rigorous bound errF(s) <= 8.722e-07)
+  s = 0.03125: max |F_direct - G| = 6.389e-12   (rigorous bound errF(s) <= 6.814e-09)
+  worst sampled F/|x|^2 = -0.031245  (certified <= -0.015623)
+  relabelling: max |S_k(b') - S_tau(k)(b)| over 120 permutations = 1.02e-13
+CROSSCHECK PASSED
+
+# overall status: ALL PASSED   wall time 115 s

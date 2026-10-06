@@ -35,7 +35,7 @@
 [7] RESULT: F(x) <= -([0.030225144 +/- 3.39e-11]) |x|^2 for all |x| <= T : True
     => on E with |x| <= T:  Phi <= -[0.030225144 +/- 3.39e-11] |x|^2,  L - log(5/6) <= Phi/2 <= -kappa |x|^2 with kappa = [0.015112572 +/- 1.70e-11]
 [8] FINAL: for all x in E with |x|_2 <= 1/19:  L(x) <= log(5/6) - 151/10000 |x|_2^2   (certified: True)
-    total time 0.9 s
+    total time 1.0 s
 
 ########## hand-over (SPEC section 3)
 [H1] relabelling of the 24 balls
@@ -81,7 +81,7 @@ HANDOVER PASSED
 [7] RESULT: F(x) <= -([0.0026125367 +/- 3.28e-11]) |x|^2 for all |x| <= T : True
     => on E with |x| <= T:  Phi <= -[0.0026125367 +/- 3.28e-11] |x|^2,  L - log(5/6) <= Phi/2 <= -kappa |x|^2 with kappa = [0.0013062683 +/- 3.37e-11]
 [8] FINAL: for all x in E with |x|_2 <= 1/8:  L(x) <= log(5/6) - 13/10000 |x|_2^2   (certified: True)
-    total time 0.8 s
+    total time 1.0 s
 
 ########## non-rigorous float cross-check of the pipeline (not part of the proof)
 crosscheck at T = 1/19, N = 6: certified F/|x|^2 <= -0.030225, errF(T) = 5.569e-08
@@ -92,4 +92,4 @@ crosscheck at T = 1/19, N = 6: certified F/|x|^2 <= -0.030225, errF(T) = 5.569e-
   relabelling: max |S_k(b') - S_tau(k)(b)| over 24 permutations = 8.04e-14
 CROSSCHECK PASSED
 
-# overall status: ALL PASSED   wall time 16 s
+# overall status: ALL PASSED   wall time 21 s

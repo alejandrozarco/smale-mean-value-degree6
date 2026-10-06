@@ -96,7 +96,7 @@ $`\omega = e^{2\pi i/n}`$ and $`(a_j)`$ a permutation of $`1, \dots, n-1`$; ther
 | task CPU time | 7 s | 23 735 s |
 | `c/check_done.py` | CERTIFICATE COMPLETE (`runs/d5_v2/CHECK.txt`) | CERTIFICATE COMPLETE (`runs/d6_v2/CHECK.txt`) |
 | local certificate bound $`g(T)`$, $`T = 0.0527`$ | $`\le -0.02284`$ | $`\le -0.0075740986`$ |
-| independent local certificate (`local2/`): $`\kappa`$ at radius $`T`$ | | $`\kappa \gt  0.0151`$ at $`T = 1/19`$; $`\kappa \gt  0.0013`$ at $`T = 1/8`$ |
+| independent local certificate (`local2/`): $`\kappa`$ at radius $`T`$ | $`\kappa \gt  7/250`$ at $`T = 1/19`$ | $`\kappa \gt  0.0151`$ at $`T = 1/19`$; $`\kappa \gt  0.0013`$ at $`T = 1/8`$ |
 
 Source sha256 `8ddcec1767e0b64b404843cc0e0d99684b6526ef9c6d34288129a89fe0b9487f` (`c/smale_bb_v2.c`). Binary
 sha256 `e99fdb885004db53961c411065372595540137ca3f78b654b0da96019aa08723` (Apple clang 21.0.0, arm64; see
@@ -206,7 +206,7 @@ the radius that the excluded balls map into.
 | `c/export_tree.c`, `c/tree_digest.py` | writes the subdivision tree of a run; canonical digest of a tree file |
 | `runs/d6_arbcheck/`, `runs/d5_arbcheck/` | arb check logs, versions and hashes; export versus run records |
 | `firstprinciples/` | independent first-principles check of the formulas, symmetries, equality points and hand-over (exact), and of the trees against $`V_i`$ computed from $`P`$ (sampling) |
-| `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run log |
+| `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run logs. The code also runs for $`d = 5`$ and $`d = 7`$ (`run_d5_T1_19.log`, `run_d7.sh`); for $`d = 7`$ it is a component of a possible later computation, not a result for $`d = 7`$ |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
 | `runs/local_cert_v3_*.log` | local certificate outputs |
 | `runs/e_profile_d6.tsv` | numerical samples on $`E`$ (figure data) |

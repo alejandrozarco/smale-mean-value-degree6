@@ -153,3 +153,83 @@ Files:
 - `crosscheck.py` is a sanity check only and is not part of the certificate.
 - Trusted: python-flint 0.6 / FLINT arb ball arithmetic being correct, and the short analytic arguments written
   above: the exponential-sum form, Cauchy–Schwarz, the majorant monotonicity, and the relabelling identity.
+
+## Degrees $`d = 5, 6, 7`$ (parameter `--d`)
+
+The code is generalised to $`d \in \{5, 6, 7\}`$: $`n = d - 1`$, $`c = (d-1)/d`$, $`\omega = e^{2\pi i/n}`$, $`\varepsilon \in \mathbb{C}^{n-1}`$,
+$`x \in \mathbb{R}^{2(n-1)}`$, and $`n - 1`$ multipliers $`\mu_a`$. Every script takes `--d=D` (default 6). $`\mathbb{Q}(\omega)`$ elements are reduced
+modulo the cyclotomic polynomial $`\Phi_n`$ (for $`n = 6`$: $`\Phi_6 = x^2 - x + 1`$, so $`\mathbb{Q}(\omega_6) = \mathbb{Q}(\sqrt{-3})`$). For $`n = 5`$ this is the
+earlier reduction.
+
+**$`d = 6`$ is unchanged.** The default path does exactly the same arithmetic as before. Rerunning `run_all.sh` reproduces
+`run_T1_19.log` line for line; only the date and run times differ. The saved designs `design_T1_19.json` and
+`design_T1_8.json` are still used.
+
+### Exact facts at 0 for $`d = 7`$ (`python3 exact_qomega.py --d=7`)
+
+These are exact in $`\mathbb{Q}(\sqrt{-3})`$:
+- (F1) $`S_i(0) = 6/7`$ for $`i = 1..6`$.
+- (F2) $`\sum_i \partial S_i/\partial\varepsilon_k(0) = 0`$ for $`k = 2..6`$.
+
+The derivative matrix is circulant. Its entries are $`\partial S_i/\partial\varepsilon_i = 103/140`$ and, for $`k - i \equiv 1, 2, 3, 4, 5 \pmod 6`$,
+$`-17/420 \mp \tfrac{7}{30}\sqrt{-3}`$, $`-29/140 \mp \tfrac{1}{10}\sqrt{-3}`$, $`-101/420`$, $`-29/140 \pm \tfrac{1}{10}\sqrt{-3}`$, $`-17/420 \pm \tfrac{7}{30}\sqrt{-3}`$ (upper signs).
+Its row and column sums are 0. So $`\Phi(0) = 0`$ and $`\nabla\Phi(0) = 0`$ exactly, as for $`d = 6`$.
+
+### Sharper final step (`--joint`, used for every $`d = 7`$ result)
+
+For $`d = 7`$ the Frobenius bounds of step 5 certify only $`T = 1/19`$ ($`\kappa \gt  33/5000`$). At $`T = 1/12`$ that step gives
+$`2\kappa = -0.00197`$ and fails. Sampling shows the Frobenius bounds are 3–10 times larger than the true sup of $`\lvert G_m\rvert`$ on the sphere.
+`joint_certificate()` in `certify.py` replaces step 5:
+
+- Take $`\lvert u\rvert = 1`$ and $`y = u\otimes u`$ in an orthonormal basis of $`\mathrm{Sym}^2(\mathbb{R}^{10})`$, so $`\lvert y\rvert = 1`$, and put $`z = (u, y)`$, so $`\lvert z\rvert^2 = 2`$.
+  - $`G_2(u) = G_2(u)\lvert u\rvert^2 = y^T H_b y`$, where $`H_b`$ is the matrix of $`X \mapsto (HX + XH)/2`$ on $`\mathrm{Sym}^2`$.
+  - $`G_3(u) = u^T A_3 y`$ and $`G_4(u) = y^T B_4 y`$, where $`A_3`$ and $`B_4`$ are flattenings of the symmetric tensors.
+  - For every real $`t`$, $`G_2 + sG_3 + s^2G_4 = z^T M(s,t) z`$ with $`M = [[tI, sA_3/2], [sA_3^T/2, H_b + s^2B_4 - tI]]`$. Hence the sum is at most $`2\lambda_{\max}(M)`$.
+- $`[0, T]`$ is cut into $`K = 64`$ intervals. At each midpoint $`s_m`$, $`M(s_m, t_k) \le \mu_k I`$ is certified by an arb ball Cholesky of
+  $`\mu_k I - M`$; float is used only to choose $`t_k`$ and $`\mu_k`$. The rest of the interval is covered by
+  $`\lVert M(s) - M(s_m)\rVert \le \rho\lVert G_3\rVert_F/2 + (2s_m\rho + \rho^2)\lVert G_4\rVert_F`$. The Frobenius norms of $`A_3`$ and $`B_4`$ are the tensor norms.
+- For $`m \ge 5`$, $`\sup\lvert G_m\rvert \le \lVert A_{(2,m-2)}\rVert_2`$, the spectral norm of the $`\mathrm{Sym}^2 \times \mathrm{Sym}^{m-2}`$ flattening. It is certified by a Cholesky of
+  $`cI - AA^T`$. The code takes the smaller of this and the Frobenius bound.
+- Final bound: $`-2\kappa = \max_k [2\mu_k + \text{width term} + \sum_{m\ge5} \sup\lvert G_m\rvert\, s_{\mathrm{hi}}^{m-2}] + \mathrm{errF}(T)/T^2`$.
+  The width term is $`2\left[\rho\lVert G_3\rVert_F/2 + (2s_m\rho + \rho^2)\lVert G_4\rVert_F\right]`$ (the factor 2 because $`\lvert z\rvert^2 = 2`$), with
+  $`\rho`$ the half-length of the interval.
+- A float self-test at random $`u`$ checks the identities for $`\lvert y\rvert`$, $`G_2`$, $`G_3`$ and $`G_4`$ (error about $`2\cdot10^{-16}`$).
+- The Taylor model, the remainders $`\mathrm{errF}`$, the design and the exact facts are unchanged.
+
+On $`d = 6`$ the same step gives $`\kappa \gt  193/10000`$ at $`T = 1/19`$ and $`\kappa \gt  87/5000`$ at $`T = 1/8`$. It is not used in `run_all.sh`.
+
+### Results for $`d = 7`$ (`bash run_d7.sh`; logs `run_d7_T*.log`)
+
+$`L(x) \le \log(6/7) - \kappa\lVert x\rVert_2^2`$ for all $`x \in E`$ with $`\lVert x\rVert_2 \le T`$:
+
+| $`T`$ | $`N`$ | $`\kappa`$ (certified enclosure, as logged) | stated $`\kappa`$ | time | max exclusion radius $`r`$, $`-\log(1-r) \le T`$ |
+|---|---|---|---|---|---|
+| 1/19 | 6 | [0.013296185 ± 3.43e-10] | 33/2500 | 11 s | $`r^* = 0.051270`$; certified $`r = 5127/100000`$ |
+| 1/12 | 6 | [0.012420209 ± 2.54e-10] | 31/2500 | 10 s | $`r^* = 0.079956`$; certified $`r = 1599/20000`$ |
+| 1/10 | 6 | [0.011292884 ± 4.51e-10] | 7/625 | 10 s | $`r^* = 0.095163`$; certified $`r = 2379/25000`$ |
+| 1/8 | 6 | [0.0078114395 ± 3.54e-12] | 39/5000 | 10 s | $`r^* = 0.117503`$; certified $`r = 47/400`$ |
+| 1/8 | 8 | [0.011294373 ± 4.65e-10] | 7/625 | 53 s | (same) |
+| 1/6 | 8 | [0.0078466002 ± 2.91e-11] | 39/5000 | 54 s | $`r^* = 0.153518`$; certified $`r = 307/2000`$ |
+| 1/5 | 8 | [0.0024254784 ± 2.70e-11] | 3/1250 | 55 s | $`r^* = 0.181269`$; certified $`r = 453/2500`$ |
+
+Notes:
+- As $`x \to 0`$ the best possible constant is half the smallest curvature of $`\Phi`$ on $`\ker\Lambda`$, which is $`0.027160/2 = 0.01358`$.
+- The quadratic part is Cholesky-certified with $`\lambda = 14566689/2^{29}`$.
+- Times are single-threaded wall times at nice 15. The whole of `run_d7.sh` takes about 5 minutes, with peak memory about 0.3 GB (at $`N = 8`$).
+- **Failed:** $`T = 1/4`$ with $`N = 8`$. There $`\sup_u \sum_m G_m s^{m-2} \le +0.0125`$ (the joint bound at $`s = T`$), and $`\mathrm{errF}/T^2 = 0.0143`$ on top of that.
+  Reproduce with `python3 certify.py --d=7 --joint 1/4 8`.
+- `crosscheck.py --d=7` (float, not part of the certificate) passes at $`T = 1/19`$ and at $`T = 1/8`$. At $`T = 1/8`$, $`\lvert F_{\text{direct}} - G\rvert = 1.6\text{e-}7`$ against the bound $`1.1\text{e-}4`$. The worst sampled $`F/\lVert x\rVert^2`$ is $`-0.0312`$, against the certified bound $`-0.0156`$.
+
+**Hand-over for $`d = 7`$** (`handover.py --d=7`):
+- The relabelling argument of §H1 does not use $`n`$. It is checked for all $`5! = 120`$ permutations of $`b_2..b_6`$: each ball around
+  $`p = (\bar\omega^{a_2}, \dots, \bar\omega^{a_6})`$ maps onto the ball around $`p_0 = (\bar\omega, \dots, \bar\omega^5)`$. The $`S_i`$ are permuted, so $`E`$ and $`\min_i\lvert S_i\rvert`$ are
+  invariant. The float cross-check of $`S_k(b') = S_{\tau(k)}(b)`$ over the 120 permutations agrees to 1e-13.
+- The chart bound $`\lVert x\rVert_2 \le -\log(1-r)`$ for $`\sum_j \lvert u_j - p_{0,j}\rvert^2 \le r^2`$ also does not depend on $`n`$.
+- For $`r = 1/20`$: $`\log(20/19) \lt  1/19`$ (certified). An exclusion radius $`r`$ is therefore supported by a certified $`T`$ whenever $`r \le 1 - e^{-T}`$. The table above gives
+  $`r^*`$ and a rational $`r`$ for which $`-\log(1-r) \le T`$ is arb-certified (`handover.py --d=7 --rmax T ...`).
+
+**$`d = 5`$ test** (`run_d5_T1_19.log`): exact facts in $`\mathbb{Q}(i)`$ hold. $`T = 1/19`$ certifies with $`\kappa \gt  7/250`$ (Frobenius) and $`\kappa \gt  301/10000`$ (joint).
+The hand-over (all $`3! = 6`$ permutations of $`b_2..b_4`$) and the cross-check pass.
+
+Run a single job with, for example, `python3 certify.py --d=7 --joint 1/8 8`. Saved designs for $`d \ne 6`$ are `design_d<D>_T<p>_<q>_N<N>.json`.
+Pass `--redesign` to recompute a design.

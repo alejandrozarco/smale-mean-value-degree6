@@ -1,0 +1,90 @@
+# d = 5 test run Wed Sep 30 22:44:37 CEST 2026   python-flint 0.6.0
+
+########## exact_qomega.py --d=5
+d = 5, n = 4, Phi_n = [1, 0, 1] (low degree first)
+  S_1(0) = 4/5 exactly: True
+  S_2(0) = 4/5 exactly: True
+  S_3(0) = 4/5 exactly: True
+  S_4(0) = 4/5 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+(1, 2) (Fraction(-2, 15), Fraction(-1, 4))
+(1, 3) (Fraction(-13, 60), Fraction(0, 1))
+(1, 4) (Fraction(-2, 15), Fraction(1, 4))
+(2, 2) (Fraction(29, 60), Fraction(0, 1))
+(2, 3) (Fraction(-2, 15), Fraction(-1, 4))
+(2, 4) (Fraction(-13, 60), Fraction(0, 1))
+(3, 2) (Fraction(-2, 15), Fraction(1, 4))
+(3, 3) (Fraction(29, 60), Fraction(0, 1))
+(3, 4) (Fraction(-2, 15), Fraction(-1, 4))
+(4, 2) (Fraction(-13, 60), Fraction(0, 1))
+(4, 3) (Fraction(-2, 15), Fraction(1, 4))
+(4, 4) (Fraction(29, 60), Fraction(0, 1))
+ALL EXACT FACTS: True
+
+########## certify.py --d=5 --joint 1/19 6
+=== Local certificate, d=5: T = 1/19 (= 0.052632), Taylor degree N = 6, prec = 200 bits
+[1] exact facts at x = 0 (exact arithmetic in Q(omega))
+  S_1(0) = 4/5 exactly: True
+  S_2(0) = 4/5 exactly: True
+  S_3(0) = 4/5 exactly: True
+  S_4(0) = 4/5 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+[2] exact Taylor coefficients of S_i up to degree 6 -> arb; real polynomials U_i + i V_i = S_i/c
+    tail bounds tau_i(T): ['[1.2150e-11 +/- 3.43e-16]', '[7.4785e-10 +/- 2.78e-15]', '[7.4785e-10 +/- 2.78e-15]', '[7.4785e-10 +/- 2.78e-15]']
+[3] alpha_i = [U_i^2 + V_i^2]_{<=Nt} and error bounds E_i(T)
+    E_i(T): ['[5.4424e-11 +/- 2.92e-16]', '[2.9497e-9 +/- 4.44e-14]', '[3.2470e-9 +/- 2.08e-14]', '[2.9497e-9 +/- 4.44e-14]']
+[4] design of multipliers (floating point; choices only)
+    singular values of Lambda: [2.80395595 1.96054839 1.32378788]
+    Phi_2 on ker Lambda: max eigenvalue -0.060591
+    gamma = 0.06665;  |Gamma|_F = 0.8555;  |psi| = 0.7455
+    float |G3|_F before/after Psi: 0.83856 / 0.05645
+[5] rigorous assembly of the explicit part G of F = Phi + sum_a mu_a(x) D_a(x)
+    float eigenvalues of H2 (quadratic part of F): [-0.41931 -0.09073 -0.06665 -0.06665 -0.06665 -0.06059]
+    certified: G_2(x) <= -lambda |x|^2 with lambda = 64994373/1073741824 = 0.06053073: True
+[6] bounds on higher-order terms at s = T
+    |G_3|_F = [0.0564467 +/- 6.06e-9]   contribution |G_3| T^1 = [0.00297088 +/- 7.34e-10]
+    |G_4|_F = [0.509858 +/- 3.80e-7]   contribution |G_4| T^2 = [0.00141235 +/- 8.30e-11]
+    |G_5|_F = [0.562597 +/- 1.85e-7]   contribution |G_5| T^3 = [8.20232e-5 +/- 4.58e-11]
+    |G_6|_F = [0.534879 +/- 7.38e-8]   contribution |G_6| T^4 = [4.10432e-6 +/- 1.01e-13]
+    total error bound errF(T) = [9.78474e-9 +/- 2.31e-15];  errF(T)/T^2 = [3.53229e-6 +/- 1.98e-12]
+    lambda - sum_m |G_m| T^(m-2) - errF/T^2 = [0.056057838 +/- 3.18e-10]
+[7] RESULT: F(x) <= -([0.056057838 +/- 3.18e-10]) |x|^2 for all |x| <= T : True
+    => on E with |x| <= T:  Phi <= -[0.056057838 +/- 3.18e-10] |x|^2,  L - log(4/5) <= Phi/2 <= -kappa |x|^2 with kappa = [0.028028919 +/- 1.59e-10]
+[6b] joint bound on G_2 + s G_3 + s^2 G_4 over the sphere (K = 64 intervals in s), flattening norms for m >= 5
+    sup|G_5| <= [0.297932 +/- 2.90e-7]  (flattening (2,3); Frobenius [0.562597 +/- 1.85e-7])
+    sup|G_6| <= [0.282086 +/- 1.18e-7]  (flattening (2,4); Frobenius [0.534879 +/- 7.38e-8])
+    float: lambda_max(Hb) = -0.060591 (= max eigenvalue of H)
+    float self-test of |y| = 1, G_2 = y'Hb y, G_3 = u'A3 y, G_4 = y'B4 y: max error 6.7e-16
+    interval 0: s in [0.00000, 0.00082], t = -0.03030, 2 mu = [-0.0605899 +/- 3.88e-8], + width/higher terms -> [-0.0605662 +/- 1.15e-8]
+    interval 32: s in [0.02632, 0.02714], t = -0.03029, 2 mu = [-0.0604981 +/- 1.20e-8], + width/higher terms -> [-0.0604462 +/- 1.48e-8]
+    interval 63: s in [0.05181, 0.05263], t = -0.03029, 2 mu = [-0.0604013 +/- 4.31e-8], + width/higher terms -> [-0.0602885 +/- 1.78e-8]
+    worst interval 63: sup_(|u|=1) sum_m G_m(u) s^(m-2) <= [-0.060288482 +/- 2.15e-10]; + errF/T^2 = [3.53229e-6 +/- 1.98e-12]
+[7b] RESULT (joint): F(x) <= -([0.060284950 +/- 7.76e-11]) |x|^2 for all |x| <= T : True   (1.1 s)
+    => on E with |x| <= T:  L - log(4/5) <= Phi/2 <= -kappa |x|^2 with kappa = [0.030142475 +/- 3.88e-11]
+    (the joint bound is used for the final statement)
+[8] FINAL: for all x in E with |x|_2 <= 1/19:  L(x) <= log(4/5) - 301/10000 |x|_2^2   (certified: True)
+    total time 1.3 s
+
+########## handover.py --d=5 1/19 1/20
+[H1] relabelling of the 6 balls  (d = 5, n = 4)
+     permutations checked: 6/6; each relabelling is a bijection fixing index 1 and sends the
+     centre conj(w)^(a_j) of coordinate j to the centre conj(w)^(k-1) of coordinate k = tau^-1(j).
+[H2] ball around p0 in the eps-chart
+     C = -log(1-r)/r = [1.02586588775 +/- 1.02e-12] ;  |x|_2 <= C r = log(20/19) = [0.0512932943876 +/- 4.95e-14]
+     log(20/19) < T = 1/19 = [0.0526315789474 +/- 3.16e-14] : True
+HANDOVER PASSED
+
+########## crosscheck.py --d=5 --joint 1/19 6
+crosscheck at T = 1/19, N = 6: certified F/|x|^2 <= -0.060285, errF(T) = 9.785e-09
+  s = 0.05263: max |F_direct - G| = 9.924e-11   (rigorous bound errF(s) <= 9.785e-09)
+  s = 0.02632: max |F_direct - G| = 7.860e-13   (rigorous bound errF(s) <= 7.644e-11)
+  s = 0.01316: max |F_direct - G| = 3.309e-15   (rigorous bound errF(s) <= 5.972e-13)
+  worst sampled F/|x|^2 = -0.062791  (certified <= -0.060285)
+  relabelling: max |S_k(b') - S_tau(k)(b)| over 6 permutations = 3.55e-15
+CROSSCHECK PASSED
+
+# overall status: ALL PASSED

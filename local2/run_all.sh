@@ -2,6 +2,7 @@
 # Full reproducible run of the independent local certificate (d = 6).
 # Usage:  bash run_all.sh            (writes run_T1_19.log next to this script)
 cd "$(dirname "$0")"
+set -o pipefail            # the exit status reflects certificate failures and tee errors
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 MKL_NUM_THREADS=1   # single-threaded BLAS
 LOG=run_T1_19.log
 {
@@ -18,4 +19,5 @@ LOG=run_T1_19.log
   nice -n 15 python3 crosscheck.py 1/19 6 || status=1
   end=$(date +%s)
   echo; echo "# overall status: $([ $status -eq 0 ] && echo ALL PASSED || echo FAILURE)   wall time $((end-start)) s"
+  exit $status
 } 2>&1 | tee "$LOG"

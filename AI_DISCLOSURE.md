@@ -6,15 +6,17 @@ and decided on scope and publication. The owner did not check the mathematics or
 
 **Models**
 - Claude Opus 5.5 (Anthropic, via Claude Code) did almost all of the work, as several coordinated agents.
-- The independent arb checker (`c/arbcheck/`) and the second local certificate (`local2/`) were written by separate
-  agent instances. Each worked from a specification only (`SPEC.md` in each directory) and was told not to read the
-  code it checks.
+- The independent arb checker (`c/arbcheck/`), the second local certificate (`local2/`) and the first-principles
+  check (`firstprinciples/`) were written by separate agent instances. The first two worked from a specification only
+  (`SPEC.md` in each directory), the third from the problem statement and the file formats only. Each was told not to
+  read the code it checks.
 - Reviews were run as separate instances of:
   - Claude Opus 5.5, Claude Fable 5.1 and Claude Sonnet 5 (Anthropic);
   - gpt-6-astra (OpenAI, via the Codex CLI).
 - The commits carry a `Co-Authored-By: Claude Opus 5.5` trailer.
 
-**Reviews.** Every component was reviewed by at least one model instance that did not write it.
+**Reviews.** Every component except the first-principles check (`firstprinciples/`, itself a check) was reviewed by at
+least one model instance that did not write it.
 
 | Component | Reviews |
 |---|---|
@@ -22,7 +24,8 @@ and decided on scope and publication. The owner did not check the mathematics or
 | Error analysis of the evaluator (`c/ERROR_ANALYSIS_v2.md`) | Claude Opus 5.5; gpt-6-astra; Claude Fable 5.1 |
 | arb checker (`c/arbcheck/`) | Claude Fable 5.1, adversarial, with 74 false-claim test cases |
 | Coverage check (`c/check_done.py`) and changes to the local certificate | Claude Sonnet 5 |
-| Second local certificate (`local2/`) | Claude Fable 5.1 |
+| Second local certificate (`local2/`), $`d = 6`$ | Claude Fable 5.1 |
+| `local2/` generalised to $`d = 5, 6, 7`$, with the joint final step | gpt-6-astra |
 | Public repository as a whole | gpt-6-astra (stopped early by a usage limit); Claude Opus 5.5 |
 
 The AI reviews found real errors. All of them were fixed:
@@ -43,6 +46,9 @@ The AI reviews found real errors. All of them were fixed:
   of all displayed constants followed. Exactly known values are now written exactly.
 - **Reduction.** Missing hypotheses in the corollary ($`i \ne j`$, $`S_i \ne 0`$) and imprecise wording of the equality
   configurations (Claude Fable 5.1).
+- **Second local certificate, $`d = 7`$.** Five displayed decimal enclosures in `local2/README.md` had been rounded
+  inward, and the run scripts returned exit status 0 after a failure (gpt-6-astra). The certified rational constants
+  were unaffected.
 - **arb checker.** Non-finite task coordinates were accepted, and a cache reset was in the wrong place, a latent
   hazard (Claude Fable 5.1).
 

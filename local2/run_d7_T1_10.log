@@ -1,0 +1,60 @@
+# run started (date removed)
+
+########## certify.py --d=7 --joint 1/10 6
+=== Local certificate, d=7: T = 1/10 (= 0.100000), Taylor degree N = 6, prec = 200 bits
+[1] exact facts at x = 0 (exact arithmetic in Q(omega))
+  S_1(0) = 6/7 exactly: True
+  S_2(0) = 6/7 exactly: True
+  S_3(0) = 6/7 exactly: True
+  S_4(0) = 6/7 exactly: True
+  S_5(0) = 6/7 exactly: True
+  S_6(0) = 6/7 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_5(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_6(0) = 0 exactly in Q(omega): True
+[2] exact Taylor coefficients of S_i up to degree 6 -> arb; real polynomials U_i + i V_i = S_i/c
+    tail bounds tau_i(T): ['[1.4264e-8 +/- 3.21e-13]', '[3.0133e-6 +/- 2.66e-11]', '[3.0133e-6 +/- 2.66e-11]', '[3.0133e-6 +/- 2.66e-11]', '[3.0133e-6 +/- 2.66e-11]', '[3.0133e-6 +/- 2.66e-11]']
+[3] alpha_i = [U_i^2 + V_i^2]_{<=Nt} and error bounds E_i(T)
+    E_i(T): ['[4.7312e-8 +/- 2.20e-13]', '[8.6667e-6 +/- 3.44e-11]', '[9.0927e-6 +/- 4.97e-11]', '[9.1572e-6 +/- 1.79e-11]', '[9.0927e-6 +/- 4.97e-11]', '[8.6667e-6 +/- 3.44e-11]']
+[4] design of multipliers (floating point; choices only)
+    singular values of Lambda: [5.06818409 3.28841036 2.11384413 1.87410866 1.4866028 ]
+    Phi_2 on ker Lambda: max eigenvalue -0.027160
+    gamma = 0.02988;  |Gamma|_F = 1.1091;  |psi| = 1.5520
+    float |G3|_F before/after Psi: 2.41295 / 0.15083
+[5] rigorous assembly of the explicit part G of F = Phi + sum_a mu_a(x) D_a(x)
+    float eigenvalues of H2 (quadratic part of F): [-0.56527 -0.28267 -0.20173 -0.03375 -0.02988 -0.02988 -0.02988 -0.02988
+ -0.02988 -0.02716]
+    certified: G_2(x) <= -lambda |x|^2 with lambda = 14566689/536870912 = 0.02713257: True
+[6] bounds on higher-order terms at s = T
+    |G_3|_F = [0.150832 +/- 3.60e-7]   contribution |G_3| T^1 = [0.0150832 +/- 3.60e-8]
+    |G_4|_F = [1.94204 +/- 1.18e-6]   contribution |G_4| T^2 = [0.0194204 +/- 1.18e-8]
+    |G_5|_F = [3.38590 +/- 2.66e-6]   contribution |G_5| T^3 = [0.00338590 +/- 2.66e-9]
+    |G_6|_F = [5.17089 +/- 3.67e-7]   contribution |G_6| T^4 = [0.000517089 +/- 3.67e-11]
+    total error bound errF(T) = [2.20879e-5 +/- 3.70e-11];  errF(T)/T^2 = [0.00220879 +/- 3.70e-9]
+    lambda - sum_m |G_m| T^(m-2) - errF/T^2 = [-0.013482837 +/- 3.58e-11]
+[7] RESULT: F(x) <= -([-0.013482837 +/- 3.58e-11]) |x|^2 for all |x| <= T : False
+    => on E with |x| <= T:  Phi <= -[-0.013482837 +/- 3.58e-11] |x|^2,  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [-0.0067414185 +/- 1.79e-11]
+[6b] joint bound on G_2 + s G_3 + s^2 G_4 over the sphere (K = 64 intervals in s), flattening norms for m >= 5
+    sup|G_5| <= [1.22323 +/- 3.05e-7]  (flattening (2,3); Frobenius [3.38590 +/- 2.66e-6])
+    sup|G_6| <= [1.92664 +/- 4.09e-6]  (flattening (2,4); Frobenius [5.17089 +/- 3.67e-7])
+    float: lambda_max(Hb) = -0.027160 (= max eigenvalue of H)
+    float self-test of |y| = 1, G_2 = y'Hb y, G_3 = u'A3 y, G_4 = y'B4 y: max error 2.2e-16
+    interval 0: s in [0.00000, 0.00156], t = -0.01358, 2 mu = [-0.0271588 +/- 1.78e-8], + width/higher terms -> [-0.0270338 +/- 2.78e-8]
+    interval 32: s in [0.05000, 0.05156], t = -0.01358, 2 mu = [-0.0270853 +/- 4.28e-8], + width/higher terms -> [-0.0264756 +/- 3.97e-8]
+    interval 63: s in [0.09844, 0.10000], t = -0.01359, 2 mu = [-0.0269328 +/- 1.08e-8], + width/higher terms -> [-0.0247946 +/- 3.75e-8]
+    worst interval 63: sup_(|u|=1) sum_m G_m(u) s^(m-2) <= [-0.024794563 +/- 4.04e-10]; + errF/T^2 = [0.00220879 +/- 3.70e-9]
+[7b] RESULT (joint): F(x) <= -([0.022585769 +/- 9.96e-11]) |x|^2 for all |x| <= T : True   (6.2 s)
+    => on E with |x| <= T:  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [0.011292884 +/- 4.51e-10]
+    (the joint bound is used for the final statement)
+[8] FINAL: for all x in E with |x|_2 <= 1/10:  L(x) <= log(6/7) - 7/625 |x|_2^2   (certified: True)
+    total time 10.0 s
+
+########## handover.py --d=7 --rmax 1/10
+[H1] d = 7: relabelling checked for 120/120 permutations: True
+[H2] largest exclusion radius r with -log(1 - r) <= T  (r* = 1 - exp(-T))
+     T = 1/10:  r* = [0.09516258196 +/- 4.05e-12];  certified r = 2379/25000 = 0.09516:  -log(1-r) = [0.09999714649 +/- 2.51e-12] <= T : True
+HANDOVER-RMAX PASSED
+
+# overall status: ALL PASSED   wall time 11 s

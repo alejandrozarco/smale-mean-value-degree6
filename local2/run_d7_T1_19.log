@@ -1,0 +1,123 @@
+# run started (date removed)
+
+########## exact_qomega.py --d=7
+d = 7, n = 6, Phi_n = [1, -1, 1] (low degree first)
+  S_1(0) = 6/7 exactly: True
+  S_2(0) = 6/7 exactly: True
+  S_3(0) = 6/7 exactly: True
+  S_4(0) = 6/7 exactly: True
+  S_5(0) = 6/7 exactly: True
+  S_6(0) = 6/7 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_5(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_6(0) = 0 exactly in Q(omega): True
+(1, 2) (Fraction(27, 140), Fraction(-7, 15))   = -17/420 + (-7/30) sqrt(-3)
+(1, 3) (Fraction(-3, 28), Fraction(-1, 5))   = -29/140 + (-1/10) sqrt(-3)
+(1, 4) (Fraction(-101, 420), Fraction(0, 1))   = -101/420 + (0) sqrt(-3)
+(1, 5) (Fraction(-43, 140), Fraction(1, 5))   = -29/140 + (1/10) sqrt(-3)
+(1, 6) (Fraction(-23, 84), Fraction(7, 15))   = -17/420 + (7/30) sqrt(-3)
+(2, 2) (Fraction(103, 140), Fraction(0, 1))   = 103/140 + (0) sqrt(-3)
+(2, 3) (Fraction(27, 140), Fraction(-7, 15))   = -17/420 + (-7/30) sqrt(-3)
+(2, 4) (Fraction(-3, 28), Fraction(-1, 5))   = -29/140 + (-1/10) sqrt(-3)
+(2, 5) (Fraction(-101, 420), Fraction(0, 1))   = -101/420 + (0) sqrt(-3)
+(2, 6) (Fraction(-43, 140), Fraction(1, 5))   = -29/140 + (1/10) sqrt(-3)
+(3, 2) (Fraction(-23, 84), Fraction(7, 15))   = -17/420 + (7/30) sqrt(-3)
+(3, 3) (Fraction(103, 140), Fraction(0, 1))   = 103/140 + (0) sqrt(-3)
+(3, 4) (Fraction(27, 140), Fraction(-7, 15))   = -17/420 + (-7/30) sqrt(-3)
+(3, 5) (Fraction(-3, 28), Fraction(-1, 5))   = -29/140 + (-1/10) sqrt(-3)
+(3, 6) (Fraction(-101, 420), Fraction(0, 1))   = -101/420 + (0) sqrt(-3)
+(4, 2) (Fraction(-43, 140), Fraction(1, 5))   = -29/140 + (1/10) sqrt(-3)
+(4, 3) (Fraction(-23, 84), Fraction(7, 15))   = -17/420 + (7/30) sqrt(-3)
+(4, 4) (Fraction(103, 140), Fraction(0, 1))   = 103/140 + (0) sqrt(-3)
+(4, 5) (Fraction(27, 140), Fraction(-7, 15))   = -17/420 + (-7/30) sqrt(-3)
+(4, 6) (Fraction(-3, 28), Fraction(-1, 5))   = -29/140 + (-1/10) sqrt(-3)
+(5, 2) (Fraction(-101, 420), Fraction(0, 1))   = -101/420 + (0) sqrt(-3)
+(5, 3) (Fraction(-43, 140), Fraction(1, 5))   = -29/140 + (1/10) sqrt(-3)
+(5, 4) (Fraction(-23, 84), Fraction(7, 15))   = -17/420 + (7/30) sqrt(-3)
+(5, 5) (Fraction(103, 140), Fraction(0, 1))   = 103/140 + (0) sqrt(-3)
+(5, 6) (Fraction(27, 140), Fraction(-7, 15))   = -17/420 + (-7/30) sqrt(-3)
+(6, 2) (Fraction(-3, 28), Fraction(-1, 5))   = -29/140 + (-1/10) sqrt(-3)
+(6, 3) (Fraction(-101, 420), Fraction(0, 1))   = -101/420 + (0) sqrt(-3)
+(6, 4) (Fraction(-43, 140), Fraction(1, 5))   = -29/140 + (1/10) sqrt(-3)
+(6, 5) (Fraction(-23, 84), Fraction(7, 15))   = -17/420 + (7/30) sqrt(-3)
+(6, 6) (Fraction(103, 140), Fraction(0, 1))   = 103/140 + (0) sqrt(-3)
+ALL EXACT FACTS: True
+
+########## certify.py --d=7 --joint 1/19 6
+=== Local certificate, d=7: T = 1/19 (= 0.052632), Taylor degree N = 6, prec = 200 bits
+[1] exact facts at x = 0 (exact arithmetic in Q(omega))
+  S_1(0) = 6/7 exactly: True
+  S_2(0) = 6/7 exactly: True
+  S_3(0) = 6/7 exactly: True
+  S_4(0) = 6/7 exactly: True
+  S_5(0) = 6/7 exactly: True
+  S_6(0) = 6/7 exactly: True
+  sum_i dS_i/deps_2(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_3(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_4(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_5(0) = 0 exactly in Q(omega): True
+  sum_i dS_i/deps_6(0) = 0 exactly in Q(omega): True
+[2] exact Taylor coefficients of S_i up to degree 6 -> arb; real polynomials U_i + i V_i = S_i/c
+    tail bounds tau_i(T): ['[1.5778e-10 +/- 2.80e-15]', '[3.2785e-8 +/- 4.45e-14]', '[3.2785e-8 +/- 4.45e-14]', '[3.2785e-8 +/- 4.45e-14]', '[3.2785e-8 +/- 4.45e-14]', '[3.2785e-8 +/- 4.45e-14]']
+[3] alpha_i = [U_i^2 + V_i^2]_{<=Nt} and error bounds E_i(T)
+    E_i(T): ['[5.0784e-10 +/- 1.92e-15]', '[8.9565e-8 +/- 1.14e-13]', '[9.3864e-8 +/- 4.94e-13]', '[9.4514e-8 +/- 3.63e-13]', '[9.3864e-8 +/- 4.94e-13]', '[8.9565e-8 +/- 1.14e-13]']
+[4] design of multipliers (floating point; choices only)
+    singular values of Lambda: [5.06818409 3.28841036 2.11384413 1.87410866 1.4866028 ]
+    Phi_2 on ker Lambda: max eigenvalue -0.027160
+    gamma = 0.02988;  |Gamma|_F = 1.1091;  |psi| = 1.5599
+    float |G3|_F before/after Psi: 2.41295 / 0.14858
+[5] rigorous assembly of the explicit part G of F = Phi + sum_a mu_a(x) D_a(x)
+    float eigenvalues of H2 (quadratic part of F): [-0.56527 -0.28267 -0.20173 -0.03375 -0.02988 -0.02988 -0.02988 -0.02988
+ -0.02988 -0.02716]
+    certified: G_2(x) <= -lambda |x|^2 with lambda = 14566689/536870912 = 0.02713257: True
+[6] bounds on higher-order terms at s = T
+    |G_3|_F = [0.148577 +/- 3.68e-7]   contribution |G_3| T^1 = [0.00781986 +/- 1.43e-9]
+    |G_4|_F = [1.96932 +/- 4.99e-6]   contribution |G_4| T^2 = [0.00545517 +/- 3.76e-9]
+    |G_5|_F = [3.43043 +/- 2.48e-6]   contribution |G_5| T^3 = [0.000500135 +/- 2.28e-10]
+    |G_6|_F = [5.23617 +/- 7.83e-7]   contribution |G_6| T^4 = [4.01790e-5 +/- 1.35e-11]
+    total error bound errF(T) = [2.22572e-7 +/- 4.42e-13];  errF(T)/T^2 = [8.03483e-5 +/- 3.28e-11]
+    lambda - sum_m |G_m| T^(m-2) - errF/T^2 = [0.013236882 +/- 3.58e-10]
+[7] RESULT: F(x) <= -([0.013236882 +/- 3.58e-10]) |x|^2 for all |x| <= T : True
+    => on E with |x| <= T:  Phi <= -[0.013236882 +/- 3.58e-10] |x|^2,  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [0.0066184412 +/- 2.11e-11]
+[6b] joint bound on G_2 + s G_3 + s^2 G_4 over the sphere (K = 64 intervals in s), flattening norms for m >= 5
+    sup|G_5| <= [1.23607 +/- 3.74e-6]  (flattening (2,3); Frobenius [3.43043 +/- 2.48e-6])
+    sup|G_6| <= [1.95392 +/- 3.00e-6]  (flattening (2,4); Frobenius [5.23617 +/- 7.83e-7])
+    float: lambda_max(Hb) = -0.027160 (= max eigenvalue of H)
+    float self-test of |y| = 1, G_2 = y'Hb y, G_3 = u'A3 y, G_4 = y'B4 y: max error 2.2e-16
+    interval 0: s in [0.00000, 0.00082], t = -0.01358, 2 mu = [-0.0271593 +/- 2.91e-8], + width/higher terms -> [-0.0270962 +/- 3.80e-8]
+    interval 32: s in [0.02632, 0.02714], t = -0.01358, 2 mu = [-0.0271319 +/- 2.41e-8], + width/higher terms -> [-0.0269578 +/- 1.64e-8]
+    interval 63: s in [0.05181, 0.05263], t = -0.01358, 2 mu = [-0.0270988 +/- 2.35e-8], + width/higher terms -> [-0.0266727 +/- 1.77e-8]
+    worst interval 63: sup_(|u|=1) sum_m G_m(u) s^(m-2) <= [-0.026672718 +/- 3.53e-10]; + errF/T^2 = [8.03483e-5 +/- 3.28e-11]
+[7b] RESULT (joint): F(x) <= -([0.026592369 +/- 3.16e-10]) |x|^2 for all |x| <= T : True   (7.2 s)
+    => on E with |x| <= T:  L - log(6/7) <= Phi/2 <= -kappa |x|^2 with kappa = [0.013296185 +/- 3.43e-10]
+    (the joint bound is used for the final statement)
+[8] FINAL: for all x in E with |x|_2 <= 1/19:  L(x) <= log(6/7) - 33/2500 |x|_2^2   (certified: True)
+    total time 11.4 s
+
+########## handover.py --d=7 1/19 1/20
+[H1] relabelling of the 120 balls  (d = 7, n = 6)
+     permutations checked: 120/120; each relabelling is a bijection fixing index 1 and sends the
+     centre conj(w)^(a_j) of coordinate j to the centre conj(w)^(k-1) of coordinate k = tau^-1(j).
+[H2] ball around p0 in the eps-chart
+     C = -log(1-r)/r = [1.02586588775 +/- 1.02e-12] ;  |x|_2 <= C r = log(20/19) = [0.0512932943876 +/- 4.95e-14]
+     log(20/19) < T = 1/19 = [0.0526315789474 +/- 3.16e-14] : True
+HANDOVER PASSED
+
+########## handover.py --d=7 --rmax 1/19
+[H1] d = 7: relabelling checked for 120/120 permutations: True
+[H2] largest exclusion radius r with -log(1 - r) <= T  (r* = 1 - exp(-T))
+     T = 1/19:  r* = [0.05127051998 +/- 3.57e-12];  certified r = 5127/100000 = 0.05127:  -log(1-r) = [0.05263103086 +/- 3.40e-12] <= T : True
+HANDOVER-RMAX PASSED
+
+########## crosscheck.py --d=7 --joint 1/19 6
+crosscheck at T = 1/19, N = 6: certified F/|x|^2 <= -0.026592, errF(T) = 2.226e-07
+  s = 0.05263: max |F_direct - G| = 3.958e-10   (rigorous bound errF(s) <= 2.226e-07)
+  s = 0.02632: max |F_direct - G| = 3.084e-12   (rigorous bound errF(s) <= 1.739e-09)
+  s = 0.01316: max |F_direct - G| = 1.438e-14   (rigorous bound errF(s) <= 1.358e-11)
+  worst sampled F/|x|^2 = -0.030544  (certified <= -0.026592)
+  relabelling: max |S_k(b') - S_tau(k)(b)| over 120 permutations = 1.02e-13
+CROSSCHECK PASSED
+
+# overall status: ALL PASSED   wall time 73 s
