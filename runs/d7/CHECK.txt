@@ -1,0 +1,3 @@
+grid: 4^10 = 1048576 boxes tile [-1,1]^10; 786432 tasks; exactly discardable: {'Im u2 < 0': 262144}
+records: 786432/786432 tasks, boxes {'processed': 40849156240, 'F': 8566172688, 'E': 4931592776, 'L': 2645334670, 'outside': 466865793, 'sym': 3785040747, 'excl': 29964662, 'unres': 0}, maxdepth 94, task-cpu 5667967 s
+RESULT: CERTIFICATE COMPLETE (all tasks exactly once, 0 unresolved, config/source bound, grid exact)

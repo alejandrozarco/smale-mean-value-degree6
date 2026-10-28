@@ -187,6 +187,43 @@ Further checks:
 - v3 is intended for $`d = 7`$ and is not needed for the $`d = 6`$ result above. The $`d = 6`$ and $`d = 5`$ runs with v3 are
   a second, independent cover.
 
+## Degree 7 (computation complete, independent check in progress)
+
+Status: the branch-and-bound computation for $`d = 7`$ (constant $`6/7`$) is complete; its independent re-check is still
+running. This is not yet a warrant for $`d = 7`$.
+
+The run used `c/smale_bb_v3.c` with exclusion radius $`1/20`$ on a grid with $`s = 4`$ (configuration hash
+`99d28276d6254bda`). It was split by task id over three machines, labelled A, B and C. `c/run_tree_v3.c` writes the
+subdivision tree during the run, with the same configuration and records.
+The run used `c/run_tree_v3.c` with sha256 `58b62e6c…46c0`, as recorded in the build records. The file published
+here adds two input checks found in review: the task half-width must be $`1/s`$, and the exit status is non-zero if any
+box is unresolved. The per-box logic is unchanged, and the run's tasks file is the canonical grid (`check_done.py`).
+
+| | $`d = 7`$ |
+|---|---|
+| tasks (top boxes) | 786 432 (plus 262 144 discarded exactly: $`\mathrm{Im}\, u_2 \lt  0`$) |
+| boxes | 40 849 156 240 (F 8 566 172 688, E 4 931 592 776, L 2 645 334 670, outside 466 865 793, symmetry 3 785 040 747, excluded 29 964 662) |
+| unresolved boxes | 0 |
+| maximum depth | 94 |
+| CPU time | about 1 574 CPU-hours |
+| `c/check_done.py` on the merged records | CERTIFICATE COMPLETE (bookkeeping: every task once, configuration and source bound, exact grid, 0 unresolved) |
+
+Records: `runs/d7/` holds the merged checkpoint `d7.done.zst`, the tasks `d7.tasks.zst`, their hashes `SHA256.txt`, and
+the check output `CHECK.txt`. Per machine, `runs/d7/{A,B,C}/` holds the build records of the run binaries and of the
+checker, and a floating-point environment probe (`c/fpenv_probe.c`: round to nearest, no flush to zero, gradual
+underflow).
+
+The local certificate for $`d = 7`$ is `local2/run_d7_T1_19.log`. It certifies $`L(x) \le \log(6/7) - \tfrac{33}{2500}\lVert x\rVert_2^2`$ on
+$`E`$ for $`\lVert x\rVert_2 \le 1/19`$, and $`\log(20/19) \le 1/19`$ covers the hand-over for $`r = 1/20`$. The Jacobian rank check
+gives 5 for $`d = 7`$.
+
+**Independent check.** A first pass of `arbcheck2` over every leaf reported no failures. A review then found that its
+saved results were not bound to the exact bytes and task boxes checked: an earlier result could be reused for another
+tree. It is therefore not used. The re-check now running uses `c/verify_chunks.py`. Each chunk's result is a receipt
+bound to the sha256 of the chunk, the canonical tasks file, the checker binary and the arguments, and nothing is
+reused unless all of these match. `c/cover_check2.py` then requires receipts that are disjoint and cover all 786 432
+tasks, with node counts equal to the run records. This section will be updated when the re-check finishes.
+
 ## Figures
 
 Regenerate with `python3 figures/make_figures.py` (matplotlib).
@@ -243,6 +280,7 @@ the radius that the excluded balls map into.
 | `c/arbcheck/arbcheck2.c`, `SPEC_W.md`, `README2.md` | the arb checker with the w-form |
 | `runs/d5_v3/`, `runs/d6_v3/`, `runs/d*_v3_arbcheck2/` | v3 run records and their arb checks |
 | `firstprinciples/` | independent first-principles check of the formulas, symmetries, equality points and hand-over (exact), and of the trees against $`V_i`$ computed from $`P`$ (sampling) |
+| `c/run_tree_v3.c`, `c/verify_chunks.py`, `c/cover_check2.py`, `c/fpenv_probe.c`, `runs/d7/` | $`d = 7`$: run driver writing the tree, input-bound chunk verification, cover check, floating-point probe, merged run records |
 | `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run logs. The code also runs for $`d = 5`$ and $`d = 7`$ (`run_d5_T1_19.log`, `run_d7.sh`); for $`d = 7`$ it is a component of a possible later computation, not a result for $`d = 7`$ |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
 | `runs/local_cert_v3_*.log` | local certificate outputs |

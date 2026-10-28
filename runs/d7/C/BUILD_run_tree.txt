@@ -1,0 +1,10 @@
+# build record of the d = 7 binary on machine C (part 10-31/64), 2026-10-08
+binary: build/run_tree_v3.bin  sha256 6d47ba97ef26636691eb5e15399f7e06f783c607a6ba538d09943f5709c8b990
+build command (src/): cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860 -Ic -Ithird_party/core-math-log -o build/run_tree_v3.bin c/run_tree_v3.c third_party/core-math-log/log.c -lpthread -lm
+sources: c/run_tree_v3.c 58b62e6c1fa40be638c91118c1f6d0270b9fb9b3bf75a1f5dd75156bd45a46c0; c/smale_bb_v3.c 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860; core-math log.c 5f923601d1d0aab2e42136f5432794ecfcf4c23568f273ad8d32921bd1832bcf
+compiler: cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14.0.1)
+host: <host>
+fused multiply-add instructions by function:       7 <cr_log>:  (expected: only cr_log)
+floating-point environment probe: RESULT OK
+d = 5 check: per-task counts identical to the Mac run (3072 tasks)
+starting checkpoint: copy of the Mac d7.done with 65808 records (residues 0-31 done so far); running PID 2149870

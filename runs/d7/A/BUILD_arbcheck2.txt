@@ -1,0 +1,5 @@
+# arbcheck2 build record (Mac), 2026-10-28
+source c/arbcheck/arbcheck2.c sha256 01afc9afcbac359db9b57bf69bf33c209cc2a54f2c2714ffe4940f7fc487b3ad
+binary c/arbcheck/arbcheck2 sha256 86ff7d00428df6edbc5e37e3767db15ba3cf035b93241e2582528e5091361a64
+build: make arbcheck2 (c/arbcheck/Makefile; FLINT 3.6 Homebrew)
+compiler: Apple clang version 21.0.0 (clang-2100.3.34.2)

@@ -1,0 +1,8 @@
+# build record of the running d = 7 binary (Mac), written 2026-10-07 for the binary in use since 2026-10-06 17:20
+binary: runs/d7_v3/run_tree_v3.bin  sha256 b83c5bc1983d4ea437773ca314d063825814494f6a6e519fbf8af60a74243998
+build command (repo root): cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860 -Ic -Ithird_party/core-math-log -o runs/d7_v3/run_tree_v3.bin c/run_tree_v3.c third_party/core-math-log/log.c -lpthread -lm
+sources: c/run_tree_v3.c 58b62e6c1fa40be638c91118c1f6d0270b9fb9b3bf75a1f5dd75156bd45a46c0; c/smale_bb_v3.c 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860; core-math log.c 5f923601d1d0aab2e42136f5432794ecfcf4c23568f273ad8d32921bd1832bcf
+compiler: Apple clang version 21.0.0 (clang-2100.3.34.2)
+fused multiply-add instructions by function:    7 <_cr_log>:  (expected: only cr_log)
+running process: PID 39806: runs/d7_v3/run_tree_v3.bin 7 0.05 4 2 runs/d7_v3/d7
+floating-point environment probe (c/fpenv_probe.c, same flags): RESULT OK

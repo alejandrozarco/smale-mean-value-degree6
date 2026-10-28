@@ -28,6 +28,7 @@ least one model instance that did not write it.
 | `local2/` generalised to $`d = 5, 6, 7`$, with the joint final step | gpt-6-astra |
 | Version 3 of the evaluator, change A9 (`c/smale_bb_v3.c`, `c/ERROR_ANALYSIS_v3.md`) | Claude Fable 5.1, with exact checks of the Taylor coefficients and adversarial boxes; gpt-6-astra, with exact rational checks and tests of the run partition and merging |
 | arb checker with the w-form (`c/arbcheck/arbcheck2.c`) | Claude Opus 5.5 (separate instance), adversarial, with tampered trees |
+| $`d = 7`$ run and verification chain (`c/run_tree_v3.c`, merging, chunked checking, cover check) | gpt-6-astra: UNSOUND as a procedure (see below); the repaired chain is being rerun |
 | Public repository as a whole | gpt-6-astra (stopped early by a usage limit); Claude Opus 5.5 |
 
 The AI reviews found real errors. All of them were fixed:
@@ -57,6 +58,11 @@ The AI reviews found real errors. All of them were fixed:
   fixed: `c/check_done.py` accepted `--bin` without `--build`, and `c/merge_done.py` removed duplicate records before
   validating them fully. It also found that the run program accepts malformed partition strings; this is documented
   in `c/ERROR_ANALYSIS_v3.md` (W.9), and the completion check catches the resulting gaps.
+- **$`d = 7`$ verification chain.** gpt-6-astra reproduced that the first-pass chunked checker could reuse an earlier
+  passing result for a different tree, and that the cover check did not tie results to task boxes. It also found
+  smaller issues: exit statuses not propagated, duplicate chunk labels, the run driver accepting a wrong half-width,
+  and the wording of the completion check. It found no numerical error and no missing task. The first pass is not
+  used; `c/verify_chunks.py` and `c/cover_check2.py` replace it, and the independent check is being rerun.
 - **arb checker.** Non-finite task coordinates were accepted, and a cache reset was in the wrong place, a latent
   hazard (Claude Fable 5.1).
 

@@ -1,0 +1,10 @@
+# build record of the running d = 7 binary (machine B), written 2026-10-07 for the binary in use since 2026-10-06 17:20
+binary: build/run_tree_v3.bin  sha256 59899788b3c9a638b76770b53fbe5111eb3e5cb0cf36551f09599d01d78fd959
+build command (src/): cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860 -Ic -Ithird_party/core-math-log -o build/run_tree_v3.bin c/run_tree_v3.c third_party/core-math-log/log.c -lpthread -lm
+sources: c/run_tree_v3.c 58b62e6c1fa40be638c91118c1f6d0270b9fb9b3bf75a1f5dd75156bd45a46c0; c/smale_bb_v3.c 1bdf933492ffccd5d5057c1687c2bc2d9d7743da3df363587fa812acdabde860; core-math log.c 5f923601d1d0aab2e42136f5432794ecfcf4c23568f273ad8d32921bd1832bcf
+compiler: cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+host: <host>
+fused multiply-add instructions by function:  (x86-64 baseline: none; cr_log's __builtin_fma calls libm fma)
+calls to fma: 7
+running process: PID 519004: build/run_tree_v3.bin 7 0.05 4 4 run/d7
+floating-point environment probe (c/fpenv_probe.c, same flags): RESULT OK

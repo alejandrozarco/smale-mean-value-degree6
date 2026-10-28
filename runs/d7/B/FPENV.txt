@@ -1,0 +1,8 @@
+FLT_EVAL_METHOD 0
+fegetround FE_TONEAREST
+MXCSR 0x1f80 (FTZ bit 15 = 0, DAZ bit 6 = 0, RC bits 13-14 = 0)
+gradual underflow 2^-1074*2 == 2^-1073: 1
+2^-1022/2 == 2^-1023 (not flushed): 1
+sqrt(2) == 0x1.6a09e667f3bcdp+0: 1
+1 + 2^-53 == 1 (ties to even): 1
+RESULT OK

@@ -1,0 +1,6 @@
+# arbcheck2 build record (machine C), 2026-10-28
+source src/c/arbcheck/arbcheck2.c sha256 01afc9afcbac359db9b57bf69bf33c209cc2a54f2c2714ffe4940f7fc487b3ad
+binary src/c/arbcheck/arbcheck2 sha256 97b6e0fd33985264cee880acfdb589c1a383676e6719cd7d3d002b2dc985c339
+build: make arbcheck2 FLINT_PREFIX=~/opt (FLINT 3.6.0, GMP 6.3.0, MPFR 4.2.1 from official sources; test suites pass; ~/opt/build.log)
+compiler: cc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-14.0.1)
+host: <host>

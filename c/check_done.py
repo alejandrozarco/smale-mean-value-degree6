@@ -12,14 +12,16 @@ Independent of the C code (pure Python, exact rational arithmetic where it matte
      local-certificate hand-over r/(1-r) <= 0.0527 holds exactly for the IEEE value of r_excl.
   2. every record: checksum, exact field format, cfg hash = header's, id in range, each id exactly once,
      all ids 0..ntask-1 present (unless --partial), unresolved = 0, tree count processed = 2*leaves - 1,
-     vol_done within 1e-9 (relative) of the top-box volume (diagnostic: float sum).
+     vol_done within max(1e-9, leaves*2^-52) (relative) of the top-box volume (diagnostic: float sum).
   3. PREFIX.unresolved contains no UNRESOLVED line.
   4. top-level grid, recomputed with exact rationals: the s^D grid of [-1,1]^D (s a power of two: the closed
      boxes tile [-1,1]^D exactly), which contains the closed chart domain |u_j| <= 1.  Every grid box is either
      listed in PREFIX.tasks exactly once, or is EXACTLY discardable: some |u_v| > 1 on the whole closed box, or
      |u_v| < |u_{v+1}| on the whole closed box, or Im u_2 < 0 on the whole closed box.
      The task list equals an independent re-implementation of the C shuffle (xorshift Fisher-Yates, seed).
-Exit status 0 and "CERTIFICATE COMPLETE" only if everything passes.
+Exit status 0 and "CERTIFICATE COMPLETE" only if everything passes. This is BOOKKEEPING completion of the run's own
+records (every task once, configuration and source bound, exact grid, 0 unresolved). It does not re-verify any
+leaf; the independent leaf check is c/verify_chunks.py + c/cover_check2.py with arbcheck2.
 """
 import sys, hashlib, struct, re, os, itertools
 from fractions import Fraction
@@ -192,8 +194,13 @@ for ln, line in enumerate(lines[1:], start=2):
         fail(f'line {ln}: tree count processed={pr} != 2*leaves-1={2 * leaves - 1}')
     if un:
         fail(f'line {ln}: task {t} has {un} unresolved boxes')
-    if abs(Fraction(float(g[11])) - topvol) > topvol * Fraction(1, 10**9):
-        fail(f'line {ln}: task {t} volume {g[11]} != top-box volume')
+    # vol_done is a float sum of the leaf volumes (diagnostic; coverage itself is structural: each bisection halves
+    # one coordinate, and the tree count is checked above).  Recursive summation of `leaves` positive terms has
+    # relative error <= gamma_(leaves-1) = (leaves-1)u/(1-(leaves-1)u), u = 2^-53 (+ the 17-digit print); the
+    # tolerance max(1e-9, leaves * 2^-52) exceeds that for every leaf count < 2^50.
+    voltol = max(Fraction(1, 10**9), Fraction(leaves, 2**52))
+    if abs(Fraction(float(g[11])) - topvol) > topvol * voltol:
+        fail(f'line {ln}: task {t} volume {g[11]} != top-box volume (tolerance {float(voltol):.2e})')
     for k, v in zip(['processed', 'F', 'E', 'L', 'outside', 'sym', 'excl', 'unres'], [pr, F, E, L, o, sy, ex, un]):
         tot[k] += v
     maxdepth = max(maxdepth, md); cpu += float(g[10])
