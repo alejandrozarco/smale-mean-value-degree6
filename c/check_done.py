@@ -9,7 +9,8 @@ Independent of the C code (pure Python, exact rational arithmetic where it matte
   1. header line: checksum; config string parsed; config hash = sha256(config string)[:16];
      src sha256 in the config = sha256 of --src (default c/smale_bb_vN.c, N from the header) = BUILD.txt's;
      binary sha256 = BUILD.txt (if --bin/--build given); excl_mode = 2; 0 < r_excl <= 0.05 and the
-     local-certificate hand-over r/(1-r) <= 0.0527 holds exactly for the IEEE value of r_excl.
+     local-certificate hand-over r/(1-r) <= 0.0527 holds exactly for the IEEE value of r_excl (the hand-over of local/
+     for d <= 6; for d = 7 the operative one is local2/, -log(1-r) <= 1/19, tighter, not tested here).
   2. every record: checksum, exact field format, cfg hash = header's, id in range, each id exactly once,
      all ids 0..ntask-1 present (unless --partial), unresolved = 0, tree count processed = 2*leaves - 1,
      vol_done within max(1e-9, leaves*2^-52) (relative) of the top-box volume (diagnostic: float sum).

@@ -1,20 +1,22 @@
-# Smale's mean value conjecture, degree 6: computation and certificates
+# Smale's mean value conjecture, degrees 6 and 7: computation and certificates
 
 Status: **computational certificates, not peer reviewed.** First published 2026-09-30. **Produced by AI models** under
 the direction of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 
 > [!IMPORTANT]
-> This repository is a public, timestamped, AI-produced **warrant** for Smale's mean value conjecture in degree 6,
-> that is, for the sharp constant $`5/6`$ (S. Smale, Bull. Amer. Math. Soc. 4 (1981) 1–36): computer-checked
+> This repository is a public, timestamped, AI-produced **warrant** for Smale's mean value conjecture in degrees 6
+> and 7, that is, for the sharp constants $`5/6`$ and $`6/7`$ (S. Smale, Bull. Amer. Math. Soc. 4 (1981) 1–36): computer-checked
 > certificates together with a written reduction, which no human has yet digested. We do not regard the question as
 > settled by it. Independent verification and human-readable expositions are welcome, and credit for a
 > human-readable proof belongs to whoever writes one. To refer to the computational result, please cite the archived
 > repository ([doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019)). Questions, checks and
 > corrections: [GitHub issues](https://github.com/alejandrozarco/smale-mean-value-degree6/issues).
 
-Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.2 is
+Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.3 is
+[doi:10.5281/zenodo.23733791](https://doi.org/10.5281/zenodo.23733791), v1.2 is
 [doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository; the
-$`d = 6`$ subdivision tree (`d6.canonical.tree.zst`, 381 MB) is attached to the GitHub releases v1.1 and v1.2.
+$`d = 6`$ subdivision tree (`d6.canonical.tree.zst`, 381 MB) is attached to the GitHub releases v1.1 and v1.2, and the
+$`d = 7`$ subdivision trees (nine files, about 13 GB) to release v1.4.
 
 For a complex polynomial $`P`$ of degree $`d`$ and a point $`z`$ with $`P'(z) \neq 0`$, Smale's mean value conjecture
 concerns the smallest constant $`K`$ such that some critical point $`c`$ of $`P`$ satisfies
@@ -32,7 +34,8 @@ degree 6. It has three parts:
    `runs/d6_v2/`);
 3. an interval-arithmetic second-order certificate near the extremal configuration (`local/`).
 
-The same code applied to $`d = 5`$ is included (`runs/d5_v2/`).
+The same code applied to $`d = 5`$ is included (`runs/d5_v2/`). A computation for $`d = 7`$ (constant $`6/7`$) with the same
+three parts is described under [Degree 7](#degree-7).
 
 ## Normalisation
 
@@ -185,12 +188,18 @@ Further checks:
 - `firstprinciples/sample_tree.py` on the v3 trees: every F/E/L leaf for $`d = 5`$, and 1 337 738 leaves (356 M points) for
   $`d = 6`$, including every leaf at depth $`\ge 67`$. There were 0 violations (`firstprinciples/v3/`).
 - v3 is intended for $`d = 7`$ and is not needed for the $`d = 6`$ result above. The $`d = 6`$ and $`d = 5`$ runs with v3 are
-  a second, independent cover.
+  a second cover with a different model; v3 shares most of its code with v2.
 
-## Degree 7 (computation complete, independent check in progress)
+## Degree 7
 
-Status: the branch-and-bound computation for $`d = 7`$ (constant $`6/7`$) is complete; its independent re-check is still
-running. This is not yet a warrant for $`d = 7`$.
+Status: a computer-checked warrant for the sharp constant $`6/7`$, of the same kind as for $`d = 6`$; the note at the top
+applies. The branch-and-bound computation is complete, and so is its independent re-check in arb: the subdivision tree
+of every one of the 786 432 tasks passed, with each result bound to its inputs. No human has checked the reduction or
+the checker.
+
+Context: Jatar and Ng (arXiv:2610.21472, not independently verified) give polynomials of arbitrarily large degree with
+$`S(P) \gt  1.1018`$. If that holds, the sharp value $`(d-1)/d`$ fails in all large degrees. In which degree it first fails is
+open; exact values in small degrees bound it from below.
 
 The run used `c/smale_bb_v3.c` with exclusion radius $`1/20`$ on a grid with $`s = 4`$ (configuration hash
 `99d28276d6254bda`). It was split by task id over three machines, labelled A, B and C. `c/run_tree_v3.c` writes the
@@ -207,6 +216,8 @@ box is unresolved. The per-box logic is unchanged, and the run's tasks file is t
 | maximum depth | 94 |
 | CPU time | about 1 574 CPU-hours |
 | `c/check_done.py` on the merged records | CERTIFICATE COMPLETE (bookkeeping: every task once, configuration and source bound, exact grid, 0 unresolved) |
+| independent re-check in arb (`arbcheck2`) | PASS: 786 432 of 786 432 tasks, 40 849 156 240 nodes, 0 failures, 0 unresolved; 4 449 leaves proved only after refinement |
+| `c/cover_check2.py` | COVER COMPLETE (`runs/d7/verify/COVER.txt`) |
 
 Records: `runs/d7/` holds the merged checkpoint `d7.done.zst`, the tasks `d7.tasks.zst`, their hashes `SHA256.txt`, and
 the check output `CHECK.txt`. Per machine, `runs/d7/{A,B,C}/` holds the build records of the run binaries and of the
@@ -219,10 +230,52 @@ gives 5 for $`d = 7`$.
 
 **Independent check.** A first pass of `arbcheck2` over every leaf reported no failures. A review then found that its
 saved results were not bound to the exact bytes and task boxes checked: an earlier result could be reused for another
-tree. It is therefore not used. The re-check now running uses `c/verify_chunks.py`. Each chunk's result is a receipt
+tree. It is therefore not used. The re-check (completed 2026-11-06) used `c/verify_chunks.py` on 22 chunks. Each chunk's result is a receipt
 bound to the sha256 of the chunk, the canonical tasks file, the checker binary and the arguments, and nothing is
-reused unless all of these match. `c/cover_check2.py` then requires receipts that are disjoint and cover all 786 432
-tasks, with node counts equal to the run records. This section will be updated when the re-check finishes.
+reused unless all of these match. `c/cover_check2.py` then runs `c/check_done.py` on the same tasks file and requires
+receipts that are disjoint and cover all 786 432 tasks, with node counts equal to the run records and each stream
+equal to its expected sha256. `c/regress/nc_verify_chain.sh` tests that this chain rejects damaged or wrong input
+(31 controls, all behaving as expected: `runs/regress_v3/`). The canonical record digest of the verified trees is
+`fd7e760053b5a1fb7141025f04fd16473412e4a9115934a34a18b8e23685c285`.
+
+Records of the re-check: `runs/d7/verify/` holds, per stream, the chunk receipts, the stream receipt and the ids files
+(`LABEL.NNNN.ids.zst`, one line `id nodes record_sha256` per tree record), and `streams.txt` with the expected stream
+hashes. The labels name the run parts: `mac` is machine A; `erun`, `erun3` are machine B; `orun1`, `orun2a`, `orun2b`
+are machine C, and `runmode` holds the trees of tasks finished before the tree output existed, exported afterwards
+with `c/export_tree_v3.c`. To check the published receipts (minutes):
+
+```sh
+zstd -d runs/d7/d7.done.zst runs/d7/d7.tasks.zst
+python3 c/cover_check2.py runs/d7/d7 97b6e0fd33985264cee880acfdb589c1a383676e6719cd7d3d002b2dc985c339 \
+  99d28276d6254bda runs/d7/verify/streams.txt runs/d7/verify
+```
+
+**Trees.** The trees are attached to release v1.4 (zstd; sha256 in `runs/d7/TREES.txt`). A stream is the
+decompressed concatenation of its files, in this order:
+
+| label | files |
+|---|---|
+| `mac` | `A_tree.zst` |
+| `erun` | `B_part1_tree.zst` |
+| `erun3` | `B_part2_tree.zst` |
+| `runmode` | `runmode_export_tree.zst` |
+| `orun2b` | `C_part2_tree_seg2.zst` |
+| `orun2a` | `C_part2_tree_seg1.part1.zst`, `C_part2_tree_seg1.part2.zst` |
+| `orun1` | `C_part1_tree.part1.zst`, `C_part1_tree.part2.zst` |
+
+To re-check one stream with your own build of `arbcheck2` (about 40 GB decompressed in all; roughly 2 000 CPU-hours
+for all seven):
+
+```sh
+cat B_part1_tree.zst | zstd -dc | python3 c/verify_chunks.py erun runs/d7/d7.tasks \
+  a756c56ae95b802f9d5a3374ac82261a3514deb94fc74d29a506d114f6fa2d41 99d28276d6254bda c/arbcheck/arbcheck2 \
+  "$(sha256sum c/arbcheck/arbcheck2 | cut -d' ' -f1)" 8 2000000000 \
+  596952e3d457559457d5b02ecb19bc8c90c8b8e159295bc42578c5704939ba27 work/erun 7
+python3 c/cover_check2.py runs/d7/d7 "$(sha256sum c/arbcheck/arbcheck2 | cut -d' ' -f1)" 99d28276d6254bda \
+  runs/d7/verify/streams.txt work
+```
+
+The second command reports COVER COMPLETE only once all seven streams are in `work/`.
 
 ## Figures
 
@@ -280,7 +333,8 @@ the radius that the excluded balls map into.
 | `c/arbcheck/arbcheck2.c`, `SPEC_W.md`, `README2.md` | the arb checker with the w-form |
 | `runs/d5_v3/`, `runs/d6_v3/`, `runs/d*_v3_arbcheck2/` | v3 run records and their arb checks |
 | `firstprinciples/` | independent first-principles check of the formulas, symmetries, equality points and hand-over (exact), and of the trees against $`V_i`$ computed from $`P`$ (sampling) |
-| `c/run_tree_v3.c`, `c/verify_chunks.py`, `c/cover_check2.py`, `c/fpenv_probe.c`, `runs/d7/` | $`d = 7`$: run driver writing the tree, input-bound chunk verification, cover check, floating-point probe, merged run records |
+| `c/run_tree_v3.c`, `c/verify_chunks.py`, `c/cover_check2.py`, `c/fpenv_probe.c`, `runs/d7/` | $`d = 7`$: run driver writing the tree, input-bound chunk verification, cover check, floating-point probe, merged run records, receipts of the re-check (`runs/d7/verify/`) |
+| `c/regress/nc_verify_chain.sh`, `c/regress/nc_tools.py`, `runs/regress_v3/` | negative controls of the verification chain and their log |
 | `local2/` | a second local certificate, implemented from its specification (`SPEC.md`) only: statement, method, code, run logs. The code also runs for $`d = 5`$ and $`d = 7`$ (`run_d5_T1_19.log`, `run_d7.sh`); for $`d = 7`$ it is a component of a possible later computation, not a result for $`d = 7`$ |
 | `local/` | local certificate (`local_cert.py`, `exact_facts.py`, `LOCAL_CERT.md`), Jacobian rank check, numerical checks |
 | `runs/local_cert_v3_*.log` | local certificate outputs |
@@ -384,6 +438,7 @@ The local certificate assumes the correctness of arb (python-flint).
   arXiv:2608.27047 (2026).
 - T. Adamczewski, https://github.com/tadamcz/mean-value-problem (2026): Lean formalisation of a claimed disproof of the
   conjecture with $`K = 1`$ in very large degree; machine-checked, not human-reviewed; not examined here.
+- A. Jatar, T. W. Ng, Smale's mean value constant and admissible univalent Blaschke pairs, arXiv:2610.21472 (2026).
 - I. M. Gelfand, M. M. Kapranov, A. V. Zelevinsky, Discriminants, resultants, and multidimensional determinants,
   Birkhäuser, 1994.
 - M. Forsberg, M. Passare, A. Tsikh, Laurent determinants and arrangements of hyperplane amoebas, Adv. Math. 151

@@ -1,0 +1,34 @@
+chain: verify_chunks 3c363fc9fc8097575ef3d7faf2490cbc86cda792e431185f88fc6e45383369c8, cover_check2 55bab7f8f8638a7880a2ee07ff7bfe76896db38078fe25b788b1b41c590dcb4b, arbcheck2 86ff7d00428df6edbc5e37e3767db15ba3cf035b93241e2582528e5091361a64
+date: 2026-11-01T18:20:12Z, host: Darwin arm64
+PASS  C0 positive: correct inputs verify
+PASS  C0 positive: COVER COMPLETE
+PASS  NC1 record replaced by one F leaf: verify rejects
+PASS  NC1 cover rejects
+PASS  NC1 failed receipt written
+PASS  NC1x record near an equality point replaced by one F leaf: verify rejects
+PASS  NC2 non-canonical tasks with a consistent hash: verify cannot know (passes)
+PASS  NC2 cover rejects (check_done on the same file)
+PASS  NC3 tampered stream into a finished workdir: verify refuses
+PASS  NC3 stale receipts, expected hash of the new stream: cover rejects
+PASS  NC3 stale receipts, expected hash of the old stream: cover accepts (genuine)
+PASS  NC4 missing task: verify passes the rest
+PASS  NC4 cover rejects
+PASS  NC5 duplicate record: cover rejects
+PASS  NC6 unresolved leaf: verify rejects
+PASS  NC6 cover rejects
+PASS  NC7 wrong expected stream hash: verify rejects
+PASS  NC7 cover rejects
+PASS  NC8 tasks file of another degree: verify rejects
+PASS  NC10 torn tail: verify rejects
+PASS  NC10 cover rejects
+PASS  NC11 leftovers of a killed run, no receipt: recomputed
+PASS  NC11 cover accepts
+PASS  NC12 ids file edited afterwards: cover rejects
+PASS  NC13 receipts from another arbcheck2 hash: cover rejects
+PASS  NC14 stream in STREAMS without a receipt: cover rejects
+PASS  NC15 receipt for a stream not in STREAMS: cover rejects
+PASS  NC16 compressed ids files: cover accepts
+PASS  NC17 edited compressed ids file: cover rejects
+PASS  D7 two real records near equality points verify
+PASS  D7 one of them replaced by one F leaf: verify rejects
+31 controls, 0 wrong

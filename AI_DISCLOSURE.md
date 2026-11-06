@@ -28,7 +28,8 @@ least one model instance that did not write it.
 | `local2/` generalised to $`d = 5, 6, 7`$, with the joint final step | gpt-6-astra |
 | Version 3 of the evaluator, change A9 (`c/smale_bb_v3.c`, `c/ERROR_ANALYSIS_v3.md`) | Claude Fable 5.1, with exact checks of the Taylor coefficients and adversarial boxes; gpt-6-astra, with exact rational checks and tests of the run partition and merging |
 | arb checker with the w-form (`c/arbcheck/arbcheck2.c`) | Claude Opus 5.5 (separate instance), adversarial, with tampered trees |
-| $`d = 7`$ run and verification chain (`c/run_tree_v3.c`, merging, chunked checking, cover check) | gpt-6-astra: UNSOUND as a procedure (see below); the repaired chain is being rerun |
+| $`d = 7`$ run and verification chain (`c/run_tree_v3.c`, merging, chunked checking, cover check) | gpt-6-astra: UNSOUND as a procedure (see below); the repaired chain was rerun to completion |
+| Whole project, $`d = 6`$ and $`d = 7`$ (reduction re-derived for general $`d`$, checker, verification chain, evidence, wording) | Claude Fable 5.1: $`d = 6`$ SOUND; $`d = 7`$ SOUND WITH FIXES, conditional on the re-check (since completed); fixes applied |
 | Public repository as a whole | gpt-6-astra (stopped early by a usage limit); Claude Opus 5.5 |
 
 The AI reviews found real errors. All of them were fixed:
@@ -62,7 +63,13 @@ The AI reviews found real errors. All of them were fixed:
   passing result for a different tree, and that the cover check did not tie results to task boxes. It also found
   smaller issues: exit statuses not propagated, duplicate chunk labels, the run driver accepting a wrong half-width,
   and the wording of the completion check. It found no numerical error and no missing task. The first pass is not
-  used; `c/verify_chunks.py` and `c/cover_check2.py` replace it, and the independent check is being rerun.
+  used; `c/verify_chunks.py` and `c/cover_check2.py` replace it, and the independent check was rerun to completion.
+- **Project review.** Claude Fable 5.1 found no mathematical gap. It found that the cover check took the tasks-file
+  hash as given and did not compare the streams with their expected hashes, that the re-check's receipts and most of
+  the $`d = 7`$ trees existed in one copy, and that no test of the chain's rejections was recorded. All fixed:
+  `c/cover_check2.py` reads the tasks file, runs `c/check_done.py` on it and compares the streams; the receipts are
+  in `runs/d7/verify/`; the trees are attached to release v1.4; 31 controls are in `c/regress/nc_verify_chain.sh`.
+  Not reviewed by it: the floating-point error analysis line by line, and the internals of `local2/certify.py`.
 - **arb checker.** Non-finite task coordinates were accepted, and a cache reset was in the wrong place, a latent
   hazard (Claude Fable 5.1).
 
@@ -83,4 +90,5 @@ What remains to be trusted:
 - the written arguments in `REDUCTION.md` (Proposition R and its corollary) and the hand-over between the cover and
   the local certificates, which only AI models have checked;
 - that the code computes the quantities the written arguments refer to;
-- FLINT/arb, python-flint, CORE-MATH, the compilers and the hardware floating-point unit.
+- FLINT/arb, python-flint, CORE-MATH, the compilers (for $`d = 7`$ on machine C: GCC 11.5, with FLINT, GMP and MPFR built
+  from official sources) and the hardware floating-point unit.

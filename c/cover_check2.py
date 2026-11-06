@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """cover_check2.py — the input-bound verification (c/verify_chunks.py) covers the whole run exactly once.
-usage: python3 c/cover_check2.py MERGED.done CANON_TASKS_SHA256 ARBCHECK2_SHA256[,SHA256...] CFG16 DIR...
+usage: python3 c/cover_check2.py PREFIX ARBCHECK2_SHA256[,SHA256...] CFG16 STREAMS DIR... [--src c/smale_bb_vN.c]
 (several arbcheck2 sha256 values when builds on several machines are used; each needs its build record)
+PREFIX is the run prefix: PREFIX.done, PREFIX.tasks and PREFIX.unresolved. c/check_done.py runs on these same files and
+must print CERTIFICATE COMPLETE (it proves that PREFIX.tasks is the exact canonical grid); the canonical tasks sha256 is
+computed here from PREFIX.tasks, never given by hand. STREAMS has one line per stream, "LABEL STREAM_SHA256 ..." (any
+further columns are ignored): d7/verify/queue.txt or the published streams.txt.
 Collects every *.receipt.json and *.stream.json under the DIRs and checks:
-- every receipt has ok=true, a SUMMARY with status=PASS, fail=0, missing=0 and records = n_records, the given canonical
-  tasks sha256, arbcheck2 sha256 and cfg16, and its ids file exists with the recorded sha256 (recomputed);
+- every receipt has ok=true, a SUMMARY with status=PASS, fail=0, missing=0 and records = n_records, the canonical
+  tasks sha256, a given arbcheck2 sha256 and cfg16, and its ids file exists with the recorded sha256 (recomputed);
+  the ids file may be LABEL.NNNN.ids or LABEL.NNNN.ids.zst (the sha256 is that of the decompressed bytes);
 - chunk names are unique across all DIRs; every label has a stream receipt with ok=true and the same hashes, and its
   chunk indices are 0..chunks-1 with no gap;
-- the ids (from the ids files) are pairwise disjoint and equal the set of task ids of MERGED.done, and for every id the
-  tree record's node count equals `processed` in MERGED.done;
+- the stream labels are exactly those of STREAMS, each stream receipt has the expected stream sha256;
+- the ids (from the ids files) are pairwise disjoint and equal the set of task ids of PREFIX.done, and for every id the
+  tree record's node count equals `processed` in PREFIX.done;
 - prints a canonical digest: sha256 over the lines "id record_sha256" in increasing id order.
 Prints COVER COMPLETE only if everything holds. *.FAILED receipts are reported."""
-import glob, hashlib, json, os, re, sys
+import glob, hashlib, json, os, re, subprocess, sys
 
 def sha_file(p):
     h = hashlib.sha256()
@@ -19,12 +25,34 @@ def sha_file(p):
         for b in iter(lambda: f.read(1 << 22), b''): h.update(b)
     return h.hexdigest()
 
-done, tsha, asha, cfg16 = sys.argv[1:5]; dirs = sys.argv[5:]; asha = set(asha.split(','))
+def read_ids(p):
+    if os.path.exists(p): return open(p, 'rb').read()
+    if os.path.exists(p + '.zst'):
+        z = subprocess.run(['zstd', '-dc', p + '.zst'], capture_output=True)
+        if z.returncode == 0: return z.stdout
+    return None
+
+args = sys.argv[1:]; src = []
+if '--src' in args:
+    k = args.index('--src'); src = args[k:k + 2]; del args[k:k + 2]
+if len(args) < 5: sys.exit(__doc__)
+prefix, asha, cfg16, streams_file = args[:4]; dirs = args[4:]; asha = set(asha.split(','))
+done = prefix + '.done'; tsha = sha_file(prefix + '.tasks')
+print('canonical tasks sha256 (computed from PREFIX.tasks):', tsha)
+expect = {}
+for l in open(streams_file):
+    f = l.split()
+    if f: expect[f[0]] = f[1]
+cd = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'check_done.py'), prefix] + src,
+                    capture_output=True, text=True)
+lastcd = cd.stdout.strip().split('\n')[-1]
+print('check_done.py on the same files:', lastcd)
 proc = {}
 for l in open(done):
     m = re.match(r'R (\d+) (\d+) ', l)
     if m: proc[int(m.group(1))] = int(m.group(2))
 probs = []; chunks = {}; streams = {}
+if cd.returncode != 0 or 'CERTIFICATE COMPLETE' not in lastcd: probs.append('check_done.py did not pass on PREFIX')
 for dd in dirs:
     for f in glob.glob(os.path.join(dd, '**', '*.receipt.json*'), recursive=True):
         if f.endswith('.FAILED'): probs.append(f'failed receipt present: {f}'); continue
@@ -43,11 +71,11 @@ for c, (r, base) in sorted(chunks.items()):
         probs.append(f'{c}: not a passing receipt')
     if r['canonical_tasks_sha256'] != tsha or r['arbcheck2_sha256'] not in asha or r['cfg16'] != cfg16:
         probs.append(f'{c}: receipt bound to other inputs')
-    idsp = os.path.join(base, c + '.ids')
-    if not os.path.exists(idsp) or sha_file(idsp) != r['ids_sha256']:
+    idsb = read_ids(os.path.join(base, c + '.ids'))
+    if idsb is None or hashlib.sha256(idsb).hexdigest() != r['ids_sha256']:
         probs.append(f'{c}: ids file missing or changed'); continue
     n = 0
-    for l in open(idsp):
+    for l in idsb.decode().splitlines():
         i, nodes, rs = l.split(); i = int(i); nodes = int(nodes); n += 1
         if i in seen: probs.append(f'id {i} in {seen[i]} and {c}')
         seen[i] = c; rec_sha[i] = rs
@@ -63,6 +91,10 @@ for lab, idxs in labels.items():
     if sorted(idxs) != list(range(s['chunks'])): probs.append(f'label {lab}: chunks {sorted(idxs)} != 0..{s["chunks"]-1}')
 for lab in streams:
     if lab not in labels: probs.append(f'stream {lab} has no chunk receipts')
+    if lab not in expect: probs.append(f'stream {lab} is not listed in STREAMS')
+    elif streams[lab].get('stream_sha256') != expect[lab]: probs.append(f'stream {lab}: sha256 differs from STREAMS')
+for lab in expect:
+    if lab not in streams: probs.append(f'stream {lab} of STREAMS has no stream receipt')
 missing = set(proc) - set(seen); extra = set(seen) - set(proc)
 if missing: probs.append(f'{len(missing)} run ids without a verified tree record, e.g. {sorted(missing)[:5]}')
 if extra: probs.append(f'{len(extra)} verified ids not in the run, e.g. {sorted(extra)[:5]}')

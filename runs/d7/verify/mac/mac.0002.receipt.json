@@ -1,0 +1,22 @@
+{
+ "label": "mac",
+ "chunk": "mac.0002",
+ "chunk_sha256": "ebc9d436ee329bbffa7a5e9bf8a6181262cfc9be985e70fa2dea08695d842bf9",
+ "chunk_bytes": 997558778,
+ "n_records": 20550,
+ "ids_sha256": "efa6e1ffc5fbfee55b4bb9cb135c3dc75b57f2b3120e6fa1a3ec5924b556dbd4",
+ "subset_tasks_sha256": "aeec260c10eb26eaabef1dd8a8dae233b5e23bc2e56abc725e0e5d2f7ace97e0",
+ "canonical_tasks_sha256": "a756c56ae95b802f9d5a3374ac82261a3514deb94fc74d29a506d114f6fa2d41",
+ "cfg16": "99d28276d6254bda",
+ "arbcheck2_sha256": "97b6e0fd33985264cee880acfdb589c1a383676e6719cd7d3d002b2dc985c339",
+ "args": [
+  "-t",
+  "11",
+  "--quiet",
+  "7"
+ ],
+ "summary": "SUMMARY d=7 records=20550 nodes=997271078 leaves=498645814 F=210957384 E=113320269 L=64930839 O=11122824 S=97567374 X=747124 U=0 direct=498645695 refined=119 subboxes=260 fail=0 failed_records=0 missing=0 dup=0 unknown=0 badheader=0 tail_incomplete=0 wform_direct=279471025 (F=134121339 E=80420062 L=64929624) wform_subboxes=182 maxdepth=91 wall=27298.3s cpu=67746.6s status=PASS",
+ "returncode": 0,
+ "seconds": 27298.4,
+ "ok": true
+}

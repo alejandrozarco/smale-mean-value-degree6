@@ -1,0 +1,8 @@
+{
+ "label": "runmode",
+ "chunks": 1,
+ "stream_sha256": "cf90295af2dc23f25a028be377f9a1493bab5cd57f58ec6fa27eee3449d6c7f7",
+ "canonical_tasks_sha256": "a756c56ae95b802f9d5a3374ac82261a3514deb94fc74d29a506d114f6fa2d41",
+ "arbcheck2_sha256": "97b6e0fd33985264cee880acfdb589c1a383676e6719cd7d3d002b2dc985c339",
+ "ok": true
+}

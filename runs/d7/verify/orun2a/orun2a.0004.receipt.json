@@ -1,0 +1,22 @@
+{
+ "label": "orun2a",
+ "chunk": "orun2a.0004",
+ "chunk_sha256": "5596f0c7983af1d6c0593a8acf6ca89ec4187018b36fdc65baf8d2444d4bd71b",
+ "chunk_bytes": 1885423833,
+ "n_records": 39813,
+ "ids_sha256": "05174764a86a7cc9c8e6c286d913ab5aaa3defaae622af6e2ee36ee954050e9f",
+ "subset_tasks_sha256": "7419b5e9d18d395939dc997b0647d01a0641fbaa94f4508f72c570fecc3040bb",
+ "canonical_tasks_sha256": "a756c56ae95b802f9d5a3374ac82261a3514deb94fc74d29a506d114f6fa2d41",
+ "cfg16": "99d28276d6254bda",
+ "arbcheck2_sha256": "97b6e0fd33985264cee880acfdb589c1a383676e6719cd7d3d002b2dc985c339",
+ "args": [
+  "-t",
+  "11",
+  "--quiet",
+  "7"
+ ],
+ "summary": "SUMMARY d=7 records=39813 nodes=1884866451 leaves=942453132 F=395005001 E=212883657 L=114767298 O=23731535 S=194540858 X=1524783 U=0 direct=942452922 refined=210 subboxes=486 fail=0 failed_records=0 missing=0 dup=0 unknown=0 badheader=0 tail_incomplete=0 wform_direct=536935566 (F=260106767 E=162063967 L=114764832) wform_subboxes=334 maxdepth=87 wall=14451.2s cpu=127669.6s status=PASS",
+ "returncode": 0,
+ "seconds": 14451.3,
+ "ok": true
+}
