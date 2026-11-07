@@ -17,11 +17,17 @@ from fpcore import crit_values, crit_values_mp, x_to_u, EPS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-TASKS = {5: os.environ.get('FP_TASKS_D5', os.path.join(REPO, 'runs/d5_v2/d5.tasks')), 6: os.environ.get('FP_TASKS_D6', os.path.join(REPO, 'runs/d6_v2/d6.tasks'))}
+TASKS = {5: os.environ.get('FP_TASKS_D5', os.path.join(REPO, 'runs/d5_v2/d5.tasks')), 6: os.environ.get('FP_TASKS_D6', os.path.join(REPO, 'runs/d6_v2/d6.tasks')),
+         7: os.environ.get('FP_TASKS_D7', os.path.join(REPO, 'runs/d7/d7.tasks'))}
 # tree files: the d = 6 tree is the release asset d6.canonical.tree.zst (decompressed); the d = 5 tree is written by
 # c/export_tree.c (README, Reproduce). Override with FP_TREE_D5 / FP_TREE_D6.
 TREES = {5: os.environ.get('FP_TREE_D5', os.path.join(REPO, 'd5.tree')),
-         6: os.environ.get('FP_TREE_D6', os.path.join(REPO, 'd6.canonical.tree'))}
+         6: os.environ.get('FP_TREE_D6', os.path.join(REPO, 'd6.canonical.tree')),
+         7: os.environ.get('FP_TREE_D7', os.path.join(REPO, 'd7.tree'))}
+# d = 7: the tree is seven streams (release v1.4 assets, runs/d7/TREES.txt), about 40 GB decompressed.  With
+# FP_TREE_CMD set, the walker reads the tree from that shell command's standard output instead of a file (the
+# command can decompress and concatenate the streams; the order of the records does not matter to the walker).
+TREE_CMD = os.environ.get('FP_TREE_CMD')
 TYPES = ['F', 'E', 'L', 'outside', 'symmetry', 'excluded', 'unresolved']
 
 
@@ -98,17 +104,35 @@ def step_prep(cfg):
 
 
 # ---------------------------------------------------------------- stats (C walker)
+def run_walker(cfg, mode, args):
+    """Run the walker on the tree file, or on the output of FP_TREE_CMD (byte count written to PRE.MODE.treebytes)."""
+    w = ['nice', '-n', '19', os.path.join(HERE, 'walk'), mode]
+    if not TREE_CMD:
+        return subprocess.run(w + [TREES[cfg.d]] + args).returncode
+    import shlex
+    sh = 'set -o pipefail; ( %s ) | tee >(wc -c > %s) | %s' % (
+        TREE_CMD, shlex.quote(cfg.pre + '.%s.treebytes' % mode), ' '.join(map(shlex.quote, w + ['/dev/stdin'] + args)))
+    rc = subprocess.run(['bash', '-c', sh]).returncode
+    time.sleep(2)   # let wc finish writing
+    return rc
+
+
+def tree_size(cfg, mode):
+    if not TREE_CMD:
+        return os.path.getsize(TREES[cfg.d])
+    return int(open(cfg.pre + '.%s.treebytes' % mode).read().split()[0])
+
+
 def step_stats(cfg):
     t0 = time.time()
-    r = subprocess.run(['nice', '-n', '19', os.path.join(HERE, 'walk'), 'stats', TREES[cfg.d],
-                        cfg.pre + '.taskbin', cfg.pre + '.eqbin', cfg.pre])
-    log('walker stats exit code', r.returncode, 'time %.1fs' % (time.time() - t0))
+    rc = run_walker(cfg, 'stats', [cfg.pre + '.taskbin', cfg.pre + '.eqbin', cfg.pre])
+    log('walker stats exit code', rc, 'time %.1fs' % (time.time() - t0))
     print(open(cfg.pre + '.stats.summary.txt').read().split('depth_hist')[0])
     tk = np.loadtxt(cfg.pre + '.stats.tasks.txt', dtype=np.int64, ndmin=2)
     log('records', len(tk), 'distinct ids', len(set(tk[:, 0])), 'all complete', bool((tk[:, 2] == 1).all()),
         'extra bytes', int(tk[:, 3].sum()), 'bad codes', int(tk[:, 4].sum()), 'unresolved leaves', int(tk[:, 12].sum()))
-    s = os.path.getsize(TREES[cfg.d])
-    log('file size', s, '= sum(14 + nbytes)?', s == int((14 + tk[:, 1]).sum()))
+    s = tree_size(cfg, 'stats')
+    log('tree size', s, '= sum(14 + nbytes)?', s == int((14 + tk[:, 1]).sum()))
     nl = tk[:, 6:13].sum(1)
     nint = tk[:, 1] - nl
     log('every record: #internal = #leaves - 1 ?', bool((nint == nl - 1).all()))
@@ -183,7 +207,7 @@ def step_select(cfg, target):
     total = int(nFEL.sum())
     p = min(1.0, target / max(total, 1))
     prob = np.zeros(int(ids.max()) + 1)
-    kmin = 8
+    kmin = float(os.environ.get('FP_KMIN', '8'))   # each task with F/E/L leaves contributes about kmin of them
     with np.errstate(divide='ignore'):
         pt = np.where(nFEL > 0, np.maximum(p, np.minimum(1.0, kmin / np.maximum(nFEL, 1))), 0.0)
     prob[ids] = pt
@@ -201,12 +225,12 @@ def step_select(cfg, target):
         acc += hist[dpt]; T = dpt
     if os.environ.get('FP_DEEP'):
         T = int(os.environ['FP_DEEP']); acc = sum(v for k2, v in hist.items() if k2 >= T)
-    log('F/E/L leaves total', total, 'base probability %.3g' % p, 'expected sample %.0f' % (pt * nFEL).sum(),
+    log('F/E/L leaves total', total, 'kmin', kmin, 'base probability %.3g' % p, 'expected sample %.0f' % (pt * nFEL).sum(),
         'deep threshold', T, '(%d leaves at depth >= T)' % acc, 'max depth', max(hist))
     t0 = time.time()
-    r = subprocess.run(['nice', '-n', '19', os.path.join(HERE, 'walk'), 'sample', TREES[cfg.d],
-                        cfg.pre + '.taskbin', cfg.pre + '.eqbin', cfg.pre, cfg.pre + '.prob', str(T), os.environ.get('FP_SEED', '12345')])
-    log('walker sample exit', r.returncode, 'time %.1fs' % (time.time() - t0))
+    rc = run_walker(cfg, 'sample', [cfg.pre + '.taskbin', cfg.pre + '.eqbin', cfg.pre, cfg.pre + '.prob', str(T),
+                                    os.environ.get('FP_SEED', '12345')])
+    log('walker sample exit', rc, 'time %.1fs' % (time.time() - t0), '| tree size', tree_size(cfg, 'sample'))
     print(open(cfg.pre + '.sample.summary.txt').read())
 
 

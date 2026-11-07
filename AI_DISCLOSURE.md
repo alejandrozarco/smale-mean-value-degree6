@@ -9,7 +9,8 @@ and decided on scope and publication. The owner did not check the mathematics or
 - The independent arb checker (`c/arbcheck/`), the second local certificate (`local2/`) and the first-principles
   check (`firstprinciples/`) were written by separate agent instances. The first two worked from a specification only
   (`SPEC.md` in each directory), the third from the problem statement and the file formats only. Each was told not to
-  read the code it checks.
+  read the code it checks. The extension of the first-principles check to $`d = 7`$ (reading the tree from a stream; a
+  parameter for leaves per task) was made by the main agent, which also wrote the evaluator.
 - Reviews were run as separate instances of:
   - Claude Opus 5.5, Claude Fable 5.1 and Claude Sonnet 5 (Anthropic);
   - gpt-6-astra (OpenAI, via the Codex CLI).

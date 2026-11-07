@@ -238,6 +238,11 @@ equal to its expected sha256. `c/regress/nc_verify_chain.sh` tests that this cha
 (31 controls, all behaving as expected: `runs/regress_v3/`). The canonical record digest of the verified trees is
 `fd7e760053b5a1fb7141025f04fd16473412e4a9115934a34a18b8e23685c285`.
 
+**First-principles sampling (sanity check, not part of the certificate).** `firstprinciples/sample_tree.py` on the
+verified $`d = 7`$ trees: every record parses as one complete tree, every outside, symmetry and excluded leaf satisfies
+its claim, and 4 345 378 F/E/L leaves (1.12 G points, including every leaf at depth $`\ge 93`$) show 0 violations of
+their claims, with $`V_i`$ computed from $`P`$ itself. Details in `firstprinciples/REPORT.md`.
+
 Records of the re-check: `runs/d7/verify/` holds, per stream, the chunk receipts, the stream receipt and the ids files
 (`LABEL.NNNN.ids.zst`, one line `id nodes record_sha256` per tree record), and `streams.txt` with the expected stream
 hashes. The labels name the run parts: `mac` is machine A; `erun`, `erun3` are machine B; `orun1`, `orun2a`, `orun2b`

@@ -1,0 +1,3 @@
+records 786432 bad 0 missing_ids 0 maxdepth 94 maxsplit_per_coord 10 selected 4345378
+leaves F 8566172688 E 4931592776 L 2645334670 outside 466865793 symmetry 3785040747 excluded 29964662 unresolved 0
+F/E/L/excluded leaves whose box contains some u_j=0: F 56147423 E 8124192 L 0 excl 0
