@@ -12,11 +12,13 @@ the direction of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md
 > repository ([doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019)). Questions, checks and
 > corrections: [GitHub issues](https://github.com/alejandrozarco/smale-mean-value-degree6/issues).
 
-Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.3 is
+Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.4 is
+[doi:10.5281/zenodo.24015057](https://doi.org/10.5281/zenodo.24015057), v1.3 is
 [doi:10.5281/zenodo.23733791](https://doi.org/10.5281/zenodo.23733791), v1.2 is
-[doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository; the
-$`d = 6`$ subdivision tree (`d6.canonical.tree.zst`, 381 MB) is attached to the GitHub releases v1.1 and v1.2, and the
-$`d = 7`$ subdivision trees (nine files, about 13 GB) to release v1.4.
+[doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository
+only. The $`d = 6`$ subdivision tree (`d6.canonical.tree.zst`, 381 MB) is attached to the GitHub releases v1.1 and v1.2,
+and the $`d = 7`$ subdivision trees (nine files, about 13 GB) to release v1.4. The $`d = 7`$ trees are not archived on
+Zenodo; they can be regenerated from the repository (see Degree 7, Regenerating the trees).
 
 For a complex polynomial $`P`$ of degree $`d`$ and a point $`z`$ with $`P'(z) \neq 0`$, Smale's mean value conjecture
 concerns the smallest constant $`K`$ such that some critical point $`c`$ of $`P`$ satisfies
@@ -281,6 +283,30 @@ python3 c/cover_check2.py runs/d7/d7 "$(sha256sum c/arbcheck/arbcheck2 | cut -d'
 ```
 
 The second command reports COVER COMPLETE only once all seven streams are in `work/`.
+
+**Regenerating the trees.** The trees are not archived on Zenodo; the release v1.4 assets are the only published copy.
+They can be regenerated from the repository, in about 1 600 CPU-hours and with about 41 GB of disk for the output:
+
+```sh
+cc -O2 -ffp-contract=off -fno-fast-math -std=gnu11 -DSRC_SHA256_RAW=$(shasum -a 256 c/smale_bb_v3.c | cut -d' ' -f1) -Ic -Ithird_party/core-math-log -o OUT3/export_tree_v3 c/export_tree_v3.c third_party/core-math-log/log.c -lpthread -lm
+OUT3/export_tree_v3 7 0.05 runs/d7/d7.tasks OUT3/d7 NTHREADS
+python3 c/regress/cmp_export_counts.py OUT3/d7.counts runs/d7/d7.done
+python3 c/tree_digest.py --records OUT3/d7.tree
+```
+
+The exporter writes one record per task, in the order the tasks finish, into a single file. Its sha256 is therefore
+not comparable with the file and stream sha256 values in `runs/d7/TREES.txt`, which identify the published files. A
+regenerated tree is compared instead in two ways:
+- the per-task counts with the run record (third command, exit status 0 iff they agree for every task);
+- the canonical record digest printed by the last command with
+  `fd7e760053b5a1fb7141025f04fd16473412e4a9115934a34a18b8e23685c285`, the digest of the verified trees. It does not
+  depend on the order of the records or on how they are split into files; for the nine published files, concatenated
+  in the order of `runs/d7/TREES.txt` (`cat A_tree.zst B_part1_tree.zst … | zstd -dc | python3 c/tree_digest.py
+  --records -`), it prints that digest. Checked on the `runmode` stream: the digest of its 17 991 records equals the one computed
+  from `runs/d7/verify/runmode/runmode.0000.ids.zst`.
+
+Equal records are expected because the evaluator is deterministic (correctly rounded `log`, no floating-point
+contraction), but a full regeneration of the $`d = 7`$ trees has not been done.
 
 ## Figures
 
