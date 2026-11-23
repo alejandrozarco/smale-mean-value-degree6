@@ -199,9 +199,11 @@ applies. The branch-and-bound computation is complete, and so is its independent
 of every one of the 786 432 tasks passed, with each result bound to its inputs. No human has checked the reduction or
 the checker.
 
-Context: Jatar and Ng (arXiv:2610.21472, not independently verified) give polynomials of arbitrarily large degree with
-$`S(P) \gt  1.1018`$. If that holds, the sharp value $`(d-1)/d`$ fails in all large degrees. In which degree it first fails is
-open; exact values in small degrees bound it from below.
+Context: Jatar and Ng (arXiv:2610.21472) give polynomials of arbitrarily large degree with $`S(P) \gt  1.1018`$, and
+Adamczewski and Colbrook (arXiv:2610.36158) give polynomials with $`S(P) \gt  1`$ in every sufficiently large degree; neither
+has been independently verified here. If they hold, the sharp value $`(d-1)/d`$ fails in infinitely many degrees, and by the
+second paper in every sufficiently large degree. In which degree it first fails is open; exact values in small degrees
+bound it from below.
 
 The run used `c/smale_bb_v3.c` with exclusion radius $`1/20`$ on a grid with $`s = 4`$ (configuration hash
 `99d28276d6254bda`). It was split by task id over three machines, labelled A, B and C. `c/run_tree_v3.c` writes the
@@ -470,6 +472,8 @@ The local certificate assumes the correctness of arb (python-flint).
 - T. Adamczewski, https://github.com/tadamcz/mean-value-problem (2026): Lean formalisation of a claimed disproof of the
   conjecture with $`K = 1`$ in very large degree; machine-checked, not human-reviewed; not examined here.
 - A. Jatar, T. W. Ng, Smale's mean value constant and admissible univalent Blaschke pairs, arXiv:2610.21472 (2026).
+- T. Adamczewski, M. J. Colbrook, From boundary geometry to counterexamples in Smale's mean value problem,
+  arXiv:2610.36158 (2026).
 - I. M. Gelfand, M. M. Kapranov, A. V. Zelevinsky, Discriminants, resultants, and multidimensional determinants,
   Birkhäuser, 1994.
 - M. Forsberg, M. Passare, A. Tsikh, Laurent determinants and arrangements of hyperplane amoebas, Adv. Math. 151
