@@ -12,7 +12,8 @@ the direction of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md
 > repository ([doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019)). Questions, checks and
 > corrections: [GitHub issues](https://github.com/alejandrozarco/smale-mean-value-degree6/issues).
 
-Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.4 is
+Archived on Zenodo: [doi:10.5281/zenodo.23068019](https://doi.org/10.5281/zenodo.23068019) (all versions; release v1.5 is
+[doi:10.5281/zenodo.24467640](https://doi.org/10.5281/zenodo.24467640), v1.4 is
 [doi:10.5281/zenodo.24015057](https://doi.org/10.5281/zenodo.24015057), v1.3 is
 [doi:10.5281/zenodo.23733791](https://doi.org/10.5281/zenodo.23733791), v1.2 is
 [doi:10.5281/zenodo.23068020](https://doi.org/10.5281/zenodo.23068020)). The Zenodo archive contains the repository
